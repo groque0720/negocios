@@ -1,0 +1,31 @@
+.borde {
+	border: 1px solid #EFEFEF;
+}
+.borde-bottom {
+	border-bottom: 1px solid #EFEFEF;
+}
+
+.borde-radio-1 {
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+.borde-radio-2 {
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.borde-radio-3 {
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.borde-radio-4 {
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.borde-radio-5 {
+	border-radius: 10px;
+	overflow: hidden;
+}

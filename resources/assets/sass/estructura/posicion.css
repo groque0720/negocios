@@ -1,0 +1,8 @@
+.position-absolute {
+	position: absolute;
+}
+
+.position-fixed {
+	position: fixed;
+	background: red;
+}

@@ -1,0 +1,19 @@
+.sombra-box {
+	box-shadow: 1px 1px 3px #9B9B9B;
+}
+
+.sombra-box-1 {
+	box-shadow: 1px 1px 3px rgba(0,0,0, 0.1);
+}
+.sombra-box-2 {
+	box-shadow: 1px 1px 3px rgba(0,0,0, 0.2);
+}
+.sombra-box-3 {
+	box-shadow: 1px 1px 3px rgba(0,0,0, 0.4);
+}
+.sombra-box-4 {
+	box-shadow: 1px 1px 3px rgba(0,0,0, 0.6);
+}
+.sombra-box-5 {
+	box-shadow: 1px 1px 3px rgba(0,0,0, 0.8);
+}

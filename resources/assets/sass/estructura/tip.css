@@ -1,0 +1,27 @@
+.tip {
+/*border-bottom: 1px dashed;*/
+text-decoration: none
+}
+.tip:hover {
+   /* cursor: help;*/
+    position: relative
+}
+.tip .tip-leyenda {
+    display: none
+}
+
+.tip:hover .tip-leyenda {
+	color: white;
+	border-radius: 10px;
+    /*border: #c0c0c0 1px dotted;*/
+    padding: 5px 20px 5px 5px;
+    display: block;
+    z-index: 100;
+    left: 0px;
+    margin: 10px;
+    width: 200px;
+    position: absolute;
+    top: 15px;
+    text-decoration: none;
+    background: var(--main-ppal-color);
+}

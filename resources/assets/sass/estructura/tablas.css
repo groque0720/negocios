@@ -1,0 +1,76 @@
+/*table {
+
+}
+
+table thead {
+
+}
+
+table thead tr {
+
+}
+
+table thead tr td {
+
+}*/
+
+/* spacing */
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--main-ppal-color);
+}
+
+table thead tr {
+	background: var(--main-ppal-color);
+  border: 1px solid var(--main-ppal-color);
+}
+
+table thead tr td{
+  color: white;
+  text-align: center;
+}
+
+tbody tr td, tbody tr td {
+	border-bottom:  1px solid #ccc;
+}
+tbody tr.centrar td {
+  text-align: center;
+}
+
+tbody tr:hover {
+	background: #eee;
+}
+
+td  {
+  padding: 7px;
+}
+
+tbody tr:last-child td{
+  border-bottom:  1px solid var(--main-ppal-color) !important;
+}
+
+
+
+
+/*thead th:nth-child(1) {
+  width: 30%;
+}
+
+thead th:nth-child(2) {
+  width: 20%;
+}
+
+thead th:nth-child(3) {
+  width: 15%;
+}
+
+thead th:nth-child(4) {
+  width: 35%;
+}
+
+th, td {
+  padding: 20px;
+}*/

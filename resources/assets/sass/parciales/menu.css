@@ -1,0 +1,13 @@
+.menu-lateral-oculto{
+	margin-left: -500px;
+	transition: all .5s ease;
+}
+.menu-lateral-mostrar{
+	margin-left: 0px !important;
+	display: block;
+	transition: all .5s ease;
+}
+
+.menu-lateral-lienzo-oculto {
+	display: none;
+}

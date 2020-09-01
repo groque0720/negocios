@@ -1,0 +1,115 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+//@import "variables";
+
+// Bootstrap
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	/*color: #5E5D5D;*/
+	color: #302F2F;
+}
+
+:root {
+	--main-ppal-color: #256d7b;
+	--main-lienzo-color: rgba(0,0,0,.3);
+	--main-input-focus: rgba(37,109,123, 0.1);
+}
+
+.menu-lienzo {
+	display: none;
+	transition: all .2s ease;
+}
+.menu-lienzo-view {
+	display: block;
+	transition: all .2s ease;
+}
+
+.fas, .far {
+	font-size: 22px !important;
+}
+
+/*Flecha para hacer la pagina hacia arriba*/
+.ir-arriba{
+  display:none;
+  background-repeat:no-repeat;
+  font-size:20px;
+  cursor:pointer;
+  position:fixed;
+  bottom:10px;
+  right:10px;
+  z-index:2;
+}
+
+.ir-arriba div {
+	width: 35px;
+	height: 35px;
+	background: var(--main-ppal-color);
+	border-radius: 50%;
+	border: 2px solid white;
+}
+
+.ir-arriba div i{
+	color: white;
+}
+
+    .zona-busqueda {
+        border: 1px solid #ccc;
+        border-radius: 35px;
+        height: 40px;
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+    .zona-busqueda:focus-within {
+        border: 1px solid var(--main-ppal-color);
+    }
+    .input-busqueda {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 0px;
+    }
+    .input-busqueda:focus {
+        outline:none !important;
+        outline-width: 0 !important;
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+    }
+
+    .input-obligatorio {
+      background: #EDD1D1 !important;
+    }
+
+
+@import "parciales/cabecera";
+@import "parciales/general";
+@import "parciales/menu";
+@import "parciales/checkbox";
+
+@import "estructura/altos";
+@import "estructura/anchos";
+@import "estructura/bordes";
+@import "estructura/botones";
+@import "estructura/cursor";
+@import "estructura/display";
+@import "estructura/flex";
+@import "estructura/formularios";
+@import "estructura/link";
+@import "estructura/margenes";
+@import "estructura/media-query";
+@import "estructura/posicion";
+@import "estructura/rellenos";
+@import "estructura/scroll";
+@import "estructura/sombras";
+@import "estructura/tablas";
+@import "estructura/texto";
+@import "estructura/tip";
+@import "estructura/z-index";

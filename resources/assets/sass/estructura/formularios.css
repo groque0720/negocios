@@ -1,0 +1,212 @@
+.form {
+	background: white;
+	/*border: 1px solid  var(--main-ppal-color);*/
+	/*border: 1px solid  white;*/
+	display: flex;
+	flex-direction: column;
+	max-height: 90vh !important;
+	border-radius: 3px;
+}
+
+.form-head {
+	align-self: flex-start;
+	background: var(--main-ppal-color);
+	border-bottom: 1px solid #BBBBBB;
+	padding: 8px;
+	width: 100%;
+	border-radius: 3px;
+}
+
+.form-head .form-titulo {
+	text-align: center;
+	color: white;
+}
+
+.form-body	{
+	padding: 15px 7px 7px 7px;
+	overflow-y: auto;
+}
+
+.form-foot{
+	width: 100%;
+	align-self: flex-end;
+	border-top: 1px solid #BBBBBB;
+	padding: 7px;
+}
+
+.form-linea {
+
+}
+
+.form-columna{
+	margin-bottom: 15px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.form-label {
+	display: block;
+	font-size: 13px;
+	color: #636363;
+	margin-bottom: 3px;
+}
+
+.obligatorio:after {
+	content: ' (*)';
+	color: red;
+	font-size: 10px;
+}
+
+.form-input, {
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+/*	border-radius: 3px;
+	border: 1px solid #ddd;*/
+	border: 0px;
+	border-bottom: 1px solid #ddd;
+}
+
+.form-input:focus {
+	outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    border-bottom: 1px solid #A8A8A8;
+	background: var(--main-input-focus);
+}
+
+.form-input::-webkit-input-placeholder  {
+	color: rgba(37,109,123, 0.5);
+	font-style: italic;
+	font-size: 14px;
+}
+
+.form-textarea{
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 3px;
+/*	border: 1px solid #ddd;*/
+	border: 1px solid #ddd;
+}
+
+.form-textarea::-webkit-input-placeholder  {
+	color: rgba(37,109,123, 0.5);
+	font-style: italic;
+	font-size: 14px;
+}
+
+.form-textarea:focus {
+	outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+   /* border-bottom: 1px solid #A8A8A8;*/
+	background: var(--main-input-focus);
+}
+
+.form-error {
+	font-size: 11px;
+	color: red;
+	font-style: italic;
+}
+
+/*botones*/
+
+.form-btn {
+	padding: 30px !important;
+}
+
+.form-btn-cerrar:hover {
+	color: #FF3300;
+}
+
+.form-btn-cancelar, .form-btn-aceptar {
+	padding: 10px;
+}
+
+.form-btn-cancelar {
+	background: white;
+	padding: 7px;
+	border-radius: 3px;
+	color: var(--main-ppal-color);
+	border: 1px solid var(--main-ppal-color);
+}
+
+.form-btn-editar {
+	background: white;
+	padding: 7px;
+	border-radius: 3px;
+	color: blue;
+	border: 1px solid var(--main-ppal-color);
+}
+
+.form-btn-eliminar {
+	background: white;
+	padding: 7px;
+	border-radius: 3px;
+	color: red;
+	border: 1px solid var(--main-ppal-color);
+}
+
+
+.form-btn-aceptar {
+	background: var(--main-ppal-color);
+	padding: 7px;
+	border-radius: 3px;
+	color: white;
+	border:none;
+}
+
+.form-btn-entrar {
+	background: var(--main-ppal-color);
+	padding: 7px;
+	border-radius: 3px;
+	color: white;
+	border:none;
+}
+
+
+
+
+
+
+
+/*.form-botones {
+	margin-bottom: 0 !important;
+}
+
+.form-botones input {
+	margin-left: 10px;
+	background: white;
+	padding: 8px;
+	border-radius: 5px;
+	color: #777;
+	width: 100px;
+}
+
+.form-botones .boton-cancelar input {
+	background: white;
+	padding: 8px;
+	border-radius: 5px;
+	color: #777;
+}
+
+.form-botones .boton-cancelar input:hover {
+	background: #FF3300;
+	color: white;
+}
+.form-botones .boton-aceptar  input {
+	background: grey;
+	padding: 8px;
+	border-radius: 5px;
+	color: white;
+}
+
+.form-botones .boton-aceptar  input:hover {
+	background: #00CC00;
+}
+*/

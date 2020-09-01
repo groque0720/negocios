@@ -1,0 +1,52 @@
+@import "media-query/anchos";
+@import "media-query/display";
+@import "media-query/flex";
+/* Large desktop */
+/*@media (min-width: 980px) and  (max-width: 1200px){*/
+@media  (max-width: 1200px){
+	.quitar-flex-l {
+		display: block;
+		width: 100%
+	}
+}
+/* Portrait tablet to landscape and desktop */
+/*@media (min-width: 768px) and (max-width: 979px) {*/
+@media (max-width: 979px) {
+	.quitar-flex-m {
+		display: block;
+		width: 100%
+	}
+}
+/* Landscape phones and down */
+@media (max-width: 767px) {
+	.quitar-flex-s {
+		display: block;
+		width: 100%
+	}
+}
+
+@media (max-width: 480px) {
+	.quitar-flex-sx {
+		display: block;
+		width: 100%
+	}
+}
+
+/* Large desktop */
+/*@media (min-width: 980px) and  (max-width: 1200px){*/
+@media  (max-width: 1200px){
+
+}
+/* Portrait tablet to landscape and desktop */
+/*@media (min-width: 768px) and (max-width: 979px) {*/
+@media (max-width: 979px) {
+
+}
+/* Landscape phones and down */
+@media (max-width: 767px) {
+
+}
+
+@media (max-width: 480px) {
+
+}

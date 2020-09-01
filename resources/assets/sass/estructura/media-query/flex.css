@@ -1,0 +1,26 @@
+/* Large desktop */
+/*@media (min-width: 980px) and  (min-width: 1200px){*/
+@media  (min-width: 1200px){
+	.flex-l {
+		display: flex !important;
+	}
+}
+/* Portrait tablet to landscape and desktop */
+/*@media (min-width: 768px) and (min-width: 979px) {*/
+@media (min-width: 979px) {
+	.flex-m {
+		display: flex !important;
+	}
+}
+/* Landscape phones and down */
+@media (min-width: 767px) {
+	.flex-s {
+		display: flex !important;
+	}
+}
+
+@media (min-width: 480px) {
+	.flex-s {
+		display: flex !important;
+	}
+}

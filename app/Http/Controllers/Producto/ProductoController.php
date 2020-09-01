@@ -1,0 +1,324 @@
+<?php
+
+namespace App\Http\Controllers\Producto;
+
+use App\Caracteristica;
+use App\CaracteristicaProducto;
+use App\Categoria;
+use App\CategoriaProducto;
+use App\Http\Controllers\Controller;
+use App\Negocio;
+use App\Producto;
+use App\ProductoImagen;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class ProductoController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    protected $cant_reg = 50;
+
+
+    public function index()
+    {
+        $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
+        return view('productos.index', compact('negocio'));
+    }
+
+
+    public function productos_buscar() {
+        $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
+        $productos = $negocio->productos()->orderBy('producto')->paginate($this->cant_reg);
+        return $productos;
+    }
+
+
+    public function productos_buscar_autocompletar(Request $request){
+        if ($request->ajax()) {
+            $query = $request['query'];
+            $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
+            $productos = $negocio->productos()->where('producto' ,'like','%'.$query.'%')->get();
+            return response()->json($productos);
+        }
+    }
+
+
+    public function producto_caracteristicas_activas(Request $request){
+
+        $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
+        $negocio_caracteristicas = $negocio->caracteristicas()->orderBy('caracteristica')->get();
+        $producto_caracteristicas = [];
+        $producto_codigo = $request->producto_codigo;
+        if ($producto_codigo) {
+            $producto = Producto::where('codigo', $producto_codigo)->first();
+            $producto_caracteristicas = $producto->caracteristicas()->pluck('caracteristica_id')->values()->all();
+        }
+
+
+        $caracteristicas = [];
+
+        foreach ($negocio_caracteristicas  as $negocio_caracteristica ) {
+            $aux['id'] = $negocio_caracteristica['id'];
+            $aux['caracteristica'] = $negocio_caracteristica['caracteristica'];
+            $aux['seleccion'] = in_array($negocio_caracteristica['id'], $producto_caracteristicas);
+            $aux['seleccion_confirmacion'] = in_array($negocio_caracteristica['id'], $producto_caracteristicas);
+            if ($aux['seleccion']) {
+                $aux['valor'] = CaracteristicaProducto::where('caracteristica_id', $negocio_caracteristica['id'])->first()->valor;
+            }else{
+                $aux['valor'] = '';
+            }
+            array_push($caracteristicas, $aux);
+        }
+        return $caracteristicas;
+    }
+
+    public function producto_agregar_caracteristica(Request $request){
+        if ($request->ajax()) {
+
+            $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
+            $caracteristica = new Caracteristica;
+            $caracteristica->negocio_id = $negocio->id;
+            $caracteristica->caracteristica = $request->formulario['caracteristica'];
+            $caracteristica->save();
+
+            return $caracteristica;
+
+            //areturn response()->json($this->producto_buscar_caracteristicas($request->formulario['producto_codigo']));
+        }
+    }
+
+
+    public function producto_categorias_activas(Request $request){
+
+        $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
+        $negocio_categorias = $negocio->categorias()->orderBy('categoria')->get();
+
+        $producto_codigo = $request->producto_codigo;
+
+        $producto_categorias = [];
+        if ($producto_codigo) {
+            $producto = Producto::where('codigo', $producto_codigo)->first();
+            $producto_categorias = $producto->categorias()->pluck('categoria_id')->values()->all();
+        }
+
+        $categorias = [];
+
+        foreach ($negocio_categorias  as $negocio_categoria ) {
+            $aux['id'] = $negocio_categoria['id'];
+            $aux['categoria'] = $negocio_categoria['categoria'];
+            $aux['seleccion'] = in_array($negocio_categoria['id'], $producto_categorias);
+            $aux['seleccion_confirmacion'] = in_array($negocio_categoria['id'], $producto_categorias);
+            array_push($categorias, $aux);
+        }
+        return $categorias;
+    }
+
+    public function producto_agregar_categoria(Request $request){
+        if ($request->ajax()) {
+
+            $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
+            $categoria = new Categoria;
+            $categoria->negocio_id = $negocio->id;
+            $categoria->categoria = $request->formulario['categoria'];
+            $categoria->save();
+
+            return $categoria;
+        }
+    }
+
+    public function producto_obtener_imagenes (Request $request, $id) {
+        $producto = Producto::find($id);
+        $borrado = $producto->imagenes()->where('borrar',1)->delete();
+        return $imagenes = $producto->imagenes()->where('borrar',0)->orderBy('posicion')->get();
+    }
+
+
+    public function producto_imagenes_guardar(Request $request)
+    {
+        $imageName = md5(microtime()).'.'.$request->file->getClientOriginalExtension();//.$request->file->getClientOriginalName();//.'.'.$request->file->getClientOriginalExtension();
+        $imageName = str_replace(' ', '_', $imageName);
+        // $request->file->move(public_path('public/'.$request->negocio_url), $imageName);
+        //$request->file->store('public/'.$request->negocio_url);
+        $request->file('file')->storeAs('public/'.$request->negocio_url, $imageName);
+
+        $url = $request->negocio_url.'/'.$imageName;
+
+        $producto_imagen = new ProductoImagen;
+        $producto_imagen->producto_id = $request->producto_id;
+        $producto_imagen->imagen = $url;
+        $producto_imagen->posicion = 9999;
+        $producto_imagen->save();
+
+        $this->producto_imagen_principal($request->producto_id);
+
+        // $id = $request->negocio['id'];
+        // return $id;
+        return response()->json($request);
+    }
+
+    public function producto_borrar_imagenes(Request $request, $imagen_id) {
+        $imagen = ProductoImagen::find($imagen_id);
+        $producto_id = $imagen->producto_id;
+        Storage::delete('public/'.$imagen->imagen);
+        $imagen->delete();
+        $this->producto_imagen_principal($producto_id);
+
+        return true;
+    }
+
+    public function producto_imagen_principal($producto_id){
+        $producto = Producto::find($producto_id);
+        $primer_imagen = $producto->imagenes()->orderBy('posicion')->first();
+        $producto->imagen_ppal = $primer_imagen->imagen;
+        $producto->save();
+    }
+
+    // public function producto_imagenes_guardar (Request $request) {
+    //     return $request;
+    // }
+
+    public function producto_guardar (Request $request) {
+        $producto_form = $request->producto;
+        $caracteristicas_form = $request->caracteristicas;
+        $categorias_form = $request->categorias;
+        $imagenes_form =  $request->imagenes;
+
+        // Producto
+        if (isset($producto_form['id'])) {
+            $producto = Producto::find($producto_form['id']);
+        }else{
+            $producto = new Producto();
+        }
+        $producto->producto = $producto_form['producto'];
+        $producto->descripcion = $producto_form['descripcion'];
+        $producto->precio = $producto_form['precio'];
+        $producto->save();
+
+        // Caracteristicas
+        foreach ($caracteristicas_form as $caracteristica_form) {
+            if ($caracteristica_form['seleccion_confirmacion']) {
+                if (!CaracteristicaProducto::where('caracteristica_id',$caracteristica_form['id'])
+                                        ->where('producto_id',$producto['id'])->first()) {
+                    $caracteristica_producto = new CaracteristicaProducto();
+                    $caracteristica_producto->caracteristica_id = $caracteristica_form['id'];
+                    $caracteristica_producto->producto_id = $producto['id'];
+                    $caracteristica_producto->valor = $caracteristica_form['valor'] ?? '';
+                    $caracteristica_producto->save();
+                }
+            }else{
+                $res = CaracteristicaProducto::where('caracteristica_id',$caracteristica_form['id'])
+                                        ->where('producto_id',$producto['id'])
+                                        ->forceDelete();
+            }
+        }
+
+        // caracteristicas
+
+        $categorias_seleccion = [];
+        foreach ($categorias_form as $categoria_form) {
+            if ($categoria_form['seleccion_confirmacion']) {
+                array_push($categorias_seleccion, $categoria_form['id']);
+            }
+        }
+        $producto->categorias()->sync($categorias_seleccion);
+
+        //imagenes
+        foreach ($imagenes_form as $key=>$imagen) {
+            $producto_imagen = ProductoImagen::find($imagen['id']);
+            if ($imagen['borrar'] == 1) {
+                Storage::delete('public/'.$request->negocio['url'].'/'.$imagen['imagen']);
+                $producto_imagen->delete();
+            }else{
+                $producto_imagen->posicion = $key;
+                $producto_imagen->confirmada = 1;
+                $producto_imagen->save();
+            }
+        }
+
+        $this->producto_imagen_principal($producto->id);
+
+        return 'ok';
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
+        $producto = new Producto();
+        $producto->negocio_id = $negocio->id;
+        $producto->producto = '';
+        $producto->descripcion = '';
+        $producto->codigo = md5($negocio->id);
+        $producto->precio = 0;
+        $producto->save();
+        return view('productos.create', compact('negocio','producto'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($codigo)
+    {
+        $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
+        $producto = $negocio->productos()->where('codigo',$codigo)->first();
+        return view('productos.edit', compact('negocio','producto'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}

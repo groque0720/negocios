@@ -1,0 +1,123 @@
+.screen-vh {
+	height: 100vh;
+}
+
+/* altura en px */
+
+.alto-1px {
+	height: 1px;
+}
+.alto-2px {
+	height: 2px;
+}
+.alto-3px {
+	height: 3px;
+}
+.alto-4px {
+	height: 4px;
+}
+.alto-5px {
+	height: 5px;
+}
+.alto-6px {
+	height: 6px;
+}
+.alto-7px {
+	height: 7px;
+}
+.alto-8px {
+	height: 8px;
+}
+.alto-9px {
+	height: 9px;
+}
+.alto-10px {
+	height: 10px;
+}
+.alto-15px {
+	height: 15px;
+}
+.alto-20px {
+	height: 20px;
+}
+.alto-25px {
+	height: 25px;
+}
+.alto-30px {
+	height: 30px;
+}
+.alto-35px {
+	height: 35px;
+}
+.alto-40px {
+	height: 40px;
+}
+.alto-45px {
+	height: 45px;
+}
+.alto-50px {
+	height: 50px;
+}
+
+/* porcentaje altura*/
+
+.alto-5 {
+	height: 5%;
+}
+.alto-10 {
+	height: 10%;
+}
+.alto-15 {
+	height: 15%;
+}
+.alto-20 {
+	height: 20%;
+}
+.alto-25 {
+	height: 25%;
+}
+.alto-30 {
+	height: 30%;
+}
+.alto-35 {
+	height: 35%;
+}
+.alto-40 {
+	height: 40%;
+}
+.alto-45 {
+	height: 45%;
+}
+.alto-50 {
+	height: 50%;
+}
+.alto-55 {
+	height: 55%;
+}
+.alto-60 {
+	height: 60%;
+}
+.alto-65 {
+	height: 65%;
+}
+.alto-70 {
+	height: 70%;
+}
+.alto-75 {
+	height: 75%;
+}
+.alto-80 {
+	height: 80%;
+}
+.alto-85 {
+	height: 85%;
+}
+.alto-90 {
+	height: 90%;
+}
+.alto-95 {
+	height: 95%;
+}
+.alto-100 {
+	height: 100%;
+}

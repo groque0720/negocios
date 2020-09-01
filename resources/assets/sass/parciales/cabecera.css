@@ -1,0 +1,28 @@
+.cabecera {
+	background: var(--main-ppal-color);
+}
+
+.cabecera .input-busqueda {
+	border-radius: 7px 0px 0px 7px;
+	width: 100%;
+	padding: 7px;
+	box-sizing: border-box;
+/*	border-radius: 3px;
+	border: 1px solid #ddd;*/
+	border: 0px;
+}
+
+.cabecera .input-busqueda::-webkit-input-placeholder  {
+	color: rgba(37,109,123, 0.5);
+	font-style: italic;
+	font-size: 14px;
+}
+
+.cabecera .input-busqueda:focus {
+	outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+	border: 0px;
+}

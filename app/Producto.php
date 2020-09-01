@@ -1,0 +1,24 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Producto extends Model
+{
+    use SoftDeletes;
+    protected $table = 'productos';
+
+    public function caracteristicas(){
+    	return $this->belongsToMany(Caracteristica::class, 'caracteristicas_productos')->withPivot('valor');
+    }
+
+    public function categorias(){
+    	return $this->belongsToMany(Categoria::class, 'categorias_productos');
+    }
+
+    public function imagenes(){
+    	return $this->hasMany(ProductoImagen::class);
+    }
+}

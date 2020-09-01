@@ -1,0 +1,38 @@
+/* Large desktop */
+/*@media (min-width: 980px) and  (max-width: 1200px){*/
+@media  (max-width: 1200px){
+	.display-l {
+		display: block !important;
+	}
+	.no-display-l {
+		display: none !important;
+	}
+}
+/* Portrait tablet to landscape and desktop */
+/*@media (min-width: 768px) and (max-width: 979px) {*/
+@media (max-width: 979px) {
+	.display-m {
+		display: block !important;
+	}
+	.no-display-m {
+		display: none !important;
+	}
+}
+/* Landscape phones and down */
+@media (max-width: 767px) {
+	.display-s {
+		display: block !important;
+	}
+	.no-display-s {
+		display: none !important;
+	}
+}
+
+@media (max-width: 480px) {
+	.display-sx {
+		display: block !important;
+	}
+	.no-display-sx {
+		display: none !important;
+	}
+}
