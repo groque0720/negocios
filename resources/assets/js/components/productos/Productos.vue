@@ -38,7 +38,6 @@
                         </div>
                         <div class="ancho-70">
                             <span>{{ producto.producto }}</span>
-
                         </div>
                     </div>
                     <div class="ancho-30 zona-acciones flex flex-space-between flex-item-center"  :class="'accion_'+indice" style="width: 0px; overflow: hidden;">
