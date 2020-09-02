@@ -168,13 +168,14 @@ class ProductoController extends Controller
         $imagen->delete();
         $this->producto_imagen_principal($producto_id);
 
-        return true;
+        // return true;
     }
 
     public function producto_imagen_principal($producto_id){
         $producto = Producto::find($producto_id);
-        $primer_imagen = $producto->imagenes()->orderBy('posicion')->first();
-        $producto->imagen_ppal = $primer_imagen->imagen;
+        if ($primer_imagen = $producto->imagenes()->orderBy('posicion')->first()) {
+            $producto->imagen_ppal = $primer_imagen->imagen;
+        }
         $producto->save();
     }
 
@@ -229,15 +230,20 @@ class ProductoController extends Controller
 
         //imagenes
         foreach ($imagenes_form as $key=>$imagen) {
-            $producto_imagen = ProductoImagen::find($imagen['id']);
-            if ($imagen['borrar'] == 1) {
-                Storage::delete('public/'.$request->negocio['url'].'/'.$imagen['imagen']);
-                $producto_imagen->delete();
-            }else{
+            if ($imagen['borrar'] == 0) {
+                $producto_imagen = ProductoImagen::find($imagen['id']);
                 $producto_imagen->posicion = $key;
                 $producto_imagen->confirmada = 1;
                 $producto_imagen->save();
             }
+            // if ($imagen['borrar'] == 1) {
+                // Storage::delete('public/'.$request->negocio['url'].'/'.$imagen['imagen']);
+                // $producto_imagen->delete();
+            // }else{
+                // $producto_imagen->posicion = $key;
+                // $producto_imagen->confirmada = 1;
+                // $producto_imagen->save();
+            // }
         }
 
         $this->producto_imagen_principal($producto->id);
@@ -258,11 +264,27 @@ class ProductoController extends Controller
         $producto->negocio_id = $negocio->id;
         $producto->producto = '';
         $producto->descripcion = '';
-        $producto->codigo = md5($negocio->id);
+        $producto->codigo = md5(microtime());
         $producto->precio = 0;
+        $producto->guardar = 0;
         $producto->save();
         return view('productos.create', compact('negocio','producto'));
     }
+
+    public function producto_eliminar($id){
+        $producto = Producto::find($id);
+        $caracteristicas = CaracteristicaProducto::where('producto_id',$id)->forceDelete();
+        $categorias = CategoriaProducto::where('producto_id',$id)->forceDelete();
+        $imagenes = $producto->imagenes()->get();
+        foreach ($imagenes as $imagen) {
+            Storage::delete('public/'.$imagen->imagen);
+        }
+        $imagenes = ProductoImagen::where('producto_id',$id)->forceDelete();
+        $producto->forceDelete();
+        return 'ok';
+    }
+
+
 
     /**
      * Store a newly created resource in storage.

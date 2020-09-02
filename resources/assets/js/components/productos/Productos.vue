@@ -18,7 +18,7 @@
         </div>
 <!--         <productos-autocompletar></productos-autocompletar> -->
         <a :href="'/productos/create'" class="link zona-agregar flex">
-            <div class="ancho-100 zona-agregar-btn flex flex-space-between flex-item-center p-15" style="margin: 10px auto 10px auto; border: 1px solid #ccc; border-radius: 10px;">
+            <div class="ancho-100 zona-agregar-btn flex flex-space-between flex-item-center p-15" style="margin: 10px auto 10px auto; border: 1px solid #00E185; border-radius: 10px; background: #E2F9F0;">
                 <div class="ancho-10 flex flex-item-center flex-content-center">
                     <i class="fas fa-tags" style="color:#00E185;"></i>
                 </div>
@@ -31,10 +31,10 @@
             <template >
                 <div v-for="(producto, indice) in productos" class="lista-linea ancho-100 flex flex-space-between" @click="mostrarAcciones(indice)" :class="'linea_'+indice">
                     <div class="ancho-100 flex flex-item-center">
-                        <div class="ancho-30 m-r-10" style="width: 80px; max-height: 80px;">
+                        <div class="ancho-30 m-r-10 flex" style="width: 80px; max-height: 80px;">
                             <!-- <img src="https://scontent.faep1-1.fna.fbcdn.net/v/t1.0-9/116743484_3215521671849756_1224515636589086667_n.jpg?_nc_cat=105&_nc_sid=110474&_nc_ohc=UTnGxVEE_KQAX9Z5pGH&_nc_ht=scontent.faep1-1.fna&oh=d796e13736c762d0f0a229d7247b4328&oe=5F4F5704" alt="" width="100%"> -->
                             <!-- {{ producto.imagen_ppal }} -->
-                            <img :src="'/storage/'+producto.imagen_ppal" alt="" width="100%" >
+                            <img style="object-fit: cover" :src="'/storage/'+producto.imagen_ppal" alt="" width="100%" >
                         </div>
                         <div class="ancho-70">
                             <span>{{ producto.producto }}</span>
@@ -48,7 +48,7 @@
                             </a>
                         </div>
                         <div class="ancho-45 flex flex-content-center">
-                            <a href="#" @click.prevent="clickEliminar(producto)">
+                            <a href="#" @click.prevent="clickEliminar(producto, indice)">
                                 <i class="fas fa-trash-alt txt-rojo-claro"></i>
                             </a>
                         </div>
@@ -148,7 +148,8 @@
                     },
                 50);
             },
-            clickEliminar(producto){
+            clickEliminar(producto, indice){
+                self = this;
                 this.formulario.producto_id = producto.id;
                 this.formulario.producto = producto.producto;
                 this.accion = 'B';
@@ -163,7 +164,12 @@
                   confirmButtonText: 'Eliminar'
                 }).then((result) => {
                   if (result.value) {
-                    this.guardarFormulario()
+                    let url = "/productos/"+producto.id+"/eliminar";
+                    axios.get(url)
+                    .then( response => {
+                        self.mostarMensaje(response.data, 'Eliminado');
+                        self.productos.splice(indice,1);
+                    });
                   }
                 })
             },
@@ -209,12 +215,13 @@
                     },
                 50);
             },
-            mostarMensaje($estado){
+            mostarMensaje($estado, msg = ''){
                 if ($estado == 'ok') {
                     Swal.fire({
                       position: 'top-end',
                       icon: 'success',
-                      title: '',
+                      // title: msg,
+                      text: msg,
                       showConfirmButton: false,
                       timer: 1000,
                       width: '180px',
@@ -224,7 +231,7 @@
                     Swal.fire({
                       position: 'top-end',
                       icon: 'error',
-                      title: '',
+                      text: msg,
                       showConfirmButton: false,
                       timer: 1000,
                       width: '180px',

@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<form action="/producto" enctype="multipart/form-data" method="POST">
+		<!-- <form action="/productos" enctype="multipart/form-data" method="POST" autocomplete="off"> -->
 			<div class="form-body">
 				<!-- PRODUCTO -->
 				<div >
-					<div class="form-linea flex flex-item-center p-10 m-b-10" style="border: 1px solid #00E185; border-radius: 5px;" @click="acordeon('producto')">
+					<div class="form-linea flex flex-item-center p-10 m-b-10" style="border: 1px solid #00E185; border-radius: 5px; background: #E3F9F0;" @click="acordeon('producto')">
 						<div class="form-columna ancho-100 flex m-0">
 							<div class="ancho-80 flex flex-item-center flex-space-between flex-content-start">
 								<i class="fas fa-tags m-r-10" style="color:#00E185;"></i>
@@ -20,7 +20,7 @@
 						<div class="form-linea">
 							<div class="form-columna">
 								<label class="form-label obligatorio" for="">Producto</label>
-								<input type="text" id="producto_nombre" class="form-input" v-model='producto.producto' placeholder="Nombre del producto" @input="evt=>productoNombre(evt)" required>
+								<input type="text" id="producto_nombre" class="form-input" v-model='producto.producto' placeholder="Nombre del producto" @keypress.enter.prevent="" @input="evt=>productoNombre(evt)" required>
 							</div>
 						</div>
 						<div class="form-linea">
@@ -46,7 +46,7 @@
 				</div>
 				<!-- CARACTERISTICAS -->
 				<div>
-					<div class="form-linea flex flex-item-center p-10 m-b-10" style="border: 1px solid #82C91E; border-radius: 5px;" @click="acordeon('caracteristicas')">
+					<div class="form-linea flex flex-item-center p-10 m-b-10" style="border: 1px solid #82C91E; border-radius: 5px; background: #EFF9E2;" @click="acordeon('caracteristicas')">
 						<div class="form-columna ancho-100 flex m-0">
 							<div class="ancho-80 flex flex-item-center flex-space-between flex-content-start">
 								<i class="fas fa-swatchbook m-r-10" style="color: #82C91E;"></i>
@@ -87,7 +87,7 @@
 				</div>
 				<!-- CATEGORIAS -->
 				<div>
-					<div class="form-linea flex flex-item-center p-10 m-b-10" style="border: 1px solid #17A6EC; border-radius: 5px;" @click="acordeon('categorias')">
+					<div class="form-linea flex flex-item-center p-10 m-b-10" style="border: 1px solid #17A6EC; border-radius: 5px; background: #E2F1F9;" @click="acordeon('categorias')">
 						<div class="form-columna ancho-100 flex m-0">
 							<div class="ancho-80 flex flex-item-center flex-space-between flex-content-start">
 								<i class="fas fa-boxes m-r-10" style="color: #17A6EC;"></i>
@@ -129,15 +129,15 @@
 				</div>
 				<!-- IMAGENES -->
 				<div>
-					<div class="form-linea flex flex-item-center p-10 m-b-10" style="border: 1px solid #00E185; border-radius: 5px;" @click="acordeon('imagenes')">
+					<div class="form-linea flex flex-item-center p-10 m-b-10" style="border: 1px solid #AF8AC8; border-radius: 5px; background: #F5E8FE" @click="acordeon('imagenes')">
 						<div class="form-columna ancho-100 flex m-0">
 							<div class="ancho-80 flex flex-item-center flex-space-between flex-content-start">
-								<i class="fas fa-images m-r-10" style="color:#00E185;"></i>
+								<i class="fas fa-images m-r-10" style="color:#A777C8;"></i>
 								<span>Imágenes</span>
 							</div>
 							<div class="ancho-20 flex flex-item-center flex-content-end">
 								<!-- <i class="fas fa-angle-up"></i> -->
-								<i class="fas fa-angle-up m-r-10 arrow-imagenes" style="color:#00E185;"></i>
+								<i class="fas fa-angle-up m-r-10 arrow-imagenes" style="color:#A777C8;"></i>
 							</div>
 						</div>
 					</div>
@@ -150,7 +150,7 @@
 										<a href="" style="display: block;" @click.prevent="eliminarImagen(i)"><i class="fas fa-times fz-14 txt-rojo-claro" @click.prevent="eliminarImagen(i)"></i></a>
 
 									</div>
-									<img :src="'/storage/'+imagen.imagen" alt="" width="90" height="90">
+									<img style="object-fit: cover" :src="'/storage/'+imagen.imagen" alt="" width="90" height="90">
 								</div>
 							</div>
 							<div id="div_file" class="flex flex-item-center flex-content-center m-5" style="border: 1px solid #ddd; border-radius: 5px; width: 95px; height: 95px;">
@@ -188,7 +188,7 @@
 	                </div>
 	            </div>
         	</div>
-		</form>
+		<!-- </form> -->
 
 
 		<!-- seleccion Lienzo -->
@@ -227,15 +227,12 @@
 			}
 		},
 		created(){
-
 		},
 		mounted(){
 			//this.acordeon('producto');
 			this.acordeon('caracteristicas');
 			this.acordeon('categorias');
 			this.acordeon('imagenes');
-			// $(".arrow-caracteristicas").addClass( "rotate" );
-			// $(".arrow-producto").addClass( "rotate" );
 			this.precio_display = this.formatoPrecio(this.producto.precio);
 			this.buscarCaracteristicas();
 			this.buscarCategorias();
@@ -401,7 +398,17 @@
 				this.categorias_activas[i].seleccion_confirmacion = false;
 			},
 			irProductos(){
-				location.href="/productos";
+				if (this.producto.guardar == 0) {
+					let url = "/productos/"+this.producto.id+"/eliminar";
+					axios.get(url)
+	                .then( response => {
+	                	// console.log(response.data);
+	                	// this.caracteristicas_activas = response.data;
+	                	 location.href="/productos";
+	                });
+				}else{
+					location.href="/productos";
+				}
 			},
 			mostarMensaje($estado){
                 if ($estado == 'ok') {

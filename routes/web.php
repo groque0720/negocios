@@ -77,6 +77,7 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('productos/create','Producto\ProductoController@create')->name('productos.create');
 	Route::get('productos/edit/{codigo}','Producto\ProductoController@edit')->name('productos.edit');
 	Route::post('productos/accion', 'Producto\ProductoController@productos_accion')->name('productos.accion');
+	Route::get('productos/{id}/eliminar', 'Producto\ProductoController@producto_eliminar')->name('producto.eliminar');
 	Route::get('producto/categorias', 'Producto\ProductoController@producto_categorias')->name('producto.categorias');
 	Route::get('producto/caracteristicas', 'Producto\ProductoController@producto_caracteristicas')->name('producto.caracteristicas');
 	Route::get('producto/caracteristicas_activas', 'Producto\ProductoController@producto_caracteristicas_activas')->name('producto.caracteristicas_activas');
