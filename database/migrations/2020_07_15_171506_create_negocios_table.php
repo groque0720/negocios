@@ -15,7 +15,7 @@ class CreateNegociosTable extends Migration
     {
         Schema::create('negocios', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('usuario_id');
+            $table->integer('user_id');
             $table->string('nombre');
             $table->string('url');
             $table->string('codigo');

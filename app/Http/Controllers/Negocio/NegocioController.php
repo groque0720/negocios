@@ -12,7 +12,21 @@ class NegocioController extends Controller
 
     public function public_index($url_negocio){
         if ($negocio = Negocio::where('url', $url_negocio)->first()) {
-            return $negocio;
+
+
+            // $libros = IeteLibro::with(['lecciones' => function($lecciones){
+            //                     $lecciones->with('temas');
+            //                 }])->select('id','titulo','subtitulo')->get();
+
+            // $imagenes = $negocio->with(['productos' =>function($productos){
+            //                 $productos->with('imagenes');
+            //             }])->get();
+
+            $productos = $negocio->productos()->get();
+
+            // return $productos;
+
+            return view('public.index', compact('negocio','productos'));
         }else{
             return 'no se encuentra..';
         }

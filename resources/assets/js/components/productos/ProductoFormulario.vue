@@ -235,9 +235,9 @@
 								<i class="fas fa-plus txt-gris"></i>
 							</div> -->
 						</draggable>
-						<div id="div_file" class="flex flex-item-center flex-content-center m-5" style="border: 1px solid #ddd; border-radius: 5px; width: 100%; height: 45px;">
+						<div id="div_file" class="flex flex-item-center flex-content-center m-5" style="border: 1px solid #ccc; border-radius: 5px; width: 80%; margin: auto; height: 45px;">
 								<input id="file" type="file" @change="obtenerImagen" multiple style="display: block;">
-								<i class="fas fa-plus txt-gris"></i>
+								<i class="fas fa-upload" style="color: #A777C8;"></i><span class="m-l-10">Subir Imagen</span>
 						</div>
 					</div>
 					<!-- lienzo ccarga imagenes -->

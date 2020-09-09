@@ -58,8 +58,6 @@ Route::group(['middleware' => 'auth'], function(){
 	    return redirect()->route('negocio');
 	});
 
-
-
 	Route::get('negocio','Negocio\NegocioController@index')->name('negocio');
 	Route::get('negocio/editar','Negocio\NegocioController@edit')->name('negocio.editar');
 	Route::put('negocio/guardar/','Negocio\NegocioController@update')->name('negocio.guardar');

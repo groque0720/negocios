@@ -1504,6 +1504,8 @@ Vue.component('productos', __webpack_require__(67));
 Vue.component('producto-formulario', __webpack_require__(13));
 Vue.component('productos-seleccionar', __webpack_require__(78));
 
+Vue.component('layout-columnas', __webpack_require__(92));
+
 
 
 
@@ -54500,9 +54502,10 @@ var render = function() {
                     staticClass:
                       "flex flex-item-center flex-content-center m-5",
                     staticStyle: {
-                      border: "1px solid #ddd",
+                      border: "1px solid #ccc",
                       "border-radius": "5px",
-                      width: "100%",
+                      width: "80%",
+                      margin: "auto",
                       height: "45px"
                     },
                     attrs: { id: "div_file" }
@@ -54514,7 +54517,13 @@ var render = function() {
                       on: { change: _vm.obtenerImagen }
                     }),
                     _vm._v(" "),
-                    _c("i", { staticClass: "fas fa-plus txt-gris" })
+                    _c("i", {
+                      staticClass: "fas fa-upload",
+                      staticStyle: { color: "#A777C8" }
+                    }),
+                    _c("span", { staticClass: "m-l-10" }, [
+                      _vm._v("Subir Imagen")
+                    ])
                   ]
                 )
               ],
@@ -58937,6 +58946,182 @@ $('.menu-lateral-ocultar, .menu-lateral-lienzo').click(function (e) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(93)
+/* template */
+var __vue_template__ = __webpack_require__(94)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/layout_public/ModeloColumnas.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-529e4054", Component.options)
+  } else {
+    hotAPI.reload("data-v-529e4054", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 93 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['productos', 'negocio'],
+    data: function data() {
+        return {
+            nro_columnas: 0,
+            ancho: 0
+        };
+    },
+    mounted: function mounted() {
+        this.ancho = window.innerWidth;
+        window.addEventListener('resize', this.handleResize);
+        this.handleResize();
+    },
+
+    methods: {
+        handleResize: function handleResize() {
+
+            var ancho_usuario = window.innerWidth;
+
+            if (ancho_usuario <= 480) {
+                this.nro_columnas = 2;
+            }
+
+            if (ancho_usuario > 480 && ancho_usuario <= 767) {
+                this.nro_columnas = 3;
+            }
+
+            if (ancho_usuario > 767 && ancho_usuario <= 979) {
+                this.nro_columnas = 4;
+            }
+
+            if (ancho_usuario > 979) {
+                this.nro_columnas = 5;
+            }
+
+            this.ancho = window.innerWidth;
+        },
+        boleanMostrar: function boleanMostrar(c, f) {
+            var columna = c + 1;
+            var nro_imagen = f + 1;
+
+            var fila = Math.ceil(nro_imagen / this.nro_columnas) - 1;
+            var valor = nro_imagen - fila * this.nro_columnas;
+
+            if (columna == valor) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", {}, [
+    _c(
+      "div",
+      { staticClass: "ancho-100 flex p-10 " },
+      _vm._l(_vm.nro_columnas, function(columnas, c) {
+        return _c(
+          "div",
+          { staticClass: "columna-1 ancho-50 " },
+          _vm._l(_vm.productos, function(producto, f) {
+            return _vm.boleanMostrar(c, f)
+              ? _c(
+                  "div",
+                  { staticClass: "tarjeta borde-radio-5 m-10 sombra-box" },
+                  [
+                    _c("div", { staticClass: "imagen" }, [
+                      _c("img", {
+                        staticClass: "ancho-100 flex",
+                        attrs: {
+                          src: "/storage/" + producto.imagen_ppal,
+                          alt: ""
+                        }
+                      })
+                    ])
+                  ]
+                )
+              : _vm._e()
+          }),
+          0
+        )
+      }),
+      0
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-529e4054", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

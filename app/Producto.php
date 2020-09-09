@@ -25,4 +25,5 @@ class Producto extends Model
     public function relacionados(){
         return $this->belongsToMany(Producto::class, 'productos_relaciones', 'album_id');
     }
+
 }
