@@ -25,3 +25,11 @@ $(".numero").on({
 	        });
 	    }
 	});
+
+function formatoPrecio(value) {
+	// //value = value.replace(/^0+/, '');
+ //    let val = (value/1).toFixed(2).replace('.', ',')
+ //    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+
+ 	alert('hola');
+}

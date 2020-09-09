@@ -10,8 +10,10 @@ use App\Http\Controllers\Controller;
 use App\Negocio;
 use App\Producto;
 use App\ProductoImagen;
+use App\ProductoRelacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductoController extends Controller
 {
@@ -30,23 +32,70 @@ class ProductoController extends Controller
         return view('productos.index', compact('negocio'));
     }
 
-
-    public function productos_buscar() {
+    public function albumes()
+    {
         $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
-        $productos = $negocio->productos()->orderBy('producto')->paginate($this->cant_reg);
+        return view('productos.albumes', compact('negocio'));
+    }
+
+    public function productos_buscar($tipo_id) {
+        $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
+        if ($tipo_id == 1) {
+           $productos = $negocio->productos()->where('tipo_id',$tipo_id)->where('guardar',1)->orderBy('producto')->paginate($this->cant_reg);
+        }else{
+            $productos = $negocio->productos()->where('tipo_id',$tipo_id)->where('guardar',1)->orderByDesc('id')->paginate($this->cant_reg);
+        }
         return $productos;
+    }
+
+    public function buscar_productos_relacionados($id){
+
+        // $relacionados = ProductoRelacion::where('album_id',$id)->get();
+
+        // $producos_relacionados = [];
+
+        // foreach ($relacionados as $relacion) {
+        //     if ($producto = Producto::find($relacion->producto_id)) {
+        //        array_push($producos_relacionados, $producto);
+        //     }
+        // }
+        $producos_relacionados = Producto::find($id)->relacionados()->get();
+        return $producos_relacionados;
+    }
+
+    public function producto_relacionar(Request $request){
+
+        $album_id = $request->album_id;
+        $producto_id_relacionar = $request->relacionar_producto_id;
+
+        $producto_relacion = new ProductoRelacion();
+        $producto_relacion->album_id = $album_id;
+        $producto_relacion->producto_id = $producto_id_relacionar;
+        $producto_relacion->save();
+
+        return $this->buscar_productos_relacionados($album_id);
+
+    }
+
+    public function producto_relacionado_eliminar(Request $request){
+        if ($request->ajax()) {
+            $album_id = $request->album_id;
+            $producto_id = $request->producto_id;
+            ProductoRelacion::where('album_id',$album_id)->where('producto_id', $producto_id)->delete();
+            return 'ok';
+        }
     }
 
 
     public function productos_buscar_autocompletar(Request $request){
         if ($request->ajax()) {
             $query = $request['query'];
+            $tipo_id = $request['tipo_id'];
             $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
-            $productos = $negocio->productos()->where('producto' ,'like','%'.$query.'%')->get();
+            $productos = $negocio->productos()->where('tipo_id', $tipo_id)->where('producto' ,'like','%'.$query.'%')->get();
             return response()->json($productos);
         }
     }
-
 
     public function producto_caracteristicas_activas(Request $request){
 
@@ -140,13 +189,23 @@ class ProductoController extends Controller
 
     public function producto_imagenes_guardar(Request $request)
     {
-        $imageName = md5(microtime()).'.'.$request->file->getClientOriginalExtension();//.$request->file->getClientOriginalName();//.'.'.$request->file->getClientOriginalExtension();
+        $imageName = md5(microtime()).'.'.$request->file->getClientOriginalExtension();
         $imageName = str_replace(' ', '_', $imageName);
-        // $request->file->move(public_path('public/'.$request->negocio_url), $imageName);
-        //$request->file->store('public/'.$request->negocio_url);
-        $request->file('file')->storeAs('public/'.$request->negocio_url, $imageName);
+        // $request->file('file')->storeAs('public/'.$request->negocio_url, $imageName);
+        // $url = $request->negocio_url.'/'.$imageName;
 
+        $image = $request->file('file');
+        $image_resize = Image::make($image->getRealPath());
+        $image_resize->resize(800, null, function($constraint) {
+             $constraint->aspectRatio();
+             $constraint->upsize();
+        });
+        $image_resize->orientate();
+        // $image_resize->storeAs('public/'.$request->negocio_url, $imageName);
+        $image_resize->save(public_path('storage/'.$request->negocio_url.'/'.$imageName));
         $url = $request->negocio_url.'/'.$imageName;
+        // $nombre_archivo = time() . "." . $request->file('file')->extension();
+        // $image_resize->save(public_path('images/' .$imageName));
 
         $producto_imagen = new ProductoImagen;
         $producto_imagen->producto_id = $request->producto_id;
@@ -198,6 +257,7 @@ class ProductoController extends Controller
         $producto->producto = $producto_form['producto'];
         $producto->descripcion = $producto_form['descripcion'];
         $producto->precio = $producto_form['precio'];
+        $producto->guardar = 1;
         $producto->save();
 
         // Caracteristicas
@@ -257,18 +317,20 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($tipo_id = 1)
     {
         $negocio = Negocio::where('user_id',Auth()->user()->id)->first();
         $producto = new Producto();
         $producto->negocio_id = $negocio->id;
+        $producto->tipo_id = $tipo_id; // es producto, no es album
         $producto->producto = '';
         $producto->descripcion = '';
         $producto->codigo = md5(microtime());
         $producto->precio = 0;
         $producto->guardar = 0;
         $producto->save();
-        return view('productos.create', compact('negocio','producto'));
+        return redirect()->route('productos.edit',['codigo' => $producto->codigo]);
+        // return view('productos.create', compact('negocio','producto'));
     }
 
     public function producto_eliminar($id){
@@ -283,8 +345,6 @@ class ProductoController extends Controller
         $producto->forceDelete();
         return 'ok';
     }
-
-
 
     /**
      * Store a newly created resource in storage.

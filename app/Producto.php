@@ -21,4 +21,8 @@ class Producto extends Model
     public function imagenes(){
     	return $this->hasMany(ProductoImagen::class);
     }
+
+    public function relacionados(){
+        return $this->belongsToMany(Producto::class, 'productos_relaciones', 'album_id');
+    }
 }

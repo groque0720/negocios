@@ -27,25 +27,20 @@ Vue.component('caracteristicas', require('./components/caracteristicas/Caracteri
 Vue.component('caracteristicas-seleccionar', require('./components/caracteristicas/CaracteristicasSeleccionar.vue'));
 Vue.component('productos', require('./components/productos/Productos.vue'));
 Vue.component('producto-formulario', require('./components/productos/ProductoFormulario.vue'));
+Vue.component('productos-seleccionar', require('./components/productos/ProductosSeleccionar.vue'));
 
 import router from './routes'
-
+import myMixin from './mixins'
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    mixins: [myMixin]
 });
 
-// Vue.filter('toCurrency', function (value) {
-//     if (typeof value !== "number") {
-//         return value;
-//     }
-//     var formatter = new Intl.NumberFormat('en-US', {
-//         style: 'currency',
-//         currency: 'USD',
-//         minimumFractionDigits: 0
-//     });
-//     return formatter.format(value);
-// });
+// in main =.js
+// -> Vue.prototype.$appName = 'My App'
+////in components
+ // -> console.log(this.$appName)
 
 require('./script_ppal');

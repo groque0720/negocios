@@ -30,9 +30,9 @@
                     @yield('contenido')
                 </section>
             </div>
-            <footer class="flex-item-end">
+{{--             <footer class="flex-item-end">
                 productos 2019
-            </footer>
+            </footer> --}}
         </div>
     </div>
     <!-- Scripts -->

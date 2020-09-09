@@ -17,15 +17,6 @@
 					<span class="txt-color-ppal">Datos del Negocio</span></div>
 			</div>
 		</a>
-		<a href="{{ route('categorias.index') }}" class="link item-menu-lateral">
-			<div class="flex flex-space-between flex-item-center"
-				 style="height: 55px; border-bottom: 1px solid #ccc;">
-				<div class="ancho-20 flex flex-item-center flex-content-center">
-					<i class="fas fa-boxes" style="color: #17A6EC;"></i></div>
-				<div class="ancho-80">
-					<span class="txt-color-ppal">Categorias</span></div>
-			</div>
-		</a>
 		<a href="{{ route('caracteristicas.index') }}" class="link item-menu-lateral">
 			<div class="flex flex-space-between flex-item-center"
 				 style="height: 55px; border-bottom: 1px solid #ccc;">
@@ -36,6 +27,15 @@
 					<span class="txt-color-ppal">Características</span></div>
 			</div>
 		</a>
+		<a href="{{ route('categorias.index') }}" class="link item-menu-lateral">
+			<div class="flex flex-space-between flex-item-center"
+				 style="height: 55px; border-bottom: 1px solid #ccc;">
+				<div class="ancho-20 flex flex-item-center flex-content-center">
+					<i class="fas fa-boxes" style="color: #17A6EC;"></i></div>
+				<div class="ancho-80">
+					<span class="txt-color-ppal">Categorias</span></div>
+			</div>
+		</a>
 		<a href="{{ route('productos.index') }}" class="link item-menu-lateral">
 			<div class="flex flex-space-between flex-item-center"
 				 style="height: 55px; border-bottom: 1px solid #ccc;">
@@ -44,6 +44,17 @@
 				</div>
 				<div class="ancho-80">
 					<span class="txt-color-ppal">Productos</span>
+				</div>
+			</div>
+		</a>
+		<a href="{{ route('productos.albumes') }}" class="link item-menu-lateral">
+			<div class="flex flex-space-between flex-item-center"
+				 style="height: 55px; border-bottom: 1px solid #ccc;">
+				<div class="ancho-20 flex flex-item-center flex-content-center">
+					<i class="far fa-image" style="color:#9361A9;"></i>
+				</div>
+				<div class="ancho-80">
+					<span class="txt-color-ppal">Álbumes</span>
 				</div>
 			</div>
 		</a>

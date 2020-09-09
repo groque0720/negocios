@@ -19,7 +19,7 @@
         </div>
 <!--         <caracteristicas-autocompletar></caracteristicas-autocompletar> -->
         <a href="#" class="link zona-agregar flex" @click.prevent="clickNuevo()">
-            <div class="ancho-100 zona-agregar-btn flex flex-space-between flex-item-center p-15" style="margin: 10px auto 10px auto; border: 1px solid #ccc; border-radius: 10px;">
+            <div class="ancho-100 zona-agregar-btn flex flex-space-between flex-item-center p-15" style="margin: 10px auto 10px auto; border: 1px solid #82C91E; border-radius: 10px; background: rgba(130, 201, 30, 0.2 )">
                 <div class="ancho-10 flex flex-item-center flex-content-center">
                     <i class="fas fa-swatchbook" style="color: #82C91E;"></i>
                 </div>
@@ -59,11 +59,11 @@
         </template>
         <div class="zona-lista ancho-100">
             <template >
-                <div v-for="caracteristica in caracteristicas" class="lista-linea ancho-100 flex flex-space-between">
+                <div v-for="(caracteristica, indice) in caracteristicas" class="lista-linea ancho-100 flex flex-space-between" @click="mostrarAcciones(indice)">
                     <div class="ancho-70 flex flex-item-center">
                        <span>{{ caracteristica.caracteristica }}</span>
                     </div>
-                    <div class="ancho-30 flex flex-space-between flex-item-center">
+                    <div class="ancho-30 zona-acciones flex flex-space-between flex-item-center"  :class="'accion_'+indice" style="width: 0px; overflow: hidden;">
                         <div class="ancho-45 flex flex-content-center">
                             <a href="#" @click.prevent="clickEditar(caracteristica)">
                                 <i class="fas fa-edit txt-celeste"></i>
@@ -224,6 +224,15 @@
                 this.formulario.caracteristica = '';
                 this.query = '';
             },
+            mostrarAcciones(indice){
+                $('.lista-linea').removeClass('lista-linea-activa');
+                $('.linea_'+indice).addClass('lista-linea-activa');
+                $('.zona-acciones').width(0);
+                setTimeout(function(){
+                    $('.accion_'+indice).width('30%');
+                    },
+                50);
+            },
             mostarMensaje($estado){
                 if ($estado == 'ok') {
                     Swal.fire({
@@ -285,6 +294,9 @@
     }
     .zona-agregar:hover span, .zona-agregar:hover i{
         color: white;
+    }
+    .zona-acciones{
+        transition: 0.3s;
     }
     .form-lienzo{
         height: 100vh;

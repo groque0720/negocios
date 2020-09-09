@@ -6,7 +6,7 @@
                     <a href=""><i class="fas fa-search txt-gris"></i></a>
                 </div>
                 <div class="ancho-80 flex flex-item-center flex-content-center">
-                    <input class="input-busqueda" type="text" @focusout="mostrarBtnBorrar = false" @focus="mostrarBtnBorrar = true"  v-model="query" @input="evt=>buscarProductos(evt)">
+                    <input class="input-busqueda" ref="input_busqueda" type="text" @focusout="mostrarBtnBorrar = false" @focus="mostrarBtnBorrar = true"  v-model="query" @input="evt=>buscarProductos(evt)">
 
                 </div>
                 <div class="ancho-10 flex flex-item-center flex-content-center">
@@ -17,33 +17,51 @@
             </div>
         </div>
 <!--         <productos-autocompletar></productos-autocompletar> -->
-        <a :href="'/productos/create'" class="link zona-agregar flex">
-            <div class="ancho-100 zona-agregar-btn flex flex-space-between flex-item-center p-15" style="margin: 10px auto 10px auto; border: 1px solid #00E185; border-radius: 10px; background: #E2F9F0;">
+        <a :href="'/productos/create/'+tipo_id" class="link zona-agregar flex">
+            <!-- titulo -->
+            <div v-if="tipo_id == 1"class="ancho-100 zona-agregar-btn flex flex-space-between flex-item-center p-15" style="margin: 10px auto 10px auto; border: 1px solid #00E185; border-radius: 10px; background: #E2F9F0;">
                 <div class="ancho-10 flex flex-item-center flex-content-center">
                     <i class="fas fa-tags" style="color:#00E185;"></i>
                 </div>
                 <div class="ancho-90 flex flex-item-center flex-content-center">
-                    <span>Agregar un nuevo producto</span>
+                    <span>Agregar un nuevo Producto</span>
+                </div>
+            </div>
+            <div v-if="tipo_id == 2"class="ancho-100 zona-agregar-btn flex flex-space-between flex-item-center p-15" style="margin: 10px auto 10px auto; border: 1px solid #9361A9; border-radius: 10px; background: rgb(147, 97, 169, 0.1);">
+                <div class="ancho-10 flex flex-item-center flex-content-center">
+                    <i class="far fa-images" style="color:#9361A9;"></i>
+                </div>
+                <div class="ancho-90 flex flex-item-center flex-content-center">
+                    <span>Agregar un nuevo Álbum</span>
                 </div>
             </div>
         </a>
-        <div class="zona-lista ancho-100">
+        <div class="zona-lista ancho-100" style="margin-bottom: 60px;">
             <template >
                 <div v-for="(producto, indice) in productos" class="lista-linea ancho-100 flex flex-space-between" @click="mostrarAcciones(indice)" :class="'linea_'+indice">
                     <div class="ancho-100 flex flex-item-center">
-                        <div class="ancho-30 m-r-10 flex" style="width: 80px; max-height: 80px;">
-                            <!-- <img src="https://scontent.faep1-1.fna.fbcdn.net/v/t1.0-9/116743484_3215521671849756_1224515636589086667_n.jpg?_nc_cat=105&_nc_sid=110474&_nc_ohc=UTnGxVEE_KQAX9Z5pGH&_nc_ht=scontent.faep1-1.fna&oh=d796e13736c762d0f0a229d7247b4328&oe=5F4F5704" alt="" width="100%"> -->
-                            <!-- {{ producto.imagen_ppal }} -->
-                            <img style="object-fit: cover" :src="'/storage/'+producto.imagen_ppal" alt="" width="100%" >
+                        <div class="ancho-30 m-r-10 flex" style="width: 60px; height: 60px; overflow: hidden; border-radius: 2px; box-shadow: 1px 1px #ddd;">
+                            <img style="object-fit: cover;" :src="'/storage/'+producto.imagen_ppal" alt="" width="100%" >
                         </div>
-                        <div class="ancho-70">
-                            <span>{{ producto.producto }}</span>
+                        <div class="ancho-70 flex flex-space-between flex-direction-column" style="height: 100%;">
+                            <div>
+                                <span style="font-weight: bold;">{{ producto.producto }}</span>
+                            </div>
+                            <div>
+                                <span style="color:#7C7979; font-size: 12px;">{{ $root.truncarTexto(producto.descripcion, 50) }}</span>
+                            </div>
+                            <div  class="flex flex-content-end">
+                            <!-- muestro el precio solo si es de tipo producto (valor 1) -->
+                                <span v-if="producto.tipo_id == 1" class="fz-12">${{ $root.formatoPrecio(producto.precio)  }}</span>
+                            <!-- Muestro la fecha de creacion del album (valor 2) -->
+                                <span v-if="producto.tipo_id == 2" class="fz-12">{{ $root.diffForHumans(producto.created_at) }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="ancho-30 zona-acciones flex flex-space-between flex-item-center"  :class="'accion_'+indice" style="width: 0px; overflow: hidden;">
                         <div class="ancho-45 flex flex-content-center">
                             <!-- <a :href="'/producto/edit/'+producto.id" @click.prevent="clickEditar(producto)"> -->
-                            <a :href="'/productos/edit/'+producto.codigo">
+                            <a @click.prevent="irAlProducto(producto.codigo)">
                                 <i class="fas fa-edit txt-celeste"></i>
                             </a>
                         </div>
@@ -66,6 +84,7 @@
 
 <script>
     export default {
+        props:['tipo_id'],
         data(){
             return {
                 // busqueda
@@ -94,13 +113,17 @@
                 self = this;
                 setTimeout(function(){
                     self.productos = self.productos_infinite;
+                    self.$refs.input_busqueda.focus();
                     },
                 100);
             },
+            irAlProducto(codigo){
+                location.href = '/productos/edit/'+codigo;
+            },
             InfiniteHandler($state){
                 this.page++;
-                console.log(this.page)
-                let url = '/productos/buscar?page=' + this.page;
+                // console.log(this.page)
+                let url = '/productos/'+this.tipo_id+'/buscar?page=' + this.page;
                 axios.get(url)
                 .then( response => {
                     let productos = response.data.data;
@@ -118,7 +141,8 @@
                 if(this.query.length >= 2){
                     axios.get('/productos/productos_buscar_autocompletar',{
                         params: {
-                            query: this.query
+                            query: this.query,
+                            tipo_id: this.tipo_id,
                         }}).then(res => {
                         this.productos = res.data;
                      });
@@ -266,7 +290,7 @@
         -webkit-box-shadow: none;
     }
     .lista-linea {
-        padding: 10px;
+        padding: 5px;
         border-bottom: 1px solid #ccc;
     }
     .lista-linea:first-child {
@@ -279,7 +303,7 @@
         background: var(--main-ppal-color);
     }
     .zona-agregar:hover span, .zona-agregar:hover i{
-        color: white;
+        color:  var(--main-ppal-color);
     }
     .zona-acciones{
         transition: 0.3s;

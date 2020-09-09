@@ -124,7 +124,7 @@
         				item.seleccion = false;
         			}
         		});
-                console.log(this.caracteristicas_view);
+                // console.log(this.caracteristicas_view);
         	},
             //caracteristicas
             filtrarCaracteristicas(evt = ''){
@@ -137,7 +137,7 @@
                 //var caracteristicas_filtro = this.caracteristicas.filter(caracteristica => caracteristica.caracteristica.length > 6);
 
                 this.caracteristicas_view = caracteristicas_filtro;
-                console.log(caracteristicas_filtro);
+                // console.log(caracteristicas_filtro);
             },
             borrarInputBuscar(){
                 this.query = '';

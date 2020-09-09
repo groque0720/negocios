@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Storage;
 
 class NegocioController extends Controller
 {
+
+    public function public_index($url_negocio){
+        if ($negocio = Negocio::where('url', $url_negocio)->first()) {
+            return $negocio;
+        }else{
+            return 'no se encuentra..';
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *

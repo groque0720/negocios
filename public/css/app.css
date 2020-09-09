@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);* {
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);* {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -6,7 +6,7 @@
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   /*color: #5E5D5D;*/
-  color: #302F2F;
+  color: #444343;
 }
 
 :root {

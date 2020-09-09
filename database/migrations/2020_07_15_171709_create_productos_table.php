@@ -17,6 +17,7 @@ class CreateProductosTable extends Migration
             $table->increments('id');
             $table->string('codigo');
             $table->integer('negocio_id');
+            $table->integer('tipo_id');//si es producto o albúm
             $table->string('producto');
             $table->text('descripcion')->nullable();
             $table->string('imagen_ppal')->nullable();
