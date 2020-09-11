@@ -136,10 +136,12 @@
 					</div>
 					<div class="zona-caracteristicas form-linea m-b-10">
 						<div class="flex flex-item-center flex-content-center">
-							<div class="ancho-60 flex flex-item-center cursor p-10" @click="mostrarSeleccionarCaracteristicas()" style="border: 1px solid #ddd; border-radius: 5px;">
-								<div class="ancho-25 txt-centrar"><i class="fas fa-hand-pointer m-r-10" style="color:#82C91E;"></i></div>
-								<div class="ancho-75 txt-centrar"><span>Agregar/Seleccionar</span></div>
-							</div>
+							<button style="border: none; padding: 10px; border-radius: 5px; border: 1px solid #ccc;" @click.prevent="mostrarSeleccionarCaracteristicas()">
+								<div class="ancho-100 flex flex-item-center cursor">
+									<div class="ancho-15 txt-centrar"><i class="fas fa-hand-pointer m-r-10" style="color:#82C91E;"></i></div>
+									<div class="ancho-85 txt-centrar"><span>Agregar/Seleccionar</span></div>
+								</div>
+							</button>
 						</div>
 						<div class="flex flex-item-center flex-space-between p-10" style="border-bottom: 1px solid #ddd">
 							<div class="ancho-75">
@@ -178,10 +180,12 @@
 
 					<div class="zona-categorias form-linea m-b-10">
 						<div class="flex flex-item-center flex-content-center">
-							<div class="ancho-60 flex flex-item-center cursor p-10" @click="mostrarSeleccionarCategorias()" style="border: 1px solid #ddd; border-radius: 5px;">
-								<div class="ancho-25 txt-centrar"><i class="fas fa-hand-pointer m-r-10" style="color:#17A6EC;"></i></div>
-								<div class="ancho-75 txt-centrar"><span>Agregar/Seleccionar</span></div>
-							</div>
+							<button style="border: none; padding: 10px; border-radius: 5px; border: 1px solid #ccc;" @click.prevent="mostrarSeleccionarCategorias()">
+								<div class="ancho-100 flex flex-item-center cursor">
+									<div class="ancho-15 txt-centrar"><i class="fas fa-hand-pointer m-r-10" style="color:#17A6EC;"></i></div>
+									<div class="ancho-85 txt-centrar"><span>Agregar/Seleccionar</span></div>
+								</div>
+							</button>
 						</div>
 						<div class="flex flex-item-center flex-space-between p-10" style="border-bottom: 1px solid #ddd">
 							<div class="ancho-100">
@@ -565,7 +569,13 @@
                     })
                 }
             }
-		}
+		},
+		// computed: {
+		// 	mostrarSeleccionarCategorias(){
+		// 		this.$refs.formCategorias.mostrar();
+		// 		history.pushState('', 'Title of page', '/create/team');
+		// 	}
+		// }
 	}
 </script>
 <style scoped>

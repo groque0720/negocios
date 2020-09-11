@@ -109,12 +109,15 @@
         	}
         },
         mounted() {
-            // window.onbeforeunload = function(e) {
-            //     return false;
-            // };
+            var self_categorias = this;
+            $(window).on('popstate', function() {
+                self_categorias.view = false;
+                // self.cancelar();
+            });
         },
         methods:{
         	mostrar() {
+                history.pushState('', 'Categorías', '/seleccionar/categorias');
         		this.view = true;
                 this.categorias_view = this.categorias;
         		this.categorias_view.forEach(function(item, posicion){
@@ -171,6 +174,7 @@
         		self = this;
                 setTimeout(function(){
                     self.view = false;
+                    history.go(-1)
                     },
                 50);
 

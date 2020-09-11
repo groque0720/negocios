@@ -4,31 +4,41 @@ namespace App\Http\Controllers\Negocio;
 
 use App\Http\Controllers\Controller;
 use App\Negocio;
+use App\Producto;
+use App\ProductoImagen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class NegocioController extends Controller
 {
+    protected $cant_reg = 10;
 
     public function public_index($url_negocio){
         if ($negocio = Negocio::where('url', $url_negocio)->first()) {
-
-
-            // $libros = IeteLibro::with(['lecciones' => function($lecciones){
-            //                     $lecciones->with('temas');
-            //                 }])->select('id','titulo','subtitulo')->get();
-
-            // $imagenes = $negocio->with(['productos' =>function($productos){
-            //                 $productos->with('imagenes');
-            //             }])->get();
-
-            $productos = $negocio->productos()->get();
-
-            // return $productos;
-
-            return view('public.index', compact('negocio','productos'));
+            return view('public.index', compact('negocio'));
         }else{
             return 'no se encuentra..';
+        }
+    }
+
+    public function buscar_imagenes_random(Request $request, $url_negocio){
+        if ($request->ajax()) {
+
+
+
+
+
+
+            if ($negocio = Negocio::where('url', $url_negocio)->first()) {
+                $imagenes = ProductoImagen::select('productos_imagenes.*')
+                                            ->join('productos', 'productos.id', '=', 'productos_imagenes.producto_id')
+                                            ->where('productos.negocio_id','=', $negocio->id)
+                                            //->orderBy(DB::raw('RAND(1234)'))
+                                            ->inRandomOrder('1234')
+                                            ->paginate($this->cant_reg);
+                return $imagenes;
+            }
         }
     }
 

@@ -341,8 +341,13 @@ class ProductoController extends Controller
         foreach ($imagenes as $imagen) {
             Storage::delete('public/'.$imagen->imagen);
         }
+        // borro las imagenes del producto
         $imagenes = ProductoImagen::where('producto_id',$id)->forceDelete();
+        // elimino las relaciones de los albumes que tiene con el productro que estoy por eliminar
+        $productos_relacion = ProductoRelacion::where('producto_id', $id)->forceDelete();
+        // elimino el producto propiamente.
         $producto->forceDelete();
+
         return 'ok';
     }
 

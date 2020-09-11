@@ -29,7 +29,7 @@ Vue.component('productos', require('./components/productos/Productos.vue'));
 Vue.component('producto-formulario', require('./components/productos/ProductoFormulario.vue'));
 Vue.component('productos-seleccionar', require('./components/productos/ProductosSeleccionar.vue'));
 
-Vue.component('layout-columnas', require('./components/layout_public/ModeloColumnas.vue'));
+Vue.component('layout-columnas', require('./components/layout_public/LayoutColumnas.vue'));
 
 import router from './routes'
 import myMixin from './mixins'

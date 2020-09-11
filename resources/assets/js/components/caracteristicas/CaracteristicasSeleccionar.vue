@@ -110,9 +110,14 @@
         	}
         },
         mounted() {
+            var self_caracteristicas = this;
+            $(window).on('popstate', function() {
+                self_caracteristicas.view = false;
+            });
         },
         methods:{
         	mostrar() {
+                history.pushState('', 'Categorías', '/seleccionar/categorias');
         		this.view = true;
                 this.caracteristicas_view = this.caracteristicas;
 
@@ -172,9 +177,9 @@
         		self = this;
                 setTimeout(function(){
                     self.view = false;
+                    history.go(-1)
                     },
                 50);
-
         	},
         	guardar(){
         		this.caracteristicas.forEach(function(item){
