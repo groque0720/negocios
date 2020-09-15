@@ -7,6 +7,8 @@
 
 require('./bootstrap');
 
+require('vue-image-lightbox/dist/vue-image-lightbox.min.css')
+
 window.Vue = require('vue');
 
 /**
@@ -29,10 +31,15 @@ Vue.component('productos', require('./components/productos/Productos.vue'));
 Vue.component('producto-formulario', require('./components/productos/ProductoFormulario.vue'));
 Vue.component('productos-seleccionar', require('./components/productos/ProductosSeleccionar.vue'));
 
-Vue.component('layout-columnas', require('./components/layout_public/LayoutColumnas.vue'));
+Vue.component('layout-public', require('./components/layout_public/Layout.vue'));
+Vue.component('layout-grid-columnas', require('./components/layout_public/GridColumnas.vue'));
+Vue.component('layout-grid-albumes', require('./components/layout_public/GridAlbumes.vue'));
+Vue.component('layout-producto', require('./components/layout_public/Producto.vue'));
 
 import router from './routes'
 import myMixin from './mixins'
+
+
 
 const app = new Vue({
     el: '#app',

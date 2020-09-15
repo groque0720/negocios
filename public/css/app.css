@@ -533,6 +533,11 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
+.cursor-lupa {
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+
 .display-none {
   display: none !important;
 }
@@ -654,6 +659,11 @@ input:checked + .slider:before {
 }
 
 /*-------------------*/
+
+.flex-no-wrap {
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
 
 .form {
   background: white;

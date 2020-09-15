@@ -66,3 +66,7 @@
 	align-content: stretch;
 }
 /*-------------------*/
+
+.flex-no-wrap {
+	flex-wrap: nowrap;
+}

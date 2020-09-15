@@ -106,3 +106,6 @@ Route::group(['middleware' => 'auth'], function(){
 
 Route::get('/{url_negocio}','Negocio\NegocioController@public_index');
 Route::get('/{url_negocio}/buscar_imagenes_random','Negocio\NegocioController@buscar_imagenes_random');
+Route::get('/{url_negocio}/buscar_albumes','Negocio\NegocioController@buscar_albumes');
+Route::get('/{url_negocio}/producto/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
+Route::get('/{url_negocio}/album/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');

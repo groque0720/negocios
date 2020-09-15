@@ -19,7 +19,7 @@ class Producto extends Model
     }
 
     public function imagenes(){
-    	return $this->hasMany(ProductoImagen::class);
+    	return $this->hasMany(ProductoImagen::class)->orderBy('posicion');
     }
 
     public function relacionados(){

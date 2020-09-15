@@ -14,7 +14,20 @@ class NegocioController extends Controller
 {
     protected $cant_reg = 10;
 
-    public function public_index($url_negocio){
+    public function public_index(Request $request, $url_negocio){
+
+            if ($request->session()->has('session_rand')) {
+                if((time() - $request->session()->get('session_rand')) > 100){
+                    $request->session()->put('session_rand', time());
+                }
+            }else{
+                $request->session()->put('session_rand', time());
+            }
+
+
+            // dd($request->session()->get('session_rand'));
+
+
         if ($negocio = Negocio::where('url', $url_negocio)->first()) {
             return view('public.index', compact('negocio'));
         }else{
@@ -22,25 +35,68 @@ class NegocioController extends Controller
         }
     }
 
+    // Popurri
     public function buscar_imagenes_random(Request $request, $url_negocio){
         if ($request->ajax()) {
-
-
-
-
-
-
             if ($negocio = Negocio::where('url', $url_negocio)->first()) {
-                $imagenes = ProductoImagen::select('productos_imagenes.*')
+                $imagenes = ProductoImagen::select('productos_imagenes.*', 'productos.producto','productos.codigo AS producto_codigo')
                                             ->join('productos', 'productos.id', '=', 'productos_imagenes.producto_id')
                                             ->where('productos.negocio_id','=', $negocio->id)
-                                            //->orderBy(DB::raw('RAND(1234)'))
-                                            ->inRandomOrder('1234')
+                                            ->where('productos.guardar','=', 1)
+                                            ->orderBy(DB::raw('RAND('.$request->session()->get('session_rand').')'))
+                                            //->inRandomOrder($request->session()->get('session_rand'))
                                             ->paginate($this->cant_reg);
                 return $imagenes;
             }
         }
     }
+    // Albumes
+    public function buscar_albumes(Request $request, $url_negocio){
+        if ($request->ajax()) {
+            if ($negocio = Negocio::where('url', $url_negocio)->first()) {
+
+                $albumes = Producto::where('productos.negocio_id','=', $negocio->id)
+                                        ->where('tipo_id','=',2)
+                                        ->where('guardar','=',1)
+                                        ->with(['imagenes','relacionados' => function($relacionados){
+                                            $relacionados->with('categorias');
+                                        }])->paginate($this->cant_reg);
+
+                // $productos = Producto::where('productos.negocio_id','=', $negocio->id)
+                //                         ->where('tipo_id','=',1)
+                //                         ->where('guardar','=',1)
+                //                         ->with(['imagenes','relacionados' => function($relacionados){
+                //                             $relacionados->with('categorias');
+                //                         }])->get();
+
+                return $albumes;
+            }
+        }
+    }
+
+    public function mostrar_producto(Request $request, $url_negocio, $codigo, $imagen_id =''){
+
+        // if ($request->ajax()) {
+            if ($negocio = Negocio::where('url', $url_negocio)->first()) {
+                $producto = Producto::where('productos.codigo','=',$codigo)
+                        // ->where('tipo_id','=',1)
+                        ->where('productos.negocio_id','=', $negocio->id)
+                        ->where('guardar','=',1)
+                        ->with(['caracteristicas','categorias','imagenes','relacionados' => function($relacionados){
+                            $relacionados->with('categorias');
+                        }])->first();
+                // return $producto;
+            }
+        // }
+
+        return view('public.producto', compact('negocio','producto', 'imagen_id'));
+
+    }
+
+
+
+
+
 
     /**
      * Display a listing of the resource.
@@ -124,7 +180,7 @@ class NegocioController extends Controller
             if ($negocio->logo != 'public/logo_default_negocio.png') {
                 Storage::delete($negocio->logo);
             }
-            $logo = $request->file('logo')->store('public/'.$negocio->url);
+            $logo = $request->file('logo')->store($negocio->url);
             $negocio->logo = $logo;
         }
         $negocio->save();

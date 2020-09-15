@@ -16,6 +16,9 @@ export default {
 		return {
 		}
 	},
+	mounted(){
+
+	},
   	methods: {
 		formatoPrecio(value) {
 			//value = value.replace(/^0+/, '');

@@ -4,6 +4,7 @@
 
 @section('contenido')
 
-	<layout-columnas v-bind:negocio="{{ $negocio }}"></layout-columnas>
+	{{-- <layout-public v-bind:negocio="{{ $negocio }}"></layout-public> --}}
+	<layout-grid-columnas v-bind:negocio="{{ $negocio }}"></layout-grid-columnas>
 
 @endsection

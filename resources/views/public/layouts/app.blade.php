@@ -13,19 +13,19 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="scrollbar" id="style-3">
     <div id="app">
-        <a class="ir-arriba" title="Volver arriba">
+{{--         <a class="ir-arriba" title="Volver arriba">
             <div class="flex flex-content-center flex-item-center">
                 <i class="fas fa-arrow-up"></i>
             </div>
-        </a>
+        </a> --}}
         <div class="margen-auto flex flex-space-between flex-direction-column" style="min-height: 100vh;">
             <div class="ancho-100 flex flex-direction-column">
                 <header class="m-b-5">
                    @include('public.layouts.parciales.cabecera')
                 </header>
-                <section class="flex flex-content-center m-h-10" style="margin-top: 75px;">
+                <section class="flex flex-content-center m-h-10" style="margin-top: 55px;">
                    {{--  @include('public.layouts.parciales.mensajes') --}}
                     @yield('contenido')
                 </section>
