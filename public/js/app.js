@@ -70,6 +70,443 @@
 "use strict";
 
 
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+// eslint-disable-next-line func-names
+module.exports = function (useSourceMap) {
+  var list = []; // return the list of modules as css string
+
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item, useSourceMap);
+
+      if (item[2]) {
+        return "@media ".concat(item[2], " {").concat(content, "}");
+      }
+
+      return content;
+    }).join('');
+  }; // import a list of modules into the list
+  // eslint-disable-next-line func-names
+
+
+  list.i = function (modules, mediaQuery, dedupe) {
+    if (typeof modules === 'string') {
+      // eslint-disable-next-line no-param-reassign
+      modules = [[null, modules, '']];
+    }
+
+    var alreadyImportedModules = {};
+
+    if (dedupe) {
+      for (var i = 0; i < this.length; i++) {
+        // eslint-disable-next-line prefer-destructuring
+        var id = this[i][0];
+
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
+      }
+    }
+
+    for (var _i = 0; _i < modules.length; _i++) {
+      var item = [].concat(modules[_i]);
+
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+
+      if (mediaQuery) {
+        if (!item[2]) {
+          item[2] = mediaQuery;
+        } else {
+          item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
+        }
+      }
+
+      list.push(item);
+    }
+  };
+
+  return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+  var content = item[1] || ''; // eslint-disable-next-line prefer-destructuring
+
+  var cssMapping = item[3];
+
+  if (!cssMapping) {
+    return content;
+  }
+
+  if (useSourceMap && typeof btoa === 'function') {
+    var sourceMapping = toComment(cssMapping);
+    var sourceURLs = cssMapping.sources.map(function (source) {
+      return "/*# sourceURL=".concat(cssMapping.sourceRoot || '').concat(source, " */");
+    });
+    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+  }
+
+  return [content].join('\n');
+} // Adapted from convert-source-map (MIT)
+
+
+function toComment(sourceMap) {
+  // eslint-disable-next-line no-undef
+  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+  var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+  return "/*# ".concat(data, " */");
+}
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+var listToStyles = __webpack_require__(53)
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+module.exports = function (parentId, list, _isProduction, _options) {
+  isProduction = _isProduction
+
+  options = _options || {}
+
+  var styles = listToStyles(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = listToStyles(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var bind = __webpack_require__(6);
 var isBuffer = __webpack_require__(22);
 
@@ -374,443 +811,6 @@ module.exports = {
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-// eslint-disable-next-line func-names
-module.exports = function (useSourceMap) {
-  var list = []; // return the list of modules as css string
-
-  list.toString = function toString() {
-    return this.map(function (item) {
-      var content = cssWithMappingToString(item, useSourceMap);
-
-      if (item[2]) {
-        return "@media ".concat(item[2], " {").concat(content, "}");
-      }
-
-      return content;
-    }).join('');
-  }; // import a list of modules into the list
-  // eslint-disable-next-line func-names
-
-
-  list.i = function (modules, mediaQuery, dedupe) {
-    if (typeof modules === 'string') {
-      // eslint-disable-next-line no-param-reassign
-      modules = [[null, modules, '']];
-    }
-
-    var alreadyImportedModules = {};
-
-    if (dedupe) {
-      for (var i = 0; i < this.length; i++) {
-        // eslint-disable-next-line prefer-destructuring
-        var id = this[i][0];
-
-        if (id != null) {
-          alreadyImportedModules[id] = true;
-        }
-      }
-    }
-
-    for (var _i = 0; _i < modules.length; _i++) {
-      var item = [].concat(modules[_i]);
-
-      if (dedupe && alreadyImportedModules[item[0]]) {
-        // eslint-disable-next-line no-continue
-        continue;
-      }
-
-      if (mediaQuery) {
-        if (!item[2]) {
-          item[2] = mediaQuery;
-        } else {
-          item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
-        }
-      }
-
-      list.push(item);
-    }
-  };
-
-  return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-  var content = item[1] || ''; // eslint-disable-next-line prefer-destructuring
-
-  var cssMapping = item[3];
-
-  if (!cssMapping) {
-    return content;
-  }
-
-  if (useSourceMap && typeof btoa === 'function') {
-    var sourceMapping = toComment(cssMapping);
-    var sourceURLs = cssMapping.sources.map(function (source) {
-      return "/*# sourceURL=".concat(cssMapping.sourceRoot || '').concat(source, " */");
-    });
-    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-  }
-
-  return [content].join('\n');
-} // Adapted from convert-source-map (MIT)
-
-
-function toComment(sourceMap) {
-  // eslint-disable-next-line no-undef
-  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-  var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
-  return "/*# ".concat(data, " */");
-}
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-  Modified by Evan You @yyx990803
-*/
-
-var hasDocument = typeof document !== 'undefined'
-
-if (typeof DEBUG !== 'undefined' && DEBUG) {
-  if (!hasDocument) {
-    throw new Error(
-    'vue-style-loader cannot be used in a non-browser environment. ' +
-    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-  ) }
-}
-
-var listToStyles = __webpack_require__(53)
-
-/*
-type StyleObject = {
-  id: number;
-  parts: Array<StyleObjectPart>
-}
-
-type StyleObjectPart = {
-  css: string;
-  media: string;
-  sourceMap: ?string
-}
-*/
-
-var stylesInDom = {/*
-  [id: number]: {
-    id: number,
-    refs: number,
-    parts: Array<(obj?: StyleObjectPart) => void>
-  }
-*/}
-
-var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-var singletonElement = null
-var singletonCounter = 0
-var isProduction = false
-var noop = function () {}
-var options = null
-var ssrIdKey = 'data-vue-ssr-id'
-
-// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-// tags it will allow on a page
-var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-module.exports = function (parentId, list, _isProduction, _options) {
-  isProduction = _isProduction
-
-  options = _options || {}
-
-  var styles = listToStyles(parentId, list)
-  addStylesToDom(styles)
-
-  return function update (newList) {
-    var mayRemove = []
-    for (var i = 0; i < styles.length; i++) {
-      var item = styles[i]
-      var domStyle = stylesInDom[item.id]
-      domStyle.refs--
-      mayRemove.push(domStyle)
-    }
-    if (newList) {
-      styles = listToStyles(parentId, newList)
-      addStylesToDom(styles)
-    } else {
-      styles = []
-    }
-    for (var i = 0; i < mayRemove.length; i++) {
-      var domStyle = mayRemove[i]
-      if (domStyle.refs === 0) {
-        for (var j = 0; j < domStyle.parts.length; j++) {
-          domStyle.parts[j]()
-        }
-        delete stylesInDom[domStyle.id]
-      }
-    }
-  }
-}
-
-function addStylesToDom (styles /* Array<StyleObject> */) {
-  for (var i = 0; i < styles.length; i++) {
-    var item = styles[i]
-    var domStyle = stylesInDom[item.id]
-    if (domStyle) {
-      domStyle.refs++
-      for (var j = 0; j < domStyle.parts.length; j++) {
-        domStyle.parts[j](item.parts[j])
-      }
-      for (; j < item.parts.length; j++) {
-        domStyle.parts.push(addStyle(item.parts[j]))
-      }
-      if (domStyle.parts.length > item.parts.length) {
-        domStyle.parts.length = item.parts.length
-      }
-    } else {
-      var parts = []
-      for (var j = 0; j < item.parts.length; j++) {
-        parts.push(addStyle(item.parts[j]))
-      }
-      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
-    }
-  }
-}
-
-function createStyleElement () {
-  var styleElement = document.createElement('style')
-  styleElement.type = 'text/css'
-  head.appendChild(styleElement)
-  return styleElement
-}
-
-function addStyle (obj /* StyleObjectPart */) {
-  var update, remove
-  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
-
-  if (styleElement) {
-    if (isProduction) {
-      // has SSR styles and in production mode.
-      // simply do nothing.
-      return noop
-    } else {
-      // has SSR styles but in dev mode.
-      // for some reason Chrome can't handle source map in server-rendered
-      // style tags - source maps in <style> only works if the style tag is
-      // created and inserted dynamically. So we remove the server rendered
-      // styles and inject new ones.
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  if (isOldIE) {
-    // use singleton mode for IE9.
-    var styleIndex = singletonCounter++
-    styleElement = singletonElement || (singletonElement = createStyleElement())
-    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
-  } else {
-    // use multi-style-tag mode in all other cases
-    styleElement = createStyleElement()
-    update = applyToTag.bind(null, styleElement)
-    remove = function () {
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  update(obj)
-
-  return function updateStyle (newObj /* StyleObjectPart */) {
-    if (newObj) {
-      if (newObj.css === obj.css &&
-          newObj.media === obj.media &&
-          newObj.sourceMap === obj.sourceMap) {
-        return
-      }
-      update(obj = newObj)
-    } else {
-      remove()
-    }
-  }
-}
-
-var replaceText = (function () {
-  var textStore = []
-
-  return function (index, replacement) {
-    textStore[index] = replacement
-    return textStore.filter(Boolean).join('\n')
-  }
-})()
-
-function applyToSingletonTag (styleElement, index, remove, obj) {
-  var css = remove ? '' : obj.css
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = replaceText(index, css)
-  } else {
-    var cssNode = document.createTextNode(css)
-    var childNodes = styleElement.childNodes
-    if (childNodes[index]) styleElement.removeChild(childNodes[index])
-    if (childNodes.length) {
-      styleElement.insertBefore(cssNode, childNodes[index])
-    } else {
-      styleElement.appendChild(cssNode)
-    }
-  }
-}
-
-function applyToTag (styleElement, obj) {
-  var css = obj.css
-  var media = obj.media
-  var sourceMap = obj.sourceMap
-
-  if (media) {
-    styleElement.setAttribute('media', media)
-  }
-  if (options.ssrId) {
-    styleElement.setAttribute(ssrIdKey, obj.id)
-  }
-
-  if (sourceMap) {
-    // https://developer.chrome.com/devtools/docs/javascript-debugging
-    // this makes source maps inside style tags work properly in Chrome
-    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-    // http://stackoverflow.com/a/26603875
-    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-  }
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = css
-  } else {
-    while (styleElement.firstChild) {
-      styleElement.removeChild(styleElement.firstChild)
-    }
-    styleElement.appendChild(document.createTextNode(css))
-  }
-}
-
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
@@ -844,7 +844,7 @@ module.exports = g;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 var normalizeHeaderName = __webpack_require__(24);
 
 var DEFAULT_CONTENT_TYPE = {
@@ -1152,7 +1152,7 @@ process.umask = function() { return 0; };
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 var settle = __webpack_require__(25);
 var buildURL = __webpack_require__(27);
 var parseHeaders = __webpack_require__(28);
@@ -1415,7 +1415,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(76)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(78)
 /* template */
@@ -1462,7 +1462,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-module.exports = __webpack_require__(114);
+module.exports = __webpack_require__(124);
 
 
 /***/ }),
@@ -1471,8 +1471,8 @@ module.exports = __webpack_require__(114);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__routes__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__routes__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(121);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -1507,9 +1507,11 @@ Vue.component('producto-formulario', __webpack_require__(13));
 Vue.component('productos-seleccionar', __webpack_require__(82));
 
 Vue.component('layout-public', __webpack_require__(87));
-Vue.component('layout-grid-columnas', __webpack_require__(92));
-Vue.component('layout-grid-albumes', __webpack_require__(97));
-Vue.component('layout-producto', __webpack_require__(102));
+Vue.component('layout-cabecera', __webpack_require__(92));
+Vue.component('layout-grid-columnas', __webpack_require__(97));
+Vue.component('layout-grid-albumes', __webpack_require__(102));
+Vue.component('layout-producto', __webpack_require__(107));
+Vue.component('layout-productos-mismas-categorias', __webpack_require__(114));
 
 
 
@@ -1525,7 +1527,7 @@ var app = new Vue({
 ////in components
 // -> console.log(this.$appName)
 
-__webpack_require__(112);
+__webpack_require__(122);
 
 /***/ }),
 /* 16 */
@@ -29676,7 +29678,7 @@ module.exports = __webpack_require__(21);
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 var bind = __webpack_require__(6);
 var Axios = __webpack_require__(23);
 var defaults = __webpack_require__(5);
@@ -29763,7 +29765,7 @@ function isSlowBuffer (obj) {
 
 
 var defaults = __webpack_require__(5);
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 var InterceptorManager = __webpack_require__(32);
 var dispatchRequest = __webpack_require__(33);
 
@@ -29848,7 +29850,7 @@ module.exports = Axios;
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -29928,7 +29930,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -30003,7 +30005,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -30063,7 +30065,7 @@ module.exports = function parseHeaders(headers) {
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -30181,7 +30183,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -30241,7 +30243,7 @@ module.exports = (
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -30300,7 +30302,7 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 var transformData = __webpack_require__(34);
 var isCancel = __webpack_require__(10);
 var defaults = __webpack_require__(5);
@@ -30393,7 +30395,7 @@ module.exports = function dispatchRequest(config) {
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(3);
 
 /**
  * Transform the data for a request or a response
@@ -30589,7 +30591,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, ".vue-lb-box{width:100%}.vue-lb-container{align-items:center;background-color:rgba(0,0,0,.8);box-sizing:border-box;display:-moz-box;display:-ms-flexbox;display:-webkit-box;display:-webkit-flex;display:flex;height:100%;justify-content:center;left:0;padding:10px;position:fixed;top:0;width:100%;z-index:2000;-webkit-align-items:center;-moz-box-sizing:border-box;-webkit-justify-content:center;-ms-flex-align:center;-webkit-box-align:center;-ms-flex-pack:center;-webkit-box-pack:center}.vue-lb-content{margin-bottom:60px;max-width:1024px;position:relative}.vue-lb-header{display:-moz-box;display:-ms-flexbox;display:-webkit-box;display:-webkit-flex;display:flex;justify-content:space-between;height:40px;-webkit-justify-content:space-between;-ms-flex-pack:justify;-webkit-box-pack:justify}.vue-lb-button-close{background:none;border:none;cursor:pointer;outline:none;position:relative;top:0;vertical-align:bottom;height:40px;margin-right:-10px;padding:10px;width:40px}.vue-lb-figure{margin:0;display:block;position:relative}img.vue-lb-modal-image{max-height:calc(100vh - 140px);cursor:pointer;display:block;height:auto;margin:0 auto;max-width:100%;user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}.vue-lb-info{visibility:initial;position:absolute;bottom:25px;color:#fff;background-color:rgba(0,0,0,.7);height:40px;width:100%;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;text-align:center}.vue-lb-footer{box-sizing:border-box;color:#fff;cursor:auto;display:-moz-box;display:-ms-flexbox;display:-webkit-box;display:-webkit-flex;display:flex;justify-content:space-between;left:0;line-height:1.3;padding:5px 0;-moz-box-sizing:border-box;-webkit-justify-content:space-between;-ms-flex-pack:justify;-webkit-box-pack:justify}.vue-lb-footer-info{display:block;flex:1 1 0;-webkit-flex:1 1 0;-ms-flex:1 1 0}.vue-lb-footer-count{color:hsla(0,0%,100%,.75);font-size:.85em;padding-left:1em}.vue-lb-thumbnail{bottom:10px;height:50px;padding:0 50px;text-align:center;white-space:nowrap;display:inline-block;position:relative}.vue-lb-modal-thumbnail{box-shadow:inset 0 0 0 1px hsla(0,0%,100%,.2)}.vue-lb-modal-thumbnail,.vue-lb-modal-thumbnail-active{background-position:50%;background-size:cover;border-radius:2px;cursor:pointer;display:inline-block;height:50px;margin:2px;overflow:hidden;width:50px}.vue-lb-modal-thumbnail-active{box-shadow:inset 0 0 0 2px #fff}.vue-lb-thumbnail-arrow{height:54px;width:40px;background:none;border:none;border-radius:4px;cursor:pointer;outline:none;padding:10px;position:absolute;top:50%;-webkit-touch-callout:none;user-select:none;height:50px;margin-top:-25px;width:30px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}.vue-lb-thumbnail-left{left:10px}.vue-lb-thumbnail-right{right:10px}.vue-lb-arrow{background:none;border:none;border-radius:4px;cursor:pointer;outline:none;padding:10px;position:absolute;top:50%;-webkit-touch-callout:none;user-select:none;height:120px;margin-top:-60px;width:40px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}.vue-lb-left{left:10px}.vue-lb-right{right:10px}.vue-lb-open{overflow:hidden}.vue-lb-thumbnail-wrapper{bottom:10px;height:50px;left:0;margin:0 auto;position:absolute;right:0;text-align:center;top:auto}@media (min-width:500px){.vue-lb-thumbnail-arrow{width:40px}}@media (min-width:768px){.vue-lb-arrow{width:70px}}.vue-lb-modal-image-transition-enter-active,.vue-lb-modal-image-transition-leave-active{transition:opacity .2s ease}.vue-lb-modal-image-transition-enter,.vue-lb-modal-image-transition-leave-to{opacity:0}.vue-lb-modal-image-no-transition-enter-active,.vue-lb-modal-image-no-transition-leave-active{transition:none}.vue-lb-modal-image-no-transition-enter,.vue-lb-modal-image-no-transition-leave-to{opacity:0}.vue-lb-content-transition-enter-active,.vue-lb-content-transition-leave-active{transition:opacity .2s ease}.vue-lb-content-transition-enter,.vue-lb-content-transition-leave-to{opacity:0}", ""]);
@@ -43297,7 +43299,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(48)
 /* template */
@@ -43418,7 +43420,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(51)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(54)
 /* template */
@@ -43471,7 +43473,7 @@ var content = __webpack_require__(52);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("5a251174", content, false, {});
+var update = __webpack_require__(2)("5a251174", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -43491,7 +43493,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, "\n.zona-busqueda[data-v-88afdef0] {\n    border: 1px solid #ccc;\n    border-radius: 35px;\n    height: 40px;\n    padding-left: 7px;\n    padding-right: 7px;\n}\n.zona-busqueda[data-v-88afdef0]:focus-within {\n    border: 1px solid var(--main-ppal-color);\n}\n.input-busqueda[data-v-88afdef0] {\n    width: 100%;\n    padding: 10px;\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n    border: 0px;\n}\n.input-busqueda[data-v-88afdef0]:focus {\n    outline:none !important;\n    outline-width: 0 !important;\n    box-shadow: none;\n    -moz-box-shadow: none;\n    -webkit-box-shadow: none;\n}\n.lista-linea[data-v-88afdef0] {\n    padding: 10px;\n    border-bottom: 1px solid #ccc;\n}\n.lista-linea[data-v-88afdef0]:first-child {\n    border-top: 1px solid #ccc;\n}\n.zona-agregar:hover .zona-agregar-btn[data-v-88afdef0]{\n    background: var(--main-ppal-color);\n}\n.zona-agregar:hover span[data-v-88afdef0], .zona-agregar:hover i[data-v-88afdef0]{\n    color: white;\n}\n.zona-acciones[data-v-88afdef0]{\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n.form-lienzo[data-v-88afdef0]{\n    height: 100vh;\n    width: 100%;\n    background: rgba(0,0,0,0.2);\n    position: fixed;\n    left: 0;\n    top: 0;\n    padding-top: 40px;\n}\n", ""]);
@@ -44200,7 +44202,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(57)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(59)
 /* template */
@@ -44253,7 +44255,7 @@ var content = __webpack_require__(58);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("b9ec0fda", content, false, {});
+var update = __webpack_require__(2)("b9ec0fda", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -44273,7 +44275,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, "\n.no-seleccionado[data-v-04cb17b6] {\n\tcolor: #ccc;\n}\n", ""]);
@@ -45036,7 +45038,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(62)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(64)
 /* template */
@@ -45089,7 +45091,7 @@ var content = __webpack_require__(63);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("1e1a1605", content, false, {});
+var update = __webpack_require__(2)("1e1a1605", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -45109,7 +45111,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, "\n.zona-busqueda[data-v-99a50ec0] {\n    border: 1px solid #ccc;\n    border-radius: 35px;\n    height: 40px;\n    padding-left: 7px;\n    padding-right: 7px;\n}\n.zona-busqueda[data-v-99a50ec0]:focus-within {\n    border: 1px solid var(--main-ppal-color);\n}\n.input-busqueda[data-v-99a50ec0] {\n    width: 100%;\n    padding: 10px;\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n    border: 0px;\n}\n.input-busqueda[data-v-99a50ec0]:focus {\n    outline:none !important;\n    outline-width: 0 !important;\n    box-shadow: none;\n    -moz-box-shadow: none;\n    -webkit-box-shadow: none;\n}\n.lista-linea[data-v-99a50ec0] {\n    padding: 10px;\n    border-bottom: 1px solid #ccc;\n}\n.lista-linea[data-v-99a50ec0]:first-child {\n    border-top: 1px solid #ccc;\n}\n.zona-agregar:hover .zona-agregar-btn[data-v-99a50ec0]{\n    background: var(--main-ppal-color);\n}\n.zona-agregar:hover span[data-v-99a50ec0], .zona-agregar:hover i[data-v-99a50ec0]{\n    color: white;\n}\n.zona-acciones[data-v-99a50ec0]{\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n.form-lienzo[data-v-99a50ec0]{\n    height: 100vh;\n    width: 100%;\n    background: rgba(0,0,0,0.2);\n    position: fixed;\n    left: 0;\n    top: 0;\n    padding-top: 40px;\n}\n", ""]);
@@ -45782,7 +45784,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(67)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(69)
 /* template */
@@ -45835,7 +45837,7 @@ var content = __webpack_require__(68);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("fe5c0844", content, false, {});
+var update = __webpack_require__(2)("fe5c0844", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -45855,7 +45857,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, "\n.no-seleccionado[data-v-7bfc309e] {\n\tcolor: #ccc;\n}\n", ""]);
@@ -46633,7 +46635,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(72)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(74)
 /* template */
@@ -46686,7 +46688,7 @@ var content = __webpack_require__(73);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("255fbb0a", content, false, {});
+var update = __webpack_require__(2)("255fbb0a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -46706,7 +46708,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, "\n.zona-busqueda[data-v-4ab9d630] {\n    border: 1px solid #ccc;\n    border-radius: 35px;\n    height: 40px;\n    padding-left: 7px;\n    padding-right: 7px;\n}\n.zona-busqueda[data-v-4ab9d630]:focus-within {\n    border: 1px solid var(--main-ppal-color);\n}\n.input-busqueda[data-v-4ab9d630] {\n    width: 100%;\n    padding: 10px;\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n    border: 0px;\n}\n.input-busqueda[data-v-4ab9d630]:focus {\n    outline:none !important;\n    outline-width: 0 !important;\n    box-shadow: none;\n    -moz-box-shadow: none;\n    -webkit-box-shadow: none;\n}\n.lista-linea[data-v-4ab9d630] {\n    padding: 5px;\n    border-bottom: 1px solid #ccc;\n}\n.lista-linea[data-v-4ab9d630]:first-child {\n    border-top: 1px solid #ccc;\n}\n.lista-linea-activa[data-v-4ab9d630] {\n    background: #ECECEC;\n}\n.zona-agregar:hover .zona-agregar-btn[data-v-4ab9d630]{\n    background: var(--main-ppal-color);\n}\n.zona-agregar:hover span[data-v-4ab9d630], .zona-agregar:hover i[data-v-4ab9d630]{\n    color:  var(--main-ppal-color);\n}\n.zona-acciones[data-v-4ab9d630]{\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n.form-lienzo[data-v-4ab9d630]{\n    height: 100vh;\n    width: 100%;\n    background: rgba(0,0,0,0.2);\n    position: fixed;\n    left: 0;\n    top: 0;\n    padding-top: 40px;\n}\n", ""]);
@@ -47373,7 +47375,7 @@ var content = __webpack_require__(77);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("58bf84a2", content, false, {});
+var update = __webpack_require__(2)("58bf84a2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -47393,7 +47395,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, "\ni[data-v-72c630a5]{\n        -webkit-transition: all 500ms ease-in-out;\n        -moz-transition: all 500ms ease-in-out;\n        -o-transition: all 500ms ease-in-out;\n        -ms-transition: all 500ms ease-in-out;\n}\n.rotate[data-v-72c630a5]{\n\t\t-webkit-transform: rotate(180deg);\n\t\t        transform: rotate(180deg);\n\t\tz-index: -0;\n}\n.categoria-item[data-v-72c630a5] {\n\t\tmin-width: 25%;\n\t\tmax-width: 40%;\n\t\tmargin: 5px;\n\t\tpadding: 5pxs;\n\t\tborder: 1px solid #17A6EC;\n\t\tborder-radius: 20px;\n}\n.input-ingrese-valor[data-v-72c630a5] {\n\t\tbackground: #EDD1D1 !important;\n}\ndiv#div_file[data-v-72c630a5]{\n        position:relative;\n        cursor: pointer;\n        /*margin:50px;*/\n        padding:5px;\n        /*width:150px;*/\n/*        background-color: #2499e3;\n        -webkit-border-radius:5px;\n        -webkit-box-shadow:0px 3px 0px #1a71a9;*/\n}\n.lista-linea[data-v-72c630a5] {\n        padding: 5px;\n        border-bottom: 1px solid #ccc;\n}\n.lista-linea.linea_0[data-v-72c630a5] {\n        border-top: 1px solid #ccc !important;\n}\n.lista-linea-activa[data-v-72c630a5] {\n        background: #ECECEC;\n}\ninput#file[data-v-72c630a5]{\n        border:1px solid black;\n        cursor: pointer;\n        position:absolute;\n        top:0px;\n        left:0px;\n        right:0px;\n        bottom:0px;\n        width:100%;\n        height:100%;\n        opacity: 0;\n}\n\n", ""]);
@@ -55538,7 +55540,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(83)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(85)
 /* template */
@@ -55591,7 +55593,7 @@ var content = __webpack_require__(84);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("95d8625c", content, false, {});
+var update = __webpack_require__(2)("95d8625c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -55611,7 +55613,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, "\n.lista-linea[data-v-5c1e8de4] {\n    padding: 5px;\n    border-bottom: 1px solid #ccc;\n}\n.lista-linea.linea_0[data-v-5c1e8de4] {\n    border-top: 1px solid #ccc !important;\n}\n.lista-linea-activa[data-v-5c1e8de4] {\n    background: #ECECEC;\n}\n", ""]);
@@ -56290,7 +56292,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(88)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(90)
 /* template */
@@ -56343,7 +56345,7 @@ var content = __webpack_require__(89);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("51c2a818", content, false, {});
+var update = __webpack_require__(2)("51c2a818", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -56363,7 +56365,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, "\n.view_activa[data-v-660f7272] {\n    color: #555 !important;\n}\n", ""]);
@@ -56373,6 +56375,183 @@ module.exports = exports;
 
 /***/ }),
 /* 90 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['negocio'],
+    data: function data() {
+        return {
+            view_activa: 1
+        };
+    },
+    mounted: function mounted() {
+        this.viewSelect(this.view_activa);
+    },
+
+    methods: {
+        viewSelect: function viewSelect(view) {
+            $('.view_icon').removeClass('view_activa');
+            $('.view_icon_' + view).addClass('view_activa');
+            this.view_activa = view;
+        }
+    }
+});
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "ancho-100" },
+    [
+      _c("layout-cabecera", { attrs: { negocio: _vm.negocio } }),
+      _vm._v(" "),
+      _vm.view_activa == 1
+        ? _c("layout-grid-columnas", { attrs: { negocio: _vm.negocio } })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.view_activa == 2
+        ? _c("layout-grid-albumes", { attrs: { negocio: _vm.negocio } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-660f7272", module.exports)
+  }
+}
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(93)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(95)
+/* template */
+var __vue_template__ = __webpack_require__(96)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-28e751fa"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/layout_public/Cabecera.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-28e751fa", Component.options)
+  } else {
+    hotAPI.reload("data-v-28e751fa", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(94);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("68b15db2", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-28e751fa\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Cabecera.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-28e751fa\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Cabecera.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, "\n.view_activa[data-v-28e751fa] {\n    color: #555 !important;\n}\n", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+/* 95 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -56476,7 +56655,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 91 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -56493,7 +56672,8 @@ var render = function() {
           position: "fixed",
           "z-index": "1",
           top: "0",
-          left: "0"
+          left: "0",
+          "box-shadow": "0px 1px 1px 1px #eee"
         }
       },
       [
@@ -56525,106 +56705,16 @@ var render = function() {
                 },
                 [_vm._v(_vm._s(_vm.negocio.nombre))]
               )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "ancho-30 ancho-m-20 ancho-l-15 ancho-lg-10  flex flex-item-center flex-space-between flex-content-end",
-                staticStyle: { "margin-left": "15px", "margin-right": "15px" }
-              },
-              [
-                _c("div", { staticClass: "p-l-10 m-l-5" }, [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "", title: "Popurri" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.viewSelect(1)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fas fa-th txt-gris view_icon view_icon_1"
-                      })
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "p-l-10 m-l-5" }, [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "", title: "Álbumes" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.viewSelect(2)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass:
-                          "fas fa-th-large txt-gris view_icon view_icon_2"
-                      })
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "p-l-10 p-r-10 m-l-5" }, [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "", title: "Productos" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.viewSelect(3)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass:
-                          "fas fa-th-list txt-gris view_icon view_icon_3"
-                      })
-                    ]
-                  )
-                ])
-              ]
-            )
+            ])
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _vm._m(1)
+    _vm._m(0)
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "ancho-100 flex flex-item-center flex-space-between" },
-      [
-        _c("div", { staticClass: "ancho-50 flex flex-item-center p-l-10" }),
-        _vm._v(" "),
-        _c("div", {
-          staticClass: "ancho-50 flex flex-item-center flex-content-end p-r-10"
-        })
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -56639,7 +56729,8 @@ var staticRenderFns = [
           left: "0px",
           width: "100%",
           height: "50px",
-          "padding-bottom": "10px"
+          "padding-bottom": "10px",
+          "z-index": "99"
         }
       },
       [
@@ -56660,7 +56751,7 @@ var staticRenderFns = [
                 _vm._v(" "),
                 _c("div", [
                   _vm._v(
-                    "\n                        Nosotros\n                    "
+                    "\n                            Nosotros\n                        "
                   )
                 ])
               ]
@@ -56683,7 +56774,7 @@ var staticRenderFns = [
                 _vm._v(" "),
                 _c("div", [
                   _vm._v(
-                    "\n                        Redes Sociales\n                    "
+                    "\n                            Redes\n                        "
                   )
                 ])
               ]
@@ -56706,7 +56797,7 @@ var staticRenderFns = [
                 _vm._v(" "),
                 _c("div", [
                   _vm._v(
-                    "\n                        Contacto\n                    "
+                    "\n                            Contacto\n                        "
                   )
                 ])
               ]
@@ -56722,24 +56813,24 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-660f7272", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-28e751fa", module.exports)
   }
 }
 
 /***/ }),
-/* 92 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(93)
+  __webpack_require__(98)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(95)
+var __vue_script__ = __webpack_require__(100)
 /* template */
-var __vue_template__ = __webpack_require__(96)
+var __vue_template__ = __webpack_require__(101)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -56778,17 +56869,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 93 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(94);
+var content = __webpack_require__(99);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("c7546c18", content, false, {});
+var update = __webpack_require__(2)("c7546c18", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -56804,11 +56895,11 @@ if(false) {
 }
 
 /***/ }),
-/* 94 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, "\nimg[data-v-1b4e5cb6] {\n       cursor: -webkit-zoom-in;\n       cursor: zoom-in;\n}\n.tarjeta[data-v-1b4e5cb6]  {\n        -webkit-transition: all .3s;\n        transition: all .3s;\n        -webkit-filter: brightness(90%);\n                filter: brightness(90%);\n}\n.tarjeta[data-v-1b4e5cb6]:hover {\n        -webkit-transform: scale(1.03);\n                transform: scale(1.03);\n        -webkit-filter: brightness(100%);\n                filter: brightness(100%);\n}\n.tarjeta:hover .imagen-titulo[data-v-1b4e5cb6] {\n        display: block !important;\n}\n/*    .tarjeta:hover img{\n        transform: scale(1.1);\n    }*/\n.tarjeta:hover .imagen-acciones[data-v-1b4e5cb6] {\n        display: block !important;\n}\n.imagen-titulo[data-v-1b4e5cb6] {\n        position: absolute;\n        top: 0;\n        left: 0;\n/*        height: 40px;\n        background: red;\n        background: linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,1));*/\n        padding: 5px;\n}\n.imagen-acciones[data-v-1b4e5cb6] {\n        position: absolute;\n        bottom: 0;\n        left: 0;\n}\n", ""]);
@@ -56817,7 +56908,7 @@ module.exports = exports;
 
 
 /***/ }),
-/* 95 */
+/* 100 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -56857,10 +56948,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['negocio'],
+    props: ['negocio'], //va a tener producto_id si viene del detalle de un producto, sino viene de la view principal
     data: function data() {
         return {
             nro_columnas: 0,
@@ -56870,6 +56960,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
+        // console.log(this.producto_id);
+        this.producto_id_view = this.producto_id != null ? this.producto_id : '';
         this.ancho = window.innerWidth;
         window.addEventListener('resize', this.handleResize);
         this.handleResize();
@@ -56903,11 +56995,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             console.log(this.page);
             this.page++;
-            var url = '/' + this.negocio.url + '/buscar_imagenes_random?page=' + this.page;
+            var url = '/' + this.negocio.url + '/buscar_imagenes_random/?page=' + this.page;
             axios.get(url).then(function (response) {
                 var imagenes = response.data.data;
                 if (imagenes.length) {
-                    // console.log(imagenes);
                     _this.imagenes_infinite = _this.imagenes_infinite.concat(imagenes);
                     // this.productos = this.productos_infinite;
                     $state.loaded();
@@ -56937,120 +57028,114 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 96 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "ancho-100" },
-    [
-      _c("layout-public", { attrs: { negocio: _vm.negocio } }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "ancho-100 flex p-10 " },
-        _vm._l(_vm.nro_columnas, function(columnas, c) {
-          return _c(
-            "div",
-            { staticClass: "columna-1 ancho-50" },
+  return _c("div", { staticClass: "ancho-100" }, [
+    _c(
+      "div",
+      { staticClass: "ancho-95 flex margen-auto" },
+      _vm._l(_vm.nro_columnas, function(columnas, c) {
+        return _c(
+          "div",
+          { staticClass: "ancho-50" },
+          [
             [
-              [
-                _vm._l(_vm.imagenes_infinite, function(imagen, f) {
-                  return _vm.boleanMostrar(c, f)
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "tarjeta borde-radio-5 m-10 sombra-box cursor",
-                          staticStyle: { position: "relative" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.irProducto(
-                                imagen.producto_codigo,
-                                imagen.id
-                              )
-                            }
-                          }
+              _vm._l(_vm.imagenes_infinite, function(imagen, f) {
+                return _vm.boleanMostrar(c, f)
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "tarjeta borde-radio-5 m-10 sombra-box cursor",
+                        staticStyle: {
+                          position: "relative",
+                          "margin-bottom": "15px"
                         },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "display-none imagen-titulo flex flex-item-center p-l-5 p-t-5"
-                            },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "flex flex-item-center p-r-10 p-l-10",
-                                  staticStyle: {
-                                    height: "30px",
-                                    background: "white",
-                                    "border-radius": "30px"
-                                  }
-                                },
-                                [
-                                  _c("span", { staticClass: "txt-negrita" }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.$root.truncarTexto(
-                                          imagen.producto,
-                                          30
-                                        )
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.irProducto(
+                              imagen.producto_codigo,
+                              imagen.id
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "display-none imagen-titulo flex flex-item-center p-l-5 p-t-5"
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "flex flex-item-center p-r-10 p-l-10",
+                                staticStyle: {
+                                  height: "30px",
+                                  background: "white",
+                                  "border-radius": "30px"
+                                }
+                              },
+                              [
+                                _c("span", { staticClass: "txt-negrita" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.$root.truncarTexto(
+                                        imagen.producto,
+                                        30
                                       )
                                     )
-                                  ])
-                                ]
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "imagen flex" }, [
-                            _c("img", {
-                              staticClass: "ancho-100",
-                              staticStyle: { "object-fit": "cover" },
-                              attrs: {
-                                src: "/storage/" + imagen.imagen,
-                                alt: ""
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    : _vm._e()
-                }),
-                _vm._v(" "),
-                _c(
-                  "infinite-loading",
-                  { on: { infinite: _vm.InfiniteHandler } },
-                  [
-                    _c("div", { attrs: { slot: "no-more" }, slot: "no-more" }),
-                    _vm._v(" "),
-                    _c("div", { attrs: { slot: "spinner" }, slot: "spinner" }),
-                    _vm._v(" "),
-                    _c("div", {
-                      attrs: { slot: "no-results" },
-                      slot: "no-results"
-                    })
-                  ]
-                )
-              ]
-            ],
-            2
-          )
-        }),
-        0
-      )
-    ],
-    1
-  )
+                                  )
+                                ])
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "imagen flex" }, [
+                          _c("img", {
+                            staticClass: "ancho-100",
+                            staticStyle: {
+                              "object-fit": "cover",
+                              "min-height": "150px"
+                            },
+                            attrs: { src: "/storage/" + imagen.imagen, alt: "" }
+                          })
+                        ])
+                      ]
+                    )
+                  : _vm._e()
+              }),
+              _vm._v(" "),
+              _c(
+                "infinite-loading",
+                { on: { infinite: _vm.InfiniteHandler } },
+                [
+                  _c("div", { attrs: { slot: "no-more" }, slot: "no-more" }),
+                  _vm._v(" "),
+                  _c("div", {
+                    attrs: { slot: "no-results" },
+                    slot: "no-results"
+                  })
+                ]
+              )
+            ]
+          ],
+          2
+        )
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57063,19 +57148,19 @@ if (false) {
 }
 
 /***/ }),
-/* 97 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(98)
+  __webpack_require__(103)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(100)
+var __vue_script__ = __webpack_require__(105)
 /* template */
-var __vue_template__ = __webpack_require__(101)
+var __vue_template__ = __webpack_require__(106)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -57114,17 +57199,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 98 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(99);
+var content = __webpack_require__(104);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("d090a6fa", content, false, {});
+var update = __webpack_require__(2)("d090a6fa", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -57140,11 +57225,11 @@ if(false) {
 }
 
 /***/ }),
-/* 99 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, "\nimg[data-v-e723fec2] {\n       cursor: -webkit-zoom-in;\n       cursor: zoom-in;\n}\n.tarjeta[data-v-e723fec2]  {\n        -webkit-transition: all .2s;\n        transition: all .2s;\n        -webkit-filter: brightness(100%);\n                filter: brightness(100%);\n}\n.tarjeta[data-v-e723fec2]:hover {\n        -webkit-transform: scale(1.01);\n                transform: scale(1.01);\n        -webkit-filter: brightness(90%);\n                filter: brightness(90%);\n}\n.tarjeta:hover .imagen-titulo[data-v-e723fec2] {\n        display: block !important;\n}\n.tarjeta:hover .imagen-acciones[data-v-e723fec2] {\n        display: block !important;\n}\n.imagen-titulo[data-v-e723fec2] {\n        position: absolute;\n        top: 0;\n        left: 0;\n/*        height: 40px;\n        background: red;\n        background: linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,1));*/\n        padding: 5px;\n}\n.imagen-acciones[data-v-e723fec2] {\n        position: absolute;\n        bottom: 0;\n        left: 0;\n}\n.scrollbar[data-v-e723fec2] {\n        height: 100%;\n        padding: 0px !important;\n}\n", ""]);
@@ -57153,7 +57238,7 @@ module.exports = exports;
 
 
 /***/ }),
-/* 100 */
+/* 105 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -57279,7 +57364,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 101 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -57470,19 +57555,19 @@ if (false) {
 }
 
 /***/ }),
-/* 102 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(103)
+  __webpack_require__(108)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(105)
+var __vue_script__ = __webpack_require__(110)
 /* template */
-var __vue_template__ = __webpack_require__(108)
+var __vue_template__ = __webpack_require__(113)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -57521,17 +57606,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 103 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(104);
+var content = __webpack_require__(109);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("089b5898", content, false, {});
+var update = __webpack_require__(2)("089b5898", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -57547,27 +57632,148 @@ if(false) {
 }
 
 /***/ }),
-/* 104 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(1);
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.scrolling-wrapper {\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n  \t-ms-flex-wrap: nowrap;\n  \t    flex-wrap: nowrap;\n  \toverflow-x: auto;\n  \t-webkit-overflow-scrolling: touch;\n  \theight: 100% !important;\n  \tpadding-bottom: 0px !important;\n}\n.scrolling-wrapper::-webkit-scrollbar {\n\t/*display: none;*/\n\theight: 10px;\n}\n.card {\n-webkit-box-flex: 0;\n    -ms-flex: 0 0 auto;\n        flex: 0 0 auto;\nmargin-right: 10px;\n}\n.card img {\n\twidth: 150px;\n\theight: 150px;\n\tcursor: -webkit-zoom-in;\n\tcursor: zoom-in;\n}\n\n", ""]);
+exports.push([module.i, "\n.titulo {\n\t\t/*font-family: 'Archivo Black', sans-serif*/\n}\n.scrolling-wrapper {\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -ms-flexbox;\n\t\tdisplay: flex;\n\t  \t-ms-flex-wrap: nowrap;\n\t  \t    flex-wrap: nowrap;\n\t  \toverflow-x: auto;\n\t  \t-webkit-overflow-scrolling: touch;\n\t  \theight: 100% !important;\n\t  \tpadding-bottom: 0px !important;\n}\n.scrolling-wrapper::-webkit-scrollbar {\n\t\t/*display: none;*/\n\t\theight: 10px;\n}\n.card {\n\t-webkit-box-flex: 0;\n\t    -ms-flex: 0 0 auto;\n\t        flex: 0 0 auto;\n\tmargin-right: 10px;\n}\n.card img {\n\t\twidth: 150px;\n\t\theight: 150px;\n\t\tcursor: -webkit-zoom-in;\n\t\tcursor: zoom-in;\n}\n@media  (min-width: 980px) and  (max-width: 1200px){\n.card img {\n\t\t\twidth: 130px !important;\n\t\t\theight: 130px !important;\n}\n}\n@media (min-width: 768px) and (max-width: 979px) {\n.card img {\n\t\t\twidth: 110px !important;\n\t\t\theight: 110px !important;\n}\n}\n@media (min-width: 480px) and (max-width: 767px) {\n.card img {\n\t\t\twidth: 90px !important;\n\t\t\theight: 90px !important;\n}\n.scrolling-wrapper::-webkit-scrollbar  {\n\t\t\tdisplay: none;\n}\n}\n@media (max-width: 479px) {\n.card img {\n\t\t\twidth: 70px !important;\n\t\t\theight: 70px !important;\n}\n.scrolling-wrapper::-webkit-scrollbar  {\n\t\t\tdisplay: none;\n}\n}\n.producto-relacionado:hover {\n\t\t/*background: #eee !important;*/\n\t\t-webkit-box-shadow: 0px 0px 3px 5px #ddd;\n\t\t        box-shadow: 0px 0px 3px 5px #ddd;\n}\n.vue-lb-footer-count {\n\t\tdisplay: none !important;\n}\n.vue-lb-figure {\n\t\tdisplay: -webkit-box !important;\n\t\tdisplay: -ms-flexbox !important;\n\t\tdisplay: flex !important;\n\t\t-webkit-box-pack: center !important;\n\t\t    -ms-flex-pack: center !important;\n\t\t        justify-content: center !important;\n\t\t-webkit-box-align: flex-center !important;\n\t\t    -ms-flex-align: flex-center !important;\n\t\t        align-items: flex-center !important;\n}\n.vue-lb-modal-image {\n/*\t\twidth: 120% !important;\n\t\tmax-width: 150% !important;\n\t\tmargin-left: -25%;\n\t\theight: auto;\n\t\tmax-height: 85vh !important;*/\n\t\t-webkit-transform: scale(1.25);\n\t\t        transform: scale(1.25);\n}\n\n", ""]);
 // Exports
 module.exports = exports;
 
 
 /***/ }),
-/* 105 */
+/* 110 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_image_lightbox__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_image_lightbox__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_image_lightbox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_image_lightbox__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_lazyload__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_lazyload__ = __webpack_require__(112);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -57619,13 +57825,25 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_lazyload__["a" /* default */]);
             images: [],
             index: 0,
             imagen_ppal: '',
-            imagen_ppal_index: 0
+            imagen_ppal_index: 0,
+            categorias_lista: this.producto.categorias
         };
     },
     mounted: function mounted() {
 
+        // configuracion boton atras
+        var self_galeria = this;
+        $(window).on('popstate', function () {
+            // remuevo clase que me quita el scroll del body
+            $('body').removeClass('vue-lb-open');
+
+            self_galeria.viewGaleria = false;
+            self_galeria.$refs.lightbox.closeLightBox();
+        });
+
+        // cargo las imagenes en el componente de la galeria
         self = this;
-        var img = [];
+        // var img = [];
         var img_ = {};
         this.producto.imagenes.forEach(function (imagen, index) {
             // busco la foto que selecciono en el grid pincipal para que sea la imagen principal de la pagina
@@ -57633,32 +57851,56 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_lazyload__["a" /* default */]);
                 self.imagen_ppal = '/storage/' + imagen.imagen;
                 self.imagen_ppal_index = index;
             }
-
             var img_ = {};
             img_.thumb = '/storage/' + imagen.imagen;
             img_.src = '/storage/' + imagen.imagen;
             self.images.push(img_);
         });
-        // this.$refs.lightbox.showThumbs = false;
+
+        // uso una variable 'categorias_lista' para que liste las categorias,
+        // pero en los albumes no tiene categorias, sino hay que listar las
+        // categorias de los productos relacionados
+        this.categorias_lista = this.producto.categorias;
+
+        // preparo las categorias del los albumes que tiene productos relacionados
+        if (this.producto.tipo_id == 2) {
+
+            this.producto.relacionados.forEach(function (relacionado) {
+                relacionado.categorias.forEach(function (categoria) {
+                    self.categorias_lista.push(categoria);
+                });
+            });
+            var hash = {};
+            // con la siguiente funcion quito los duplicados de las categorias.
+            self.categorias_lista = self.categorias_lista.filter(function (o) {
+                return hash[o.id] ? false : hash[o.id] = true;
+            });
+        }
     },
 
     methods: {
         openLightbox: function openLightbox(index) {
             this.viewGaleria = true;
             self = this;
+            history.pushState('', 'Galeria', 'galeria');
             setTimeout(function () {
                 self.$refs.lightbox.showImage(index);
-            }, 100);
+            }, 150);
         },
         closeLightBox: function closeLightBox() {
-            this.viewGaleria = true;
+            // this.viewGaleria = true;
+            history.go(-1);
+        },
+        irProducto: function irProducto(producto_codigo, id) {
+            //console.log(id);
+            window.location = '/' + this.negocio.url + '/producto/' + producto_codigo + '/' + id;
         }
     }
 
 });
 
 /***/ }),
-/* 106 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*! For license information please see vue-image-lightbox.min.js.LICENSE.txt */
@@ -57666,7 +57908,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_lazyload__["a" /* default */]);
 //# sourceMappingURL=vue-image-lightbox.min.js.map
 
 /***/ }),
-/* 107 */
+/* 112 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59478,7 +59720,7 @@ var index = {
 
 
 /***/ }),
-/* 108 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -59487,14 +59729,159 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "ancho-100  p-10" },
+    { staticClass: "ancho-100" },
     [
+      _c("layout-cabecera", { attrs: { negocio: _vm.negocio } }),
+      _vm._v(" "),
       _c(
         "div",
         {
           staticClass:
-            "flex flex-direction-column ancho-95 ancho-m-95 ancho-l-90 ancho-lg-70 p-10 margen-auto sombra-box",
-          staticStyle: { border: "1px solid #ccc", "border-radius": "15px" }
+            "ancho-100 ancho-m-80 margen-auto no-display-lg no-display-l display-m",
+          staticStyle: { background: "white" }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticStyle: { "border-radius": "15px", position: "relative" },
+              on: {
+                click: function($event) {
+                  return _vm.openLightbox(_vm.imagen_ppal_index)
+                }
+              }
+            },
+            [
+              _c("img", {
+                staticClass: "ancho-100",
+                staticStyle: { "object-fit": "cover" },
+                attrs: { src: _vm.imagen_ppal, alt: "" }
+              }),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._m(1)
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "imagenes ancho-100 p-10" }, [
+            _c(
+              "div",
+              {
+                staticClass: "scrolling-wrapper scrollbar",
+                attrs: { id: "style-2" }
+              },
+              _vm._l(_vm.producto.imagenes, function(imagen, index) {
+                return _c(
+                  "div",
+                  {
+                    staticClass: "card",
+                    staticStyle: { overflow: "hidden", position: "relative" },
+                    on: {
+                      click: function($event) {
+                        return _vm.openLightbox(index)
+                      }
+                    }
+                  },
+                  [
+                    _c("img", {
+                      staticStyle: { "object-fit": "cover" },
+                      attrs: { src: "/storage/" + imagen.imagen, alt: "" }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(2, true)
+                  ]
+                )
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "ancho-100 p-10 m-b-10" }, [
+            _c(
+              "div",
+              {
+                staticClass: "flex flex-item-center flex-content-center m-b-5"
+              },
+              [
+                _c(
+                  "span",
+                  { staticClass: "fz-30 txt-negrita txt-mayuscula titulo" },
+                  [_vm._v(_vm._s(_vm.producto.producto))]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "precio" }, [
+              _vm.producto.precio > 0
+                ? _c(
+                    "div",
+                    { staticClass: "flex flex-wrap txt-negrita fz-25" },
+                    [
+                      _c("span", { staticClass: "m-r-10 fz-25" }, [
+                        _vm._v("$")
+                      ]),
+                      _c("span", { staticClass: "fz-25" }, [
+                        _vm._v(
+                          _vm._s(_vm.$root.formatoPrecio(_vm.producto.precio))
+                        )
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "descripcion m-b-10" }, [
+              _c("span", [_vm._v(_vm._s(_vm.producto.descripcion))])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "caracteristicas m-b-10" },
+              _vm._l(_vm.producto.caracteristicas, function(caracteristica) {
+                return _c("div", [
+                  _c("div", { staticClass: "txt-negrita" }, [
+                    _vm._v(
+                      _vm._s(caracteristica.caracteristica) +
+                        " : " +
+                        _vm._s(caracteristica.pivot.valor)
+                    )
+                  ])
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "categorias m-b-10" }, [
+              _c(
+                "div",
+                { staticClass: "flex flex-wrap" },
+                _vm._l(_vm.categorias_lista, function(categoria) {
+                  return _c("div", { staticClass: "m-r-10" }, [
+                    _c("a", { staticClass: "link", attrs: { href: "" } }, [
+                      _c("span", { staticClass: "txt-celeste" }, [
+                        _vm._v("#" + _vm._s(categoria.categoria) + " ")
+                      ])
+                    ])
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "flex flex-direction-column ancho-70 p-10 margen-auto sombra-box no-display-m no-display-s no-display-sx m-t-20",
+          staticStyle: {
+            "border-radius": "15px",
+            background: "white",
+            "box-shadow": "0px 0px 20px 5px #ddd"
+          }
         },
         [
           _c(
@@ -59505,52 +59892,228 @@ var render = function() {
               staticStyle: { overflow: "hidden" }
             },
             [
-              _c("div", { staticClass: "ancho-45 flex" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "flex cursor-lupa",
-                    staticStyle: {
-                      "max-width": "100%",
-                      "max-height": "400px",
-                      "border-radius": "15px",
-                      overflow: "hidden"
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "ancho-100 flex flex-item-center flex-content-center",
+                  on: {
+                    click: function($event) {
+                      return _vm.openLightbox(_vm.imagen_ppal_index)
                     }
-                  },
-                  [
-                    _c("img", {
-                      staticClass: "ancho-100",
-                      staticStyle: { "object-fit": "cover" },
-                      attrs: { src: _vm.imagen_ppal, alt: "" },
-                      on: {
-                        click: function($event) {
-                          return _vm.openLightbox(_vm.imagen_ppal_index)
-                        }
+                  }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "flex cursor-lupa",
+                      staticStyle: {
+                        position: "relative",
+                        "max-width": "100%",
+                        "max-height": "400px",
+                        "border-radius": "15px",
+                        overflow: "hidden"
                       }
-                    })
-                  ]
-                )
-              ]),
+                    },
+                    [
+                      _c("img", {
+                        staticClass: "ancho-100",
+                        staticStyle: { "object-fit": "cover" },
+                        attrs: { src: _vm.imagen_ppal, alt: "" }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _vm._m(4)
+                    ]
+                  )
+                ]
+              ),
               _vm._v(" "),
               _c(
                 "div",
                 {
                   staticClass:
-                    "ancho-45 flex flex-direction-column flex-content-start",
-                  staticStyle: { height: "100%" }
+                    "ancho-100 p-10 m-b-10 flex flex-direction-column flex-space-between"
                 },
                 [
-                  _c("div", { staticClass: "titulo" }, [
-                    _c("h1", [_vm._v(_vm._s(_vm.producto.producto))])
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "flex flex-item-center flex-content-center m-b-5"
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "fz-28 txt-negrita txt-mayuscula titulo"
+                        },
+                        [_vm._v(_vm._s(_vm.producto.producto))]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "precio" }, [
+                    _vm.producto.precio > 0
+                      ? _c(
+                          "div",
+                          { staticClass: "flex flex-wrap txt-negrita fz-25" },
+                          [
+                            _c("span", { staticClass: "m-r-10 fz-20" }, [
+                              _vm._v("$")
+                            ]),
+                            _c("span", { staticClass: "fz-20" }, [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.$root.formatoPrecio(_vm.producto.precio)
+                                )
+                              )
+                            ])
+                          ]
+                        )
+                      : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "descripcion" }, [
-                    _c("h1", [_vm._v(_vm._s(_vm.producto.descripcion))])
+                  _c("div", { staticClass: "descripcion m-b-10" }, [
+                    _c("span", [_vm._v(_vm._s(_vm.producto.descripcion))])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "aracteristicas" }, [
-                    _c("h1", [_vm._v(_vm._s(_vm.producto.descripcion))])
-                  ])
+                  _c(
+                    "div",
+                    { staticClass: "caracteristicas m-b-10 flex flex-wrap" },
+                    _vm._l(_vm.producto.caracteristicas, function(
+                      caracteristica
+                    ) {
+                      return _c("div", { staticClass: "ancho-32 m-b-5" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "ancho-100 flex  flex-item-center flex-content-star"
+                          },
+                          [
+                            _c("div", { staticClass: "txt-negrita" }, [
+                              _vm._v(
+                                _vm._s(caracteristica.caracteristica) + " :"
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", {}, [
+                              _vm._v(_vm._s(caracteristica.pivot.valor))
+                            ])
+                          ]
+                        )
+                      ])
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "categorias m-b-10" }, [
+                    _c(
+                      "div",
+                      { staticClass: "flex flex-wrap" },
+                      _vm._l(_vm.categorias_lista, function(categoria) {
+                        return _c("div", { staticClass: "m-r-10" }, [
+                          _c(
+                            "a",
+                            { staticClass: "link", attrs: { href: "" } },
+                            [
+                              _c("span", { staticClass: "txt-celeste" }, [
+                                _vm._v("#" + _vm._s(categoria.categoria) + " ")
+                              ])
+                            ]
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "flex flex-wrap" },
+                    _vm._l(_vm.producto.relacionados, function(relacion) {
+                      return _vm.producto.relacionados
+                        ? _c(
+                            "div",
+                            {
+                              staticClass:
+                                "producto-relacionado ancho-32 flex p-5 m-b-5 cursor",
+                              staticStyle: {
+                                background: "white",
+                                "margin-right": "1%",
+                                "border-radius": "5px",
+                                "box-shadow": "0px 0px 5px 2px #ddd"
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.irProducto(relacion.codigo, "")
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "flex m-r-5",
+                                  staticStyle: { width: "50px", height: "50px" }
+                                },
+                                [
+                                  _c("img", {
+                                    staticStyle: {
+                                      "object-fit": "cover",
+                                      width: "50px",
+                                      height: "50px"
+                                    },
+                                    attrs: {
+                                      src: "/storage/" + relacion.imagen_ppal,
+                                      alt: ""
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "ancho-100 flex flex-direction-column"
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "txt-mayuscula txt-negrita fz-11 p-2"
+                                    },
+                                    [_vm._v(_vm._s(relacion.producto))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", {}, [
+                                    relacion.precio > 0
+                                      ? _c("span", { staticClass: "fz-11" }, [
+                                          _vm._v(
+                                            "$ " +
+                                              _vm._s(
+                                                _vm.$root.formatoPrecio(
+                                                  relacion.precio
+                                                )
+                                              )
+                                          )
+                                        ])
+                                      : _vm._e()
+                                  ])
+                                ]
+                              )
+                            ]
+                          )
+                        : _vm._e()
+                    }),
+                    0
+                  )
                 ]
               )
             ]
@@ -59570,7 +60133,8 @@ var render = function() {
                     staticClass: "card",
                     staticStyle: {
                       "border-radius": "10px",
-                      overflow: "hidden"
+                      overflow: "hidden",
+                      position: "relative"
                     },
                     on: {
                       click: function($event) {
@@ -59583,32 +60147,224 @@ var render = function() {
                       staticClass: "ancho-100",
                       staticStyle: { "object-fit": "cover" },
                       attrs: { src: "/storage/" + imagen.imagen, alt: "" }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _vm._m(5, true)
                   ]
                 )
               }),
               0
             )
-          ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "consultar_ws" })
         ]
       ),
       _vm._v(" "),
       _vm.viewGaleria
         ? _c("LightBox", {
             ref: "lightbox",
-            attrs: { media: _vm.images },
+            attrs: { media: _vm.images, startAt: _vm.imagen_ppal_index },
             on: {
               onClosed: function($event) {
                 return _vm.closeLightBox()
               }
             }
           })
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "m-t-20 p-5",
+          staticStyle: { background: "rgba(0,0,0,0.1)" }
+        },
+        [
+          _c("layout-productos-mismas-categorias", {
+            attrs: {
+              negocio: _vm.negocio,
+              producto: _vm.producto,
+              categorias: _vm.categorias_lista
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "m-t-10" },
+        [
+          _vm._m(6),
+          _vm._v(" "),
+          _c("layout-grid-columnas", { attrs: { negocio: _vm.negocio } })
+        ],
+        1
+      )
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "flex flex-item-center flex-content-center",
+        staticStyle: {
+          position: "absolute",
+          bottom: "15px",
+          left: "15px",
+          width: "35px",
+          height: "35px",
+          background: "rgba(0,0,0,0.5)",
+          "border-radius": "50%"
+        }
+      },
+      [_c("i", { staticClass: "fas fa-expand txt-blanco" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticStyle: {
+          position: "absolute",
+          top: "calc(50% - 50px)",
+          left: "calc(50% - 50px)"
+        }
+      },
+      [
+        _c("i", {
+          staticClass: "fas fa-search-plus",
+          staticStyle: {
+            "font-size": "100px !important",
+            color: "black",
+            opacity: "0.2"
+          }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticStyle: {
+          position: "absolute",
+          top: "calc(50% - 15px)",
+          left: "calc(50% - 15px)"
+        }
+      },
+      [
+        _c("i", {
+          staticClass: "fas fa-search-plus",
+          staticStyle: {
+            "font-size": "30px !important",
+            color: "white",
+            opacity: "0.5"
+          }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "flex flex-item-center flex-content-center",
+        staticStyle: {
+          position: "absolute",
+          bottom: "15px",
+          left: "15px",
+          width: "35px",
+          height: "35px",
+          background: "rgba(0,0,0,0.5)",
+          "border-radius": "50%"
+        }
+      },
+      [_c("i", { staticClass: "fas fa-expand txt-blanco" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "cursor-lupa",
+        staticStyle: {
+          position: "absolute",
+          top: "calc(50% - 50px)",
+          left: "calc(50% - 50px)"
+        }
+      },
+      [
+        _c("i", {
+          staticClass: "fas fa-search-plus",
+          staticStyle: {
+            "font-size": "100px !important",
+            color: "black",
+            opacity: "0.2"
+          }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "cursor-lupa",
+        staticStyle: {
+          position: "absolute",
+          top: "calc(50% - 25px)",
+          left: "calc(50% - 25px)"
+        }
+      },
+      [
+        _c("i", {
+          staticClass: "fas fa-search-plus",
+          staticStyle: {
+            "font-size": "50px !important",
+            color: "black",
+            opacity: "0.3"
+          }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "flex flex-item-center flex-content-center m-b-10" },
+      [
+        _c("span", { staticClass: "fz-18 txt-negrita txt-mayuscula" }, [
+          _vm._v("Otros")
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -59619,13 +60375,318 @@ if (false) {
 }
 
 /***/ }),
-/* 109 */
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(115)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(117)
+/* template */
+var __vue_template__ = __webpack_require__(118)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-77f64bfa"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/layout_public/ProductosMismasCategorias.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-77f64bfa", Component.options)
+  } else {
+    hotAPI.reload("data-v-77f64bfa", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(116);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("f47fd70a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-77f64bfa\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ProductosMismasCategorias.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-77f64bfa\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ProductosMismasCategorias.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, "\n.tarjeta[data-v-77f64bfa]  {\n    -webkit-transition: all .3s;\n    transition: all .3s;\n    -webkit-filter: brightness(90%);\n            filter: brightness(90%);\n}\n.tarjeta[data-v-77f64bfa]:hover {\n    -webkit-transform: scale(1.03);\n            transform: scale(1.03);\n    -webkit-filter: brightness(100%);\n            filter: brightness(100%);\n}\n", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+/* 117 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['negocio', 'producto', 'categorias'],
+    data: function data() {
+        return {
+            productos: [],
+            nro_columnas: 0,
+            ancho: 0
+        };
+    },
+    mounted: function mounted() {
+        // console.log(this.categorias);
+        this.buscarProductosCategorias();
+        this.ancho = window.innerWidth;
+        window.addEventListener('resize', this.handleResize);
+        this.handleResize();
+    },
+
+    methods: {
+        handleResize: function handleResize() {
+            var ancho_usuario = window.innerWidth;
+
+            if (ancho_usuario <= 480) {
+                this.nro_columnas = 2;
+            }
+
+            if (ancho_usuario > 480 && ancho_usuario <= 767) {
+                this.nro_columnas = 3;
+            }
+
+            if (ancho_usuario > 767 && ancho_usuario <= 979) {
+                this.nro_columnas = 4;
+            }
+
+            if (ancho_usuario > 979) {
+                this.nro_columnas = 5;
+            }
+            this.ancho = window.innerWidth;
+        },
+        boleanMostrar: function boleanMostrar(c, f) {
+            var columna = c + 1;
+            var nro_imagen = f + 1;
+
+            var fila = Math.ceil(nro_imagen / this.nro_columnas) - 1;
+            var valor = nro_imagen - fila * this.nro_columnas;
+
+            if (columna == valor) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        buscarProductosCategorias: function buscarProductosCategorias() {
+            var _this = this;
+
+            var url = '/' + this.negocio.url + '/productos/mismas_categorias/';
+            axios.get(url, {
+                params: {
+                    negocio_id: this.negocio.id,
+                    producto_id: this.producto.id,
+                    categorias: this.categorias
+                } }).then(function (response) {
+                console.log(response.data);
+                _this.productos = response.data;
+            });
+        },
+        irProducto: function irProducto(producto_codigo, id) {
+            //console.log(id);
+            window.location = '/' + this.negocio.url + '/producto/' + producto_codigo + '/' + id;
+        }
+    }
+});
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", {}, [
+    _vm.productos.length > 0
+      ? _c(
+          "div",
+          { staticClass: "m-10 flex flex-item-center flex-content-center" },
+          [
+            _c("span", { staticClass: "fz-18 txt-negrita txt-mayuscula" }, [
+              _vm._v("Similares")
+            ])
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "ancho-95 flex margen-auto" },
+      _vm._l(_vm.nro_columnas, function(columnas, col) {
+        return _c(
+          "div",
+          { staticClass: "ancho-50" },
+          _vm._l(_vm.productos, function(producto, filas) {
+            return _vm.boleanMostrar(col, filas)
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "tarjeta cursor-lupa ancho-100 p-10",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.irProducto(producto.codigo, "")
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "flex",
+                        staticStyle: {
+                          width: "100%",
+                          height: "200px",
+                          "border-radius": "10px",
+                          overflow: "hidden"
+                        }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "ancho-100",
+                          staticStyle: { "object-fit": "cover" },
+                          attrs: {
+                            src: "/storage/" + producto.imagen_ppal,
+                            alt: ""
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "p-5 p-l-10 ancho-100",
+                        staticStyle: { overflow: "hidden" }
+                      },
+                      [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "txt-negrita",
+                            staticStyle: { "font-size": "1em" }
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.$root.truncarTexto(producto.producto, 28)
+                              )
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              : _vm._e()
+          }),
+          0
+        )
+      }),
+      0
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-77f64bfa", module.exports)
+  }
+}
+
+/***/ }),
+/* 119 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(120);
 
 
 
@@ -59641,7 +60702,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 }));
 
 /***/ }),
-/* 110 */
+/* 120 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62664,7 +63725,7 @@ if (inBrowser && window.Vue) {
 
 
 /***/ }),
-/* 111 */
+/* 121 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62743,10 +63804,10 @@ if (inBrowser && window.Vue) {
 });
 
 /***/ }),
-/* 112 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(113);
+__webpack_require__(123);
 
 $(document).ready(function () {
 	//Hacia arriba
@@ -62790,7 +63851,7 @@ function formatoPrecio(value) {
 }
 
 /***/ }),
-/* 113 */
+/* 123 */
 /***/ (function(module, exports) {
 
 $('.mostrar-menu-lateral').click(function (e) {
@@ -62808,7 +63869,7 @@ $('.menu-lateral-ocultar, .menu-lateral-lienzo').click(function (e) {
 });
 
 /***/ }),
-/* 114 */
+/* 124 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

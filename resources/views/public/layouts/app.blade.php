@@ -25,7 +25,7 @@
                 <header class="m-b-5">
                    @include('public.layouts.parciales.cabecera')
                 </header>
-                <section class="flex flex-content-center m-h-10" style="margin-top: 55px;">
+                <section class="flex flex-content-center" style="margin-top: 55px;">
                    {{--  @include('public.layouts.parciales.mensajes') --}}
                     @yield('contenido')
                 </section>

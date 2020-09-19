@@ -1,6 +1,15 @@
 /* Large desktop */
 /*@media (min-width: 980px) and  (max-width: 1200px){*/
-@media  (max-width: 1200px){
+@media  (min-width: 1200px){
+	.display-lg {
+		display: block !important;
+	}
+	.no-display-lg {
+		display: none !important;
+	}
+}
+
+@media  (max-width: 1199px){
 	.display-l {
 		display: block !important;
 	}

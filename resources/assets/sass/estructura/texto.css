@@ -103,8 +103,26 @@
 .fz-30 {
 	font-size: 30px !important;
 }
-
+.fz-31 {
+	font-size: 31px !important;
+}
+.fz-32 {
+	font-size: 32px !important;
+}
+.fz-33 {
+	font-size: 33px !important;
+}
+.fz-34 {
+	font-size: 34px !important;
+}
+.fz-35 {
+	font-size: 35px !important;
+}
 
 .txt-italic {
 	font-style: italic;
+}
+
+.txt-mayuscula {
+	text-transform: uppercase;
 }

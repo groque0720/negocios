@@ -98,14 +98,18 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::post('producto/imagenes/guardar', 'Producto\ProductoController@producto_imagenes_guardar')->name('producto.imagenes_guardar');
 
 
-	Route::post('formSubmit','ImageController@formSubmit');
-	Route::post('store-multiple-image','ImageController@store');
+	// Route::post('formSubmit','ImageController@formSubmit');
+	// Route::post('store-multiple-image','ImageController@store');
 
 
 });
 
 Route::get('/{url_negocio}','Negocio\NegocioController@public_index');
-Route::get('/{url_negocio}/buscar_imagenes_random','Negocio\NegocioController@buscar_imagenes_random');
+Route::get('/{url_negocio}/buscar_imagenes_random/{producto_id?}','Negocio\NegocioController@buscar_imagenes_random');
 Route::get('/{url_negocio}/buscar_albumes','Negocio\NegocioController@buscar_albumes');
 Route::get('/{url_negocio}/producto/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
 Route::get('/{url_negocio}/album/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
+
+
+Route::get('/{url_negocio}/productos/mismas_categorias/','Negocio\NegocioController@mostrar_productos_mismas_categorias');
+Route::get('/{url_negocio}/productos/categoria/{categoria}/','Negocio\NegocioController@mostrar_productos_categoria');

@@ -1,17 +1,16 @@
 <template>
     <div class="ancho-100">
-        <layout-public v-bind:negocio="negocio"></layout-public>
-        <div class="ancho-100 flex p-10 ">
-            <div v-for="(columnas, c) in nro_columnas" class="columna-1 ancho-50" >
+        <div class="ancho-95 flex margen-auto">
+            <div v-for="(columnas, c) in nro_columnas" class="ancho-50" >
                 <template>
-                    <div v-for="(imagen, f) in imagenes_infinite"  v-if="boleanMostrar(c, f)" class="tarjeta borde-radio-5 m-10 sombra-box cursor" style="position: relative;" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
+                    <div v-for="(imagen, f) in imagenes_infinite"  v-if="boleanMostrar(c, f)" class="tarjeta borde-radio-5 m-10 sombra-box cursor" style="position: relative; margin-bottom: 15px;" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
                         <div class="display-none imagen-titulo flex flex-item-center p-l-5 p-t-5">
                             <div class="flex flex-item-center p-r-10 p-l-10" style="height: 30px; background: white; border-radius: 30px;">
                                 <span class="txt-negrita">{{ $root.truncarTexto(imagen.producto, 30) }}</span>
                             </div>
                         </div>
                         <div class="imagen flex">
-                            <img style="object-fit: cover;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt="">
+                            <img style="object-fit: cover; min-height: 150px;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt="">
                         </div>
                         <!-- acciones en la parte inferior de la imagen cuanod pase el mouse -->
                         <!-- <div class="imagen-acciones ancho-100 display-none">
@@ -25,7 +24,7 @@
                     </div>
                     <infinite-loading @infinite="InfiniteHandler">
                         <div slot="no-more"></div>
-                        <div slot="spinner"></div>
+                        <!-- <div slot="spinner"></div> -->
                         <div slot="no-results"></div>
                     </infinite-loading>
                 </template>
@@ -36,7 +35,7 @@
 
 <script>
     export default {
-        props:['negocio'],
+        props:['negocio'], //va a tener producto_id si viene del detalle de un producto, sino viene de la view principal
         data(){
             return {
                 nro_columnas: 0,
@@ -46,12 +45,15 @@
             }
         },
         mounted() {
+            // console.log(this.producto_id);
+            this.producto_id_view = this.producto_id != null ? this.producto_id : '';
             this.ancho = window.innerWidth;
             window.addEventListener('resize', this.handleResize);
             this.handleResize();
         },
         methods: {
             handleResize() {
+
 
                 var ancho_usuario = window.innerWidth;
 
@@ -77,12 +79,11 @@
             InfiniteHandler($state){
                 console.log(this.page);
                 this.page++;
-                let url = '/'+this.negocio.url+'/buscar_imagenes_random?page=' + this.page;
+                let url = '/'+this.negocio.url+'/buscar_imagenes_random/?page=' + this.page;
                 axios.get(url)
                 .then( response => {
                     let imagenes = response.data.data;
                     if (imagenes.length) {
-                        // console.log(imagenes);
                         this.imagenes_infinite = this.imagenes_infinite.concat(imagenes);
                         // this.productos = this.productos_infinite;
                         $state.loaded();

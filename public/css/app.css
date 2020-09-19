@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);* {
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);@import url(https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap);@import url(https://fonts.googleapis.com/css2?family=Pacifico&display=swap);@import url(https://fonts.googleapis.com/css2?family=Grandstander:wght@300&display=swap);@import url(https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap);* {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -424,6 +424,22 @@ input:checked + .slider:before {
   width: 30%;
 }
 
+.ancho-31 {
+  width: 31%;
+}
+
+.ancho-32 {
+  width: 32%;
+}
+
+.ancho-33 {
+  width: 33%;
+}
+
+.ancho-34 {
+  width: 34%;
+}
+
 .ancho-35 {
   width: 35%;
 }
@@ -663,6 +679,11 @@ input:checked + .slider:before {
 .flex-no-wrap {
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
+}
+
+.flex-wrap {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .form {
@@ -978,6 +999,10 @@ input:checked + .slider:before {
   margin-bottom: 10px;
 }
 
+.m-b-20 {
+  margin-bottom: 20px;
+}
+
 /* ---------------------- */
 
 .m-t-0 {
@@ -1022,6 +1047,10 @@ input:checked + .slider:before {
 
 .m-t-10 {
   margin-top: 10px;
+}
+
+.m-t-20 {
+  margin-top: 20px;
 }
 
 /* ---------------------- */
@@ -1638,7 +1667,17 @@ input:checked + .slider:before {
 
 /*@media (min-width: 980px) and  (max-width: 1200px){*/
 
-@media (max-width: 1200px) {
+@media (min-width: 1200px) {
+  .display-lg {
+    display: block !important;
+  }
+
+  .no-display-lg {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1199px) {
   .display-l {
     display: block !important;
   }
@@ -2557,8 +2596,32 @@ th, td {
   font-size: 30px !important;
 }
 
+.fz-31 {
+  font-size: 31px !important;
+}
+
+.fz-32 {
+  font-size: 32px !important;
+}
+
+.fz-33 {
+  font-size: 33px !important;
+}
+
+.fz-34 {
+  font-size: 34px !important;
+}
+
+.fz-35 {
+  font-size: 35px !important;
+}
+
 .txt-italic {
   font-style: italic;
+}
+
+.txt-mayuscula {
+  text-transform: uppercase;
 }
 
 .tip {
