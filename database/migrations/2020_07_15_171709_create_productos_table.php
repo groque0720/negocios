@@ -23,6 +23,7 @@ class CreateProductosTable extends Migration
             $table->string('imagen_ppal')->nullable();
             $table->float('precio',11,2)->default(0)->nullable();
             $table->integer('activo')->default(1);
+            $table->integer('guardar')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
