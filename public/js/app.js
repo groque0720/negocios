@@ -59986,7 +59986,7 @@ var render = function() {
                     _vm._l(_vm.producto.caracteristicas, function(
                       caracteristica
                     ) {
-                      return _c("div", { staticClass: "ancho-32 m-b-5" }, [
+                      return _c("div", { staticClass: "ancho-50 m-b-5" }, [
                         _c(
                           "div",
                           {
@@ -60000,7 +60000,7 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            _c("div", {}, [
+                            _c("div", { staticClass: " m-l-10" }, [
                               _vm._v(_vm._s(caracteristica.pivot.valor))
                             ])
                           ]

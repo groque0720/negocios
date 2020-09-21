@@ -263,18 +263,25 @@ class ProductoController extends Controller
         // Caracteristicas
         foreach ($caracteristicas_form as $caracteristica_form) {
             if ($caracteristica_form['seleccion_confirmacion']) {
-                if (!CaracteristicaProducto::where('caracteristica_id',$caracteristica_form['id'])
-                                        ->where('producto_id',$producto['id'])->first()) {
+
+                $caracteristica_producto = CaracteristicaProducto::where('caracteristica_id',$caracteristica_form['id'])
+                                        ->where('producto_id',$producto['id'])->first();
+
+                if (!$caracteristica_producto) {
                     $caracteristica_producto = new CaracteristicaProducto();
-                    $caracteristica_producto->caracteristica_id = $caracteristica_form['id'];
-                    $caracteristica_producto->producto_id = $producto['id'];
-                    $caracteristica_producto->valor = mysql_real_escape_string($caracteristica_form['valor']) ?? '';
-                    $caracteristica_producto->save();
                 }
+
+                $caracteristica_producto->caracteristica_id = $caracteristica_form['id'];
+                $caracteristica_producto->producto_id = $producto['id'];
+                $caracteristica_producto->valor = $caracteristica_form['valor'] ?? '';
+                $caracteristica_producto->save();
+
             }else{
+
                 $res = CaracteristicaProducto::where('caracteristica_id',$caracteristica_form['id'])
                                         ->where('producto_id',$producto['id'])
                                         ->forceDelete();
+
             }
         }
 

@@ -93,10 +93,10 @@
 
 					<div class="caracteristicas m-b-10 flex flex-wrap">
 						<!-- <div class="fz-15 txt-negrita txt-mayuscula titulo m-b-5">Características</div> -->
-						<div v-for="caracteristica in producto.caracteristicas" class="ancho-32 m-b-5">
+						<div v-for="caracteristica in producto.caracteristicas" class="ancho-50 m-b-5">
 							<div class="ancho-100 flex  flex-item-center flex-content-star">
 								<div class="txt-negrita">{{caracteristica.caracteristica}} :</div>
-								<div class="">{{ caracteristica.pivot.valor }}</div>
+								<div class=" m-l-10">{{ caracteristica.pivot.valor }}</div>
 							</div>
 						</div>
 					</div>
