@@ -268,7 +268,7 @@ class ProductoController extends Controller
                     $caracteristica_producto = new CaracteristicaProducto();
                     $caracteristica_producto->caracteristica_id = $caracteristica_form['id'];
                     $caracteristica_producto->producto_id = $producto['id'];
-                    $caracteristica_producto->valor = $caracteristica_form['valor'] ?? '';
+                    $caracteristica_producto->valor = mysql_real_escape_string($caracteristica_form['valor']) ?? '';
                     $caracteristica_producto->save();
                 }
             }else{
