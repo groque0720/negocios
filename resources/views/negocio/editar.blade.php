@@ -58,7 +58,7 @@
                         </div>
                         <div class="ancho-50" >
                             <div id="div_file" class="flex flex-item-center flex-content-center">
-                                <img id='output' class="m-0" width="65px" height="65px;" style="border-radius: 50%;" src="{{ Storage::url($negocio->logo) }}" alt="">
+                                <img id='output' class="m-0" width="65px" height="65px;" style="border-radius: 50%;" src="{{ Storage::url($negocio->logo ?? 'logo_default_negocio.png')}}" alt="">
                                 {{-- <input type="file" > --}}
                                 <input type='file' name="logo" id="file" accept='image/*' onchange='openFile(event)' title=" " value="{{ $negocio->logo }}">
                                 {!!  $errors->first('logo', '<span class=form-error>:message</span>') !!}

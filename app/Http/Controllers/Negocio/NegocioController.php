@@ -249,7 +249,7 @@ class NegocioController extends Controller
             if ($negocio->logo != 'public/logo_default_negocio.png') {
                 Storage::delete($negocio->logo);
             }
-            $logo = $request->file('logo')->store($negocio->url);
+            $logo = $request->file('logo')->store('public/'.$negocio->url);
             $negocio->logo = $logo;
         }
         $negocio->save();

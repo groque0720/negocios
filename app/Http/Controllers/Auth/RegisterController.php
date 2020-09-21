@@ -88,6 +88,8 @@ class RegisterController extends Controller
         $negocio->activo = true;
         $negocio->save();
 
+        mkdir("storage/".$negocio->url, 0700);
+
         return $usuario;
     }
 

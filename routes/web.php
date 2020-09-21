@@ -38,6 +38,10 @@ use App\User;
 // });
 
 
+// Route::get('/crear_carpeta', function(){
+// 	mkdir("storage/"."omar", 0700);
+// });
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,7 +49,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/acceder', 'Auth\LoginController@showLoginForm');
+// Route::post('/logearse', 'Auth\LoginController@login');
+
+//Route::get('/acceso', 'Auth\LoginController@showLoginForm');
+
+// Route::get('/home', 'HomeController@index')->name('home');
 
 
 
