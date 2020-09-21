@@ -245,12 +245,16 @@ class NegocioController extends Controller
         $negocio->celular = $request->celular;
         $negocio->direccion = $request->direccion;
 
-        if ($request->hasFile('logo')) {
+        $ext_imagenes = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if ($request->hasFile('logo') AND  in_array( $request->file('logo')->extension(), $ext_imagenes)) {
             if ($negocio->logo != 'public/logo_default_negocio.png') {
-                Storage::delete($negocio->logo);
+                Storage::delete('/public/'.$negocio->logo);
             }
-            $logo = $request->file('logo')->store('public/'.$negocio->url);
-            $negocio->logo = $logo;
+            $imageName = md5(microtime()).'.'.$request->file('logo')->getClientOriginalExtension();
+            $imageName = str_replace(' ', '_', $imageName);
+            Storage::disk('local')->PutFileAs('/public/'.$negocio->url, $request->file('logo'), $imageName);
+            $negocio->logo = $negocio->url.'/'.$imageName;
         }
         $negocio->save();
 
