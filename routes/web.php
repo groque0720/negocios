@@ -42,7 +42,7 @@ use App\User;
 // 	mkdir("storage/"."omar", 0700);
 // });
 
-Route::group(['domain' => '{account}.negocios.test'], function () {
+Route::group(['domain' => '{account}.vidriera.online'], function () {
     Route::get('/', function ($account) {
         return $account;
     });
