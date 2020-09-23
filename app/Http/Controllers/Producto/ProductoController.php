@@ -23,7 +23,7 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    protected $cant_reg = 50;
+    protected $cant_reg = 10;
 
 
     public function index()

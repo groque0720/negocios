@@ -57233,7 +57233,7 @@ var render = function() {
                                     "object-fit": "cover",
                                     "min-height": "150px"
                                   },
-                                  attrs: { preload: "", loop: "", muted: "" },
+                                  attrs: { loop: "", muted: "" },
                                   domProps: { muted: true }
                                 },
                                 [
