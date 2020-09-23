@@ -57233,12 +57233,7 @@ var render = function() {
                                     "object-fit": "cover",
                                     "min-height": "150px"
                                   },
-                                  attrs: {
-                                    autoplay: "",
-                                    loop: "",
-                                    muted: "",
-                                    playsinline: ""
-                                  },
+                                  attrs: { preload: "", loop: "", muted: "" },
                                   domProps: { muted: true }
                                 },
                                 [
