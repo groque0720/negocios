@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class NegocioController extends Controller
 {
-    protected $cant_reg = 10;
+    protected $cant_reg = 30;
 
     public function public_index(Request $request, $url_negocio){
 
