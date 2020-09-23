@@ -91,7 +91,15 @@
 		                <div v-for="(producto, indice) in productos_relacionados" class="lista-linea ancho-100 flex flex-space-between"  :class="'linea_'+indice" @click="lineaActiva(indice)">
 		                    <div class="ancho-100 flex flex-item-center">
 		                        <div class="ancho-30 m-r-10 flex" style="width: 60px; height: 60px; overflow: hidden; border-radius: 2px; box-shadow: 1px 1px #ddd;">
-		                            <img style="object-fit: cover;" :src="'/storage/'+producto.imagen_ppal" alt="" width="100%" >
+
+
+		                            <img v-if="$root.esVideo(producto.imagen_ppal)" style="object-fit: cover;" :src="'/storage/'+producto.imagen_ppal" alt="" width="100%" >
+
+		                            <video v-if="$root.esVideo(producto.imagen_ppal)" style="object-fit: cover; width: 60px; height: 60px;"  autoplay muted loop>
+		                                <source :src="'/storage/'+producto.imagen_ppal" type="video/mp4">
+		                            </video>
+
+
 		                        </div>
 		                        <div class="ancho-70 flex flex-space-between flex-direction-column" style="height: 100%;">
 		                            <div>

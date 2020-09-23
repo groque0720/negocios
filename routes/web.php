@@ -54,14 +54,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes();
 
-// Route::get('/acceder', 'Auth\LoginController@showLoginForm');
-// Route::post('/logearse', 'Auth\LoginController@login');
-
+// Route::get('/ingresar', 'Auth\LoginController@showLoginForm')->name('ingresar');
+// Route::post('/ingresar', 'Auth\LoginController@login')->name('login');
+// Route::post('/register', 'Auth\LoginController@login')->name('register');
 //Route::get('/acceso', 'Auth\LoginController@showLoginForm');
 
 // Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+        // Authentication Routes...
+        Route::get('acceder', 'Auth\LoginController@showLoginForm')->name('acceder');
+        Route::post('acceder', 'Auth\LoginController@login');
+        Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+        // Registration Routes...
+        Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+        Route::post('register', 'Auth\RegisterController@register');
+
+        // Password Reset Routes...
+        Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+        Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+        Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 

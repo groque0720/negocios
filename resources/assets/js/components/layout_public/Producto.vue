@@ -122,7 +122,10 @@
 							 v-for="relacion in producto.relacionados" style="background: white; margin-right: 1%; border-radius: 5px; box-shadow: 0px 0px 5px 2px #ddd;"
 							 @click.prevent="irProducto(relacion.codigo, '')">
 							 <div class="flex m-r-5" style="width: 50px; height: 50px;">
-							 	<img style="object-fit: cover; width: 50px; height: 50px;"  :src="'/storage/'+relacion.imagen_ppal" alt="">
+							 	<img v-if="$root.esImagen(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;"  :src="'/storage/'+relacion.imagen_ppal" alt="">
+							 	<video v-if="$root.esVideo(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;" class="ancho-100" autoplay muted loop>
+	                                <source :src="'/storage/'+relacion.imagen_ppal" type="video/mp4">
+	                            </video>
 							 </div>
 							 <div class="ancho-100 flex flex-direction-column">
 								<div class="txt-mayuscula txt-negrita fz-11 p-2">{{ relacion.producto }}</div>
@@ -222,8 +225,8 @@
 				      }
 				    ];
 				    img_.type= "video";
-	        		img_.width= 800; // required
-	    			img_.height= 600; // required
+	        		img_.width= 600; // required
+	    			img_.height= 400; // required
 	    			img_.autoplay= true;
         		}
 
@@ -251,8 +254,10 @@
         methods: {
         	openLightbox (index) {
         		this.viewGaleria = true;
+				var producto_codigo = this.producto.codigo;
+        		var id = this.producto.imagenes[index].id;
 				self = this;
-				history.pushState('', 'Galeria', 'galeria');
+				history.pushState('', 'Galeria', '/'+this.negocio.url+'/producto/'+this.producto.codigo+'/'+id);
                 setTimeout(function(){
 					self.$refs.lightbox.showImage(index);
                     },
@@ -339,7 +344,7 @@
 		/*background: #eee !important;*/
 		box-shadow: 0px 0px 3px 5px #ddd;
 	}
-	.vue-lb-footer-count {
+/*	.vue-lb-footer-count {
 		display: none !important;
 	}
 	.vue-lb-figure {
@@ -347,13 +352,13 @@
 		justify-content: center !important;
 		align-items: flex-center !important;
 	}
-	.vue-lb-modal-image {
+	.vue-lb-modal-image {*/
 /*		width: 120% !important;
 		max-width: 150% !important;
 		margin-left: -25%;
 		height: auto;
 		max-height: 85vh !important;*/
-		transform: scale(1.25);
-	}
+/*		transform: scale(1.25);
+	}*/
 
 </style>

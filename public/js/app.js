@@ -46806,6 +46806,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['tipo_id'],
@@ -47142,14 +47147,39 @@ var render = function() {
                       }
                     },
                     [
-                      _c("img", {
-                        staticStyle: { "object-fit": "cover" },
-                        attrs: {
-                          src: "/storage/" + producto.imagen_ppal,
-                          alt: "",
-                          width: "100%"
-                        }
-                      })
+                      _vm.$root.esImagen(producto.imagen_ppal)
+                        ? _c("img", {
+                            staticStyle: { "object-fit": "cover" },
+                            attrs: {
+                              src: "/storage/" + producto.imagen_ppal,
+                              alt: "",
+                              width: "100%"
+                            }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.$root.esVideo(producto.imagen_ppal)
+                        ? _c(
+                            "video",
+                            {
+                              staticClass: "ancho-100",
+                              staticStyle: {
+                                "object-fit": "cover",
+                                "max-height": "350px"
+                              },
+                              attrs: { autoplay: "", muted: "", loop: "" },
+                              domProps: { muted: true }
+                            },
+                            [
+                              _c("source", {
+                                attrs: {
+                                  src: "/storage/" + producto.imagen_ppal,
+                                  type: "video/mp4"
+                                }
+                              })
+                            ]
+                          )
+                        : _vm._e()
                     ]
                   ),
                   _vm._v(" "),
@@ -47411,6 +47441,14 @@ module.exports = exports;
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuedraggable__ = __webpack_require__(79);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuedraggable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuedraggable__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -54503,14 +54541,46 @@ var render = function() {
                                   }
                                 },
                                 [
-                                  _c("img", {
-                                    staticStyle: { "object-fit": "cover" },
-                                    attrs: {
-                                      src: "/storage/" + producto.imagen_ppal,
-                                      alt: "",
-                                      width: "100%"
-                                    }
-                                  })
+                                  _vm.$root.esVideo(producto.imagen_ppal)
+                                    ? _c("img", {
+                                        staticStyle: { "object-fit": "cover" },
+                                        attrs: {
+                                          src:
+                                            "/storage/" + producto.imagen_ppal,
+                                          alt: "",
+                                          width: "100%"
+                                        }
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.$root.esVideo(producto.imagen_ppal)
+                                    ? _c(
+                                        "video",
+                                        {
+                                          staticStyle: {
+                                            "object-fit": "cover",
+                                            width: "60px",
+                                            height: "60px"
+                                          },
+                                          attrs: {
+                                            autoplay: "",
+                                            muted: "",
+                                            loop: ""
+                                          },
+                                          domProps: { muted: true }
+                                        },
+                                        [
+                                          _c("source", {
+                                            attrs: {
+                                              src:
+                                                "/storage/" +
+                                                producto.imagen_ppal,
+                                              type: "video/mp4"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    : _vm._e()
                                 ]
                               ),
                               _vm._v(" "),
@@ -55742,6 +55812,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -56068,14 +56141,49 @@ var render = function() {
                                     }
                                   },
                                   [
-                                    _c("img", {
-                                      staticStyle: { "object-fit": "cover" },
-                                      attrs: {
-                                        src: "/storage/" + producto.imagen_ppal,
-                                        alt: "",
-                                        width: "100%"
-                                      }
-                                    })
+                                    _vm.$root.esImagen(producto.imagen_ppal)
+                                      ? _c("img", {
+                                          staticStyle: {
+                                            "object-fit": "cover"
+                                          },
+                                          attrs: {
+                                            src:
+                                              "/storage/" +
+                                              producto.imagen_ppal,
+                                            alt: "",
+                                            width: "100%"
+                                          }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.$root.esVideo(producto.imagen_ppal)
+                                      ? _c(
+                                          "video",
+                                          {
+                                            staticClass: "ancho-100",
+                                            staticStyle: {
+                                              "object-fit": "cover",
+                                              width: "100%"
+                                            },
+                                            attrs: {
+                                              autoplay: "",
+                                              muted: "",
+                                              loop: ""
+                                            },
+                                            domProps: { muted: true }
+                                          },
+                                          [
+                                            _c("source", {
+                                              attrs: {
+                                                src:
+                                                  "/storage/" +
+                                                  producto.imagen_ppal,
+                                                type: "video/mp4"
+                                              }
+                                            })
+                                          ]
+                                        )
+                                      : _vm._e()
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -57087,7 +57195,8 @@ var render = function() {
                           "tarjeta borde-radio-5 m-10 sombra-box cursor",
                         staticStyle: {
                           position: "relative",
-                          "margin-bottom": "15px"
+                          "margin-bottom": "15px",
+                          "max-height": "350px"
                         },
                         on: {
                           click: function($event) {
@@ -57100,7 +57209,7 @@ var render = function() {
                         }
                       },
                       [
-                        _c("div", { staticClass: "imagen flex" }, [
+                        _c("div", { staticClass: "imagen flex ancho-100" }, [
                           _vm.$root.esImagen(imagen.imagen)
                             ? _c("img", {
                                 staticClass: "ancho-100",
@@ -57124,7 +57233,12 @@ var render = function() {
                                     "object-fit": "cover",
                                     "min-height": "150px"
                                   },
-                                  attrs: { autoplay: "", loop: "", muted: "" },
+                                  attrs: {
+                                    autoplay: "",
+                                    loop: "",
+                                    muted: "",
+                                    playsinline: ""
+                                  },
                                   domProps: { muted: true }
                                 },
                                 [
@@ -57684,7 +57798,7 @@ if(false) {
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.titulo {\n\t\t/*font-family: 'Archivo Black', sans-serif*/\n}\n.scrolling-wrapper {\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -ms-flexbox;\n\t\tdisplay: flex;\n\t  \t-ms-flex-wrap: nowrap;\n\t  \t    flex-wrap: nowrap;\n\t  \toverflow-x: auto;\n\t  \t-webkit-overflow-scrolling: touch;\n\t  \theight: 100% !important;\n\t  \tpadding-bottom: 0px !important;\n}\n.scrolling-wrapper::-webkit-scrollbar {\n\t\t/*display: none;*/\n\t\theight: 10px;\n}\n.card {\n\t\t-webkit-box-flex: 0;\n\t\t    -ms-flex: 0 0 auto;\n\t\t        flex: 0 0 auto;\n\t\tmargin-right: 10px;\n}\n.card img, .card video  {\n\t\twidth: 150px;\n\t\theight: 150px;\n\t\tcursor: -webkit-zoom-in;\n\t\tcursor: zoom-in;\n}\n@media  (min-width: 980px) and  (max-width: 1200px){\n.card img, .card video {\n\t\t\twidth: 130px !important;\n\t\t\theight: 130px !important;\n}\n}\n@media (min-width: 768px) and (max-width: 979px) {\n.card img, .card video {\n\t\t\twidth: 110px !important;\n\t\t\theight: 110px !important;\n}\n}\n@media (min-width: 480px) and (max-width: 767px) {\n.card img, .card video {\n\t\t\twidth: 90px !important;\n\t\t\theight: 90px !important;\n}\n.scrolling-wrapper::-webkit-scrollbar  {\n\t\t\tdisplay: none;\n}\n}\n@media (max-width: 479px) {\n.card img, .card video {\n\t\t\twidth: 70px !important;\n\t\t\theight: 70px !important;\n}\n.scrolling-wrapper::-webkit-scrollbar  {\n\t\t\tdisplay: none;\n}\n}\n.producto-relacionado:hover {\n\t\t/*background: #eee !important;*/\n\t\t-webkit-box-shadow: 0px 0px 3px 5px #ddd;\n\t\t        box-shadow: 0px 0px 3px 5px #ddd;\n}\n.vue-lb-footer-count {\n\t\tdisplay: none !important;\n}\n.vue-lb-figure {\n\t\tdisplay: -webkit-box !important;\n\t\tdisplay: -ms-flexbox !important;\n\t\tdisplay: flex !important;\n\t\t-webkit-box-pack: center !important;\n\t\t    -ms-flex-pack: center !important;\n\t\t        justify-content: center !important;\n\t\t-webkit-box-align: flex-center !important;\n\t\t    -ms-flex-align: flex-center !important;\n\t\t        align-items: flex-center !important;\n}\n.vue-lb-modal-image {\n/*\t\twidth: 120% !important;\n\t\tmax-width: 150% !important;\n\t\tmargin-left: -25%;\n\t\theight: auto;\n\t\tmax-height: 85vh !important;*/\n\t\t-webkit-transform: scale(1.25);\n\t\t        transform: scale(1.25);\n}\n\n", ""]);
+exports.push([module.i, "\n.titulo {\n\t\t/*font-family: 'Archivo Black', sans-serif*/\n}\n.scrolling-wrapper {\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -ms-flexbox;\n\t\tdisplay: flex;\n\t  \t-ms-flex-wrap: nowrap;\n\t  \t    flex-wrap: nowrap;\n\t  \toverflow-x: auto;\n\t  \t-webkit-overflow-scrolling: touch;\n\t  \theight: 100% !important;\n\t  \tpadding-bottom: 0px !important;\n}\n.scrolling-wrapper::-webkit-scrollbar {\n\t\t/*display: none;*/\n\t\theight: 10px;\n}\n.card {\n\t\t-webkit-box-flex: 0;\n\t\t    -ms-flex: 0 0 auto;\n\t\t        flex: 0 0 auto;\n\t\tmargin-right: 10px;\n}\n.card img, .card video  {\n\t\twidth: 150px;\n\t\theight: 150px;\n\t\tcursor: -webkit-zoom-in;\n\t\tcursor: zoom-in;\n}\n@media  (min-width: 980px) and  (max-width: 1200px){\n.card img, .card video {\n\t\t\twidth: 130px !important;\n\t\t\theight: 130px !important;\n}\n}\n@media (min-width: 768px) and (max-width: 979px) {\n.card img, .card video {\n\t\t\twidth: 110px !important;\n\t\t\theight: 110px !important;\n}\n}\n@media (min-width: 480px) and (max-width: 767px) {\n.card img, .card video {\n\t\t\twidth: 90px !important;\n\t\t\theight: 90px !important;\n}\n.scrolling-wrapper::-webkit-scrollbar  {\n\t\t\tdisplay: none;\n}\n}\n@media (max-width: 479px) {\n.card img, .card video {\n\t\t\twidth: 70px !important;\n\t\t\theight: 70px !important;\n}\n.scrolling-wrapper::-webkit-scrollbar  {\n\t\t\tdisplay: none;\n}\n}\n.producto-relacionado:hover {\n\t\t/*background: #eee !important;*/\n\t\t-webkit-box-shadow: 0px 0px 3px 5px #ddd;\n\t\t        box-shadow: 0px 0px 3px 5px #ddd;\n}\n/*\t.vue-lb-footer-count {\n\t\tdisplay: none !important;\n\t}\n\t.vue-lb-figure {\n\t\tdisplay: flex !important;\n\t\tjustify-content: center !important;\n\t\talign-items: flex-center !important;\n\t}\n\t.vue-lb-modal-image {*/\n/*\t\twidth: 120% !important;\n\t\tmax-width: 150% !important;\n\t\tmargin-left: -25%;\n\t\theight: auto;\n\t\tmax-height: 85vh !important;*/\n/*\t\ttransform: scale(1.25);\n\t}*/\n\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -57698,6 +57812,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_image_lightbox__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_image_lightbox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_image_lightbox__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_lazyload__ = __webpack_require__(112);
+//
+//
+//
 //
 //
 //
@@ -57920,8 +58037,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_lazyload__["a" /* default */]);
                     type: 'video/mp4'
                 }];
                 img_.type = "video";
-                img_.width = 800; // required
-                img_.height = 600; // required
+                img_.width = 600; // required
+                img_.height = 400; // required
                 img_.autoplay = true;
             }
 
@@ -57952,8 +58069,10 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_lazyload__["a" /* default */]);
     methods: {
         openLightbox: function openLightbox(index) {
             this.viewGaleria = true;
+            var producto_codigo = this.producto.codigo;
+            var id = this.producto.imagenes[index].id;
             self = this;
-            history.pushState('', 'Galeria', 'galeria');
+            history.pushState('', 'Galeria', '/' + this.negocio.url + '/producto/' + this.producto.codigo + '/' + id);
             setTimeout(function () {
                 self.$refs.lightbox.showImage(index);
             }, 150);
@@ -60209,17 +60328,50 @@ var render = function() {
                                   staticStyle: { width: "50px", height: "50px" }
                                 },
                                 [
-                                  _c("img", {
-                                    staticStyle: {
-                                      "object-fit": "cover",
-                                      width: "50px",
-                                      height: "50px"
-                                    },
-                                    attrs: {
-                                      src: "/storage/" + relacion.imagen_ppal,
-                                      alt: ""
-                                    }
-                                  })
+                                  _vm.$root.esImagen(relacion.imagen_ppal)
+                                    ? _c("img", {
+                                        staticStyle: {
+                                          "object-fit": "cover",
+                                          width: "50px",
+                                          height: "50px"
+                                        },
+                                        attrs: {
+                                          src:
+                                            "/storage/" + relacion.imagen_ppal,
+                                          alt: ""
+                                        }
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.$root.esVideo(relacion.imagen_ppal)
+                                    ? _c(
+                                        "video",
+                                        {
+                                          staticClass: "ancho-100",
+                                          staticStyle: {
+                                            "object-fit": "cover",
+                                            width: "50px",
+                                            height: "50px"
+                                          },
+                                          attrs: {
+                                            autoplay: "",
+                                            muted: "",
+                                            loop: ""
+                                          },
+                                          domProps: { muted: true }
+                                        },
+                                        [
+                                          _c("source", {
+                                            attrs: {
+                                              src:
+                                                "/storage/" +
+                                                relacion.imagen_ppal,
+                                              type: "video/mp4"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    : _vm._e()
                                 ]
                               ),
                               _vm._v(" "),

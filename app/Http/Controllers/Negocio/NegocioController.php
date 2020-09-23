@@ -17,7 +17,7 @@ class NegocioController extends Controller
     public function public_index(Request $request, $url_negocio){
 
             if ($request->session()->has('session_rand')) {
-                if((time() - $request->session()->get('session_rand')) > 100){
+                if((time() - $request->session()->get('session_rand')) > 1000){
                     $request->session()->put('session_rand', time());
                 }
             }else{

@@ -23,7 +23,7 @@
             min-width: 100%; background: var(--main-ppal-color);opacity: .5; position: fixed; z-index: -1;">
         </div>
 		<div class="ancho-90 ancho-m-50 ancho-l-40 ancho-lg-35" style="margin-top: 50px;">
-			<form class="form" action="{{ route('login') }}" method="POST">
+			<form class="form" action="{{ route('acceder') }}" method="POST">
 				{{ csrf_field() }}
 				<div class="form-head">
 					<div class="ancho-100 flex flex-item-center flex-space-between">
