@@ -231,7 +231,10 @@
 										<a href="" style="display: block;" @click.prevent="eliminarImagen(i)"><i class="fas fa-trash-alt fz-14 txt-rojo-claro" @click.prevent="eliminarImagen(i)"></i></a>
 
 									</div>
-									<img style="object-fit: cover" :src="'/storage/'+imagen.imagen" alt="" width="90" height="90">
+									<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover" :src="'/storage/'+imagen.imagen" alt="" width="90" height="90">
+									<video v-if="$root.esVideo(imagen.imagen)" width="90" height="90" style="object-fit: cover;" controls>
+		                                <source :src="'/storage/'+imagen.imagen" type="video/mp4">
+		                            </video>
 								</div>
 							</div>
 <!-- 							<div id="div_file" class="flex flex-item-center flex-content-center m-5" style="border: 1px solid #ddd; border-radius: 5px; width: 95px; height: 95px;">

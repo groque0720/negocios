@@ -34,6 +34,17 @@ export default {
 		    	return '';
 		    }
 		},
+	    esVideo(filename){
+            var videos_ext = ['mp4'];
+            return videos_ext.includes(this.get_extension(filename));
+        },
+        esImagen(filename){
+            var imagenes_ext = ['jpg', 'jpeg','gif','png'];
+            return imagenes_ext.includes(this.get_extension(filename));
+        },
+        get_extension(filename) {
+            return filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2);
+        },
 		diffForHumans(time) {
 		    var date = new Date((time || "").replace(/-/g, "/").replace(/[TZ]/g, " ")),
 		        diff = (((new Date()).getTime() - date.getTime()) / 1000),

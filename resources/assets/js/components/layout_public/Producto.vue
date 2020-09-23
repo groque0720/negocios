@@ -4,7 +4,10 @@
 
  		<div class="ancho-100 ancho-m-80 margen-auto no-display-lg no-display-l display-m" style="background: white;" >
 	 		<div style="border-radius: 15px; position: relative;" @click="openLightbox(imagen_ppal_index)">
-	 			<img style="object-fit: cover;" class="ancho-100" :src="imagen_ppal" alt="" >
+	 			<img v-if="$root.esImagen(imagen_ppal)" style="object-fit: cover;" class="ancho-100" :src="imagen_ppal" alt="" >
+	 			<video v-if="$root.esVideo(imagen_ppal)" style="object-fit: cover; max-height: 350px;" class="ancho-100" autoplay muted loop>
+                    <source :src="imagen_ppal" type="video/mp4">
+                </video>
 	 			<div class="flex flex-item-center flex-content-center"
 	 				 style="position: absolute; bottom: 15px; left: 15px; width: 35px; height: 35px; background: rgba(0,0,0,0.5); border-radius: 50%;" >
 	 				<i class="fas fa-expand txt-blanco"></i>
@@ -16,15 +19,16 @@
 	 		<div class="imagenes ancho-100 p-10">
 				<div class="scrolling-wrapper scrollbar" id="style-2">
 					<div v-for="(imagen, index) in producto.imagenes" class="card" style="overflow: hidden; position: relative;" @click="openLightbox(index)">
-						<img style="object-fit: cover;" :src="'/storage/'+imagen.imagen" alt="">
+						<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover;" :src="'/storage/'+imagen.imagen" alt="">
+						<video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay muted loop>
+		                    <source :src="'/storage/'+imagen.imagen" type="video/mp4">
+		                </video>
 						<div style="position: absolute; top: calc(50% - 15px); left: calc(50% - 15px);" >
 			 				<i class="fas fa-search-plus" style="font-size: 30px !important; color: white; opacity: 0.5;"></i>
 			 			</div>
 					</div>
 				</div>
 			</div>
-
-
 			<div class="ancho-100 p-10 m-b-10">
 					<div class="flex flex-item-center flex-content-center m-b-5">
 						<span class="fz-30 txt-negrita txt-mayuscula titulo">{{ producto.producto }}</span>
@@ -64,7 +68,10 @@
 				<div class="ancho-100 flex flex-item-center flex-content-center" @click="openLightbox(imagen_ppal_index)">
 					<div class="flex cursor-lupa"
 						 style="position: relative; max-width: 100%; max-height: 400px; border-radius: 15px; overflow: hidden;" >
-						<img style="object-fit: cover;" class="ancho-100" :src="imagen_ppal" alt="" >
+						<img v-if="$root.esImagen(imagen_ppal)" style="object-fit: cover;" class="ancho-100" :src="imagen_ppal" alt="" >
+						<video v-if="$root.esVideo(imagen_ppal)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay loop muted>
+		                    <source :src="imagen_ppal" type="video/mp4">
+		                </video>
 						<div class="flex flex-item-center flex-content-center"
 			 				 style="position: absolute; bottom: 15px; left: 15px; width: 35px; height: 35px; background: rgba(0,0,0,0.5); border-radius: 50%;">
 			 				<i class="fas fa-expand txt-blanco"></i>
@@ -77,7 +84,7 @@
 				<div class="ancho-100 p-10 m-b-10 flex flex-direction-column flex-space-between">
 
 					<div class="flex flex-item-center flex-content-center m-b-5">
-						<span class="fz-28 txt-negrita txt-mayuscula titulo">{{ producto.producto }}</span>
+						<span class="fz-28 txt-negrita txt-mayuscula titulo" @click.prevent="get_extension(imagen_ppal)">{{ producto.producto }}</span>
 					</div>
 
 					<div class="precio">
@@ -129,7 +136,10 @@
 			<div class="imagenes ancho-100">
 				<div class="scrolling-wrapper scrollbar" id="style-2">
 					<div v-for="(imagen, index) in producto.imagenes" class="card" style="border-radius: 10px; overflow: hidden; position: relative;" @click="openLightbox(index)">
-						<img style="object-fit: cover;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt="">
+						<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt="">
+						<video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay loop muted>
+		                    <source :src="'/storage/'+imagen.imagen" type="video/mp4">
+		                </video>
 						<div style="position: absolute; top: calc(50% - 25px); left: calc(50% - 25px);" class="cursor-lupa">
 			 				<i class="fas fa-search-plus" style="font-size: 50px !important; color: black; opacity: 0.3;"></i>
 			 			</div>
@@ -197,8 +207,26 @@
         			self.imagen_ppal_index = index;
         		}
         		var img_ = {};
-        		img_.thumb = '/storage/'+imagen.imagen;
-        		img_.src = '/storage/'+imagen.imagen;
+
+        		if (self.$root.esImagen(imagen.imagen)) {
+	        		img_.thumb = '/storage/'+imagen.imagen;
+	        		img_.src = '/storage/'+imagen.imagen;
+        		}
+
+        		if (self.$root.esVideo(imagen.imagen)) {
+	        		// img_.thumb = '/storage/'+imagen.imagen;
+	        		img_.sources= [
+				      {
+				        src: '/storage/'+imagen.imagen,
+				        type: 'video/mp4'
+				      }
+				    ];
+				    img_.type= "video";
+	        		img_.width= 800; // required
+	    			img_.height= 600; // required
+	    			img_.autoplay= true;
+        		}
+
         		self.images.push(img_);
         	});
 
@@ -231,6 +259,10 @@
                 150);
 
 		    },
+		    get_extension(filename) {
+		    	console.log(filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2));
+                // return filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2);
+            },
 		    closeLightBox(){
 		    	// this.viewGaleria = true;
 		    	history.go(-1)
@@ -263,30 +295,30 @@
 		height: 10px;
 	}
 	.card {
-	flex: 0 0 auto;
-	margin-right: 10px;
+		flex: 0 0 auto;
+		margin-right: 10px;
 	}
-	.card img {
+	.card img, .card video  {
 		width: 150px;
 		height: 150px;
 		cursor: zoom-in;
 	}
 
 	@media  (min-width: 980px) and  (max-width: 1200px){
-		.card img {
+		.card img, .card video {
 			width: 130px !important;
 			height: 130px !important;
 		}
 	}
 
 	@media (min-width: 768px) and (max-width: 979px) {
-		.card img {
+		.card img, .card video {
 			width: 110px !important;
 			height: 110px !important;
 		}
 	}
 	@media (min-width: 480px) and (max-width: 767px) {
-		.card img {
+		.card img, .card video {
 			width: 90px !important;
 			height: 90px !important;
 		}
@@ -295,7 +327,7 @@
 		}
 	}
 	@media (max-width: 479px) {
-		.card img {
+		.card img, .card video {
 			width: 70px !important;
 			height: 70px !important;
 		}

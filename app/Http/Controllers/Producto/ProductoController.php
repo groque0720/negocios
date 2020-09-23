@@ -191,22 +191,27 @@ class ProductoController extends Controller
     {
         $imageName = md5(microtime()).'.'.$request->file->getClientOriginalExtension();
         $imageName = str_replace(' ', '_', $imageName);
-        // $request->file('file')->storeAs('public/'.$request->negocio_url, $imageName);
-        // $url = $request->negocio_url.'/'.$imageName;
 
-        $image = $request->file('file');
-        $image_resize = Image::make($image->getRealPath());
-        $image_resize->resize(800, null, function($constraint) {
-             $constraint->aspectRatio();
-             $constraint->upsize();
-        });
-        $image_resize->orientate();
-        // $image_resize->storeAs('public/'.$request->negocio_url, $imageName);
-        $image_resize->save(public_path('storage/'.$request->negocio_url.'/'.$imageName));
-        $url = $request->negocio_url.'/'.$imageName;
-        // $nombre_archivo = time() . "." . $request->file('file')->extension();
-        // $image_resize->save(public_path('images/' .$imageName));
+        if ($request->file->getClientOriginalExtension() == 'mp4') {
+            $request->file('file')->storeAs('public/'.$request->negocio_url, $imageName);
+            $url = $request->negocio_url.'/'.$imageName;
+        }else{
+            // $request->file('file')->storeAs('public/'.$request->negocio_url, $imageName);
+            // $url = $request->negocio_url.'/'.$imageName;
 
+            $image = $request->file('file');
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(800, null, function($constraint) {
+                 $constraint->aspectRatio();
+                 $constraint->upsize();
+            });
+            $image_resize->orientate();
+            // $image_resize->storeAs('public/'.$request->negocio_url, $imageName);
+            $image_resize->save(public_path('storage/'.$request->negocio_url.'/'.$imageName));
+            $url = $request->negocio_url.'/'.$imageName;
+            // $nombre_archivo = time() . "." . $request->file('file')->extension();
+            // $image_resize->save(public_path('images/' .$imageName));
+        }
         $producto_imagen = new ProductoImagen;
         $producto_imagen->producto_id = $request->producto_id;
         $producto_imagen->imagen = $url;
