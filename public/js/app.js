@@ -57195,8 +57195,7 @@ var render = function() {
                           "tarjeta borde-radio-5 m-10 sombra-box cursor",
                         staticStyle: {
                           position: "relative",
-                          "margin-bottom": "15px",
-                          "max-height": "350px"
+                          "margin-bottom": "15px"
                         },
                         on: {
                           click: function($event) {

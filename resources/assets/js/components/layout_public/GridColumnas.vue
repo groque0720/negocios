@@ -3,7 +3,7 @@
         <div class="ancho-95 flex margen-auto">
             <div v-for="(columnas, c) in nro_columnas" class="ancho-50" >
                 <template>
-                    <div v-for="(imagen, f) in imagenes_infinite"  v-if="boleanMostrar(c, f)" class="tarjeta borde-radio-5 m-10 sombra-box cursor" style="position: relative; margin-bottom: 15px; max-height: 350px;" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
+                    <div v-for="(imagen, f) in imagenes_infinite"  v-if="boleanMostrar(c, f)" class="tarjeta borde-radio-5 m-10 sombra-box cursor" style="position: relative; margin-bottom: 15px;" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
                         <!-- <div class="display-none imagen-titulo flex flex-item-center p-l-5 p-t-5">
                             <div class="flex flex-item-center p-r-10 p-l-10" style="height: 30px; background: white; border-radius: 30px;">
                                 <span class="txt-negrita">{{ $root.truncarTexto(imagen.producto, 30) }}</span>
