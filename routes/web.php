@@ -3,6 +3,7 @@
 use App\Negocio;
 use App\Perfil;
 use App\User;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +43,34 @@ use App\User;
 // 	mkdir("storage/"."omar", 0700);
 // });
 
-Route::group(['domain' => '{account}.vidriera.online'], function () {
-	Route::get('/{'.$account.'}','Negocio\NegocioController@public_index');
+Route::group(['domain' => '{account}.negocios.test'], function () {
+
+	// $url = parse_url(URL::current());
+
+ //    $domain = explode('.', $url['host']);
+
+ //    $subdomain = $domain[0];
+
+ //    return $subdomain;
+
+    Route::get('/', function ($account) {
+    	$url_negocio = $account;
+        return redirect()->route('/', compact('url_negocio'));
+    });
+
+    Route::get('/','Negocio\NegocioController@public_index');
+	Route::get('/buscar_imagenes_random/{producto_id?}','Negocio\NegocioController@buscar_imagenes_random');
+	Route::get('/buscar_albumes','Negocio\NegocioController@buscar_albumes');
+	Route::get('/producto/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
+	Route::get('/album/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
+
+
+	Route::get('/{url_negocio}/productos/mismas_categorias/','Negocio\NegocioController@mostrar_productos_mismas_categorias');
+	Route::get('/{url_negocio}/productos/categoria/{categoria}/','Negocio\NegocioController@mostrar_productos_categoria');
+
+
+
+	// Route::get('/{'.$account.'}','Negocio\NegocioController@public_index');
 	//Route::get('/', 'Negocio\NegocioController@public_index');
     // Route::get('/', function ($account) {
     //     return $account;
@@ -137,7 +164,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
-Route::get('/{url_negocio}','Negocio\NegocioController@public_index');
+Route::get('/{url_negocio}','Negocio\NegocioController@public_index')->name('url_negocio.index');
 Route::get('/{url_negocio}/buscar_imagenes_random/{producto_id?}','Negocio\NegocioController@buscar_imagenes_random');
 Route::get('/{url_negocio}/buscar_albumes','Negocio\NegocioController@buscar_albumes');
 Route::get('/{url_negocio}/producto/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');

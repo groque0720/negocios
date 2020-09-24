@@ -261,7 +261,7 @@
 				var producto_codigo = this.producto.codigo;
         		var id = this.producto.imagenes[index].id;
 				self = this;
-				history.pushState('', 'Galeria', '/'+this.negocio.url+'/producto/'+this.producto.codigo+'/'+id);
+				history.pushState('', 'Galeria', '/producto/'+this.producto.codigo+'/'+id);
                 setTimeout(function(){
 					self.$refs.lightbox.showImage(index);
                     },
