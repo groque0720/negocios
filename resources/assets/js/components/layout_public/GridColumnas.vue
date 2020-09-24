@@ -120,7 +120,7 @@
             },
             irProducto(producto_codigo, id){
                 //console.log(id);
-                window.location = '/producto/'+producto_codigo+'/'+id;
+                window.location = '/'+this.negocio.url+'/producto/'+producto_codigo+'/'+id;
             }
         }
     }

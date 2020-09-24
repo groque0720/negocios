@@ -58985,7 +58985,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_lazyload_video___default.a);
         },
         irProducto: function irProducto(producto_codigo, id) {
             //console.log(id);
-            window.location = '/producto/' + producto_codigo + '/' + id;
+            window.location = '/' + this.negocio.url + '/producto/' + producto_codigo + '/' + id;
         }
     }
 });
@@ -64421,7 +64421,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_lazyload__["a" /* default */]);
             var producto_codigo = this.producto.codigo;
             var id = this.producto.imagenes[index].id;
             self = this;
-            history.pushState('', 'Galeria', '/producto/' + this.producto.codigo + '/' + id);
+            history.pushState('', 'Galeria', '/' + this.negocio.url + '/producto/' + this.producto.codigo + '/' + id);
             setTimeout(function () {
                 self.$refs.lightbox.showImage(index);
             }, 150);
