@@ -43,7 +43,7 @@ use Illuminate\Support\Facades\URL;
 // 	mkdir("storage/"."omar", 0700);
 // });
 
-Route::group(['domain' => '{account}.negocios.test'], function () {
+Route::group(['domain' => '{account}.vidriera.online'], function () {
 
 	// $url = parse_url(URL::current());
 
@@ -65,8 +65,8 @@ Route::group(['domain' => '{account}.negocios.test'], function () {
 	Route::get('/album/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
 
 
-	Route::get('/{url_negocio}/productos/mismas_categorias/','Negocio\NegocioController@mostrar_productos_mismas_categorias');
-	Route::get('/{url_negocio}/productos/categoria/{categoria}/','Negocio\NegocioController@mostrar_productos_categoria');
+	Route::get('/productos/mismas_categorias/','Negocio\NegocioController@mostrar_productos_mismas_categorias');
+	Route::get('/productos/categoria/{categoria}/','Negocio\NegocioController@mostrar_productos_categoria');
 
 
 
