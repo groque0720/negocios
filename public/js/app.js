@@ -57251,8 +57251,13 @@ var render = function() {
                                   },
                                   attrs: {
                                     src: "/storage/" + imagen.imagen,
-                                    autoplay: "true",
-                                    loop: ""
+                                    attrs: {
+                                      controls: false,
+                                      playsinline: false,
+                                      loop: true,
+                                      autoplay: true,
+                                      muted: true
+                                    }
                                   }
                                 })
                               : _vm._e()
