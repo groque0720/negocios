@@ -57089,6 +57089,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['negocio'], //va a tener producto_id si viene del detalle de un producto, sino viene de la view principal
@@ -57275,18 +57277,25 @@ var render = function() {
                   : _vm._e()
               }),
               _vm._v(" "),
-              _c(
-                "infinite-loading",
-                { on: { infinite: _vm.InfiniteHandler } },
-                [
-                  _c("div", { attrs: { slot: "no-more" }, slot: "no-more" }),
-                  _vm._v(" "),
-                  _c("div", {
-                    attrs: { slot: "no-results" },
-                    slot: "no-results"
-                  })
-                ]
-              )
+              c == 1
+                ? [
+                    _c(
+                      "infinite-loading",
+                      { on: { infinite: _vm.InfiniteHandler } },
+                      [
+                        _c("div", {
+                          attrs: { slot: "no-more" },
+                          slot: "no-more"
+                        }),
+                        _vm._v(" "),
+                        _c("div", {
+                          attrs: { slot: "no-results" },
+                          slot: "no-results"
+                        })
+                      ]
+                    )
+                  ]
+                : _vm._e()
             ]
           ],
           2
