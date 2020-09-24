@@ -207,7 +207,7 @@ class ProductoController extends Controller
             });
             $image_resize->orientate();
             // $image_resize->storeAs('public/'.$request->negocio_url, $imageName);
-            $image_resize->save(public_path('storage/'.$request->negocio_url.'/'.$imageName));
+            $image_resize->save(public_path('storage/'.$request->negocio_url.'/'.$imageName),72);
             $url = $request->negocio_url.'/'.$imageName;
             // $nombre_archivo = time() . "." . $request->file('file')->extension();
             // $image_resize->save(public_path('images/' .$imageName));

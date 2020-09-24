@@ -10,10 +10,12 @@
                             </div>
                         </div> -->
                         <div class="imagen flex ancho-100">
-                            <img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt="">
-                            <video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100" loop muted autoplay>
+                           <!--  <img v-if="$root.esImagen(imagen.imagen)" loading="lazy" style="object-fit: cover; min-height: 150px;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt=""> -->
+                           <img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100" v-lazy="'/storage/'+imagen.imagen" alt="">
+                            <!-- <video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100" loop muted autoplay>
                                 <source :src="'/storage/'+imagen.imagen" type="video/mp4">
-                            </video>
+                            </video> -->
+                            <LazyVideo v-if="$root.esVideo(imagen.imagen)" :src="'/storage/'+imagen.imagen"  style="object-fit: cover; min-height: 150px;" class="ancho-100" autoplay="true"/>
                         </div>
                         <div class="p-5 p-l-10 ancho-100" style="overflow: hidden;">
                             <span class="txt-negrita" style="font-size: 1em;">{{ imagen.producto }}</span>
@@ -42,6 +44,10 @@
 </template>
 
 <script>
+    import VueLazyload from 'vue-lazyload'
+    import VueLazyLoadVideo from 'vue-lazyload-video'
+    Vue.use(VueLazyload)
+    Vue.use(VueLazyLoadVideo)
     export default {
         props:['negocio'], //va a tener producto_id si viene del detalle de un producto, sino viene de la view principal
         data(){
