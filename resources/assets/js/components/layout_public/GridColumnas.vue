@@ -10,8 +10,8 @@
                             </div>
                         </div> -->
                         <div class="imagen flex ancho-100">
-                            <img v-if="$root.esImagen(imagen.imagen)" loading="lazy" style="object-fit: cover; min-height: 150px;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt="">
-                            <video v-if="$root.esVideo(imagen.imagen)" loading="lazy" style="object-fit: cover; min-height: 150px;" class="ancho-100" loop muted autoplay>
+                            <img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt="">
+                            <video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100" loop muted autoplay>
                                 <source :src="'/storage/'+imagen.imagen" type="video/mp4">
                             </video>
                         </div>

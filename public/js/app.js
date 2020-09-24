@@ -57219,7 +57219,6 @@ var render = function() {
                                   "min-height": "150px"
                                 },
                                 attrs: {
-                                  loading: "lazy",
                                   src: "/storage/" + imagen.imagen,
                                   alt: ""
                                 }
@@ -57235,12 +57234,7 @@ var render = function() {
                                     "object-fit": "cover",
                                     "min-height": "150px"
                                   },
-                                  attrs: {
-                                    loading: "lazy",
-                                    loop: "",
-                                    muted: "",
-                                    autoplay: ""
-                                  },
+                                  attrs: { loop: "", muted: "", autoplay: "" },
                                   domProps: { muted: true }
                                 },
                                 [
