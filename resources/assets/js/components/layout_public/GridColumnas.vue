@@ -9,9 +9,9 @@
                                 <span class="txt-negrita">{{ $root.truncarTexto(imagen.producto, 30) }}</span>
                             </div>
                         </div> -->
-                        <div class="imagen flex ancho-100">
+                        <div class="imagen flex ancho-100 ">
                            <!--  <img v-if="$root.esImagen(imagen.imagen)" loading="lazy" style="object-fit: cover; min-height: 150px;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt=""> -->
-                           <img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100" v-lazy="'/storage/'+imagen.imagen" alt="">
+                           <img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100 lazyload" v-lazy="'/storage/'+imagen.imagen"  alt="">
                             <!-- <video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100" loop muted autoplay>
                                 <source :src="'/storage/'+imagen.imagen" type="video/mp4">
                             </video> -->
@@ -59,7 +59,6 @@
             }
         },
         mounted() {
-            // console.log(this.producto_id);
             this.producto_id_view = this.producto_id != null ? this.producto_id : '';
             this.ancho = window.innerWidth;
             window.addEventListener('resize', this.handleResize);
@@ -160,5 +159,11 @@
         position: absolute;
         bottom: 0;
         left: 0;
+    }
+    .lazyload{
+        /*background-color:#E5E5E5 !important;*/
+        background-image:url(/images/load/64x64.gif);
+        background-repeat:no-repeat;
+        background-position:center;
     }
 </style>

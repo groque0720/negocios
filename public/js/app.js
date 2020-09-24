@@ -58849,7 +58849,7 @@ if(false) {
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(0);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\nimg[data-v-1b4e5cb6] {\n       cursor: -webkit-zoom-in;\n       cursor: zoom-in;\n}\n.tarjeta[data-v-1b4e5cb6]  {\n        -webkit-transition: all .3s;\n        transition: all .3s;\n        -webkit-filter: brightness(90%);\n                filter: brightness(90%);\n}\n.tarjeta[data-v-1b4e5cb6]:hover {\n        -webkit-transform: scale(1.03);\n                transform: scale(1.03);\n        -webkit-filter: brightness(100%);\n                filter: brightness(100%);\n}\n.tarjeta:hover .imagen-titulo[data-v-1b4e5cb6] {\n        display: block !important;\n}\n/*    .tarjeta:hover img{\n        transform: scale(1.1);\n    }*/\n.tarjeta:hover .imagen-acciones[data-v-1b4e5cb6] {\n        display: block !important;\n}\n.imagen-titulo[data-v-1b4e5cb6] {\n        position: absolute;\n        top: 0;\n        left: 0;\n/*        height: 40px;\n        background: red;\n        background: linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,1));*/\n        padding: 5px;\n}\n.imagen-acciones[data-v-1b4e5cb6] {\n        position: absolute;\n        bottom: 0;\n        left: 0;\n}\n", ""]);
+exports.push([module.i, "\nimg[data-v-1b4e5cb6] {\n       cursor: -webkit-zoom-in;\n       cursor: zoom-in;\n}\n.tarjeta[data-v-1b4e5cb6]  {\n        -webkit-transition: all .3s;\n        transition: all .3s;\n        -webkit-filter: brightness(90%);\n                filter: brightness(90%);\n}\n.tarjeta[data-v-1b4e5cb6]:hover {\n        -webkit-transform: scale(1.03);\n                transform: scale(1.03);\n        -webkit-filter: brightness(100%);\n                filter: brightness(100%);\n}\n.tarjeta:hover .imagen-titulo[data-v-1b4e5cb6] {\n        display: block !important;\n}\n/*    .tarjeta:hover img{\n        transform: scale(1.1);\n    }*/\n.tarjeta:hover .imagen-acciones[data-v-1b4e5cb6] {\n        display: block !important;\n}\n.imagen-titulo[data-v-1b4e5cb6] {\n        position: absolute;\n        top: 0;\n        left: 0;\n/*        height: 40px;\n        background: red;\n        background: linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,1));*/\n        padding: 5px;\n}\n.imagen-acciones[data-v-1b4e5cb6] {\n        position: absolute;\n        bottom: 0;\n        left: 0;\n}\n.lazyload[data-v-1b4e5cb6]{\n        /*background-color:#E5E5E5 !important;*/\n        background-image:url(/images/load/64x64.gif);\n        background-repeat:no-repeat;\n        background-position:center;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -58924,7 +58924,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_lazyload_video___default.a);
         };
     },
     mounted: function mounted() {
-        // console.log(this.producto_id);
         this.producto_id_view = this.producto_id != null ? this.producto_id : '';
         this.ancho = window.innerWidth;
         window.addEventListener('resize', this.handleResize);
@@ -63548,7 +63547,7 @@ var render = function() {
                       [
                         _c(
                           "div",
-                          { staticClass: "imagen flex ancho-100" },
+                          { staticClass: "imagen flex ancho-100 " },
                           [
                             _vm.$root.esImagen(imagen.imagen)
                               ? _c("img", {
@@ -63560,7 +63559,7 @@ var render = function() {
                                       expression: "'/storage/'+imagen.imagen"
                                     }
                                   ],
-                                  staticClass: "ancho-100",
+                                  staticClass: "ancho-100 lazyload",
                                   staticStyle: {
                                     "object-fit": "cover",
                                     "min-height": "150px"
