@@ -57251,7 +57251,8 @@ var render = function() {
                                   },
                                   attrs: {
                                     src: "/storage/" + imagen.imagen,
-                                    autoplay: "true"
+                                    autoplay: "true",
+                                    loop: ""
                                   }
                                 })
                               : _vm._e()
