@@ -43,8 +43,8 @@ use App\User;
 // });
 
 Route::group(['domain' => '{account}.negocios.test'], function () {
-	// Route::get('/{'.$account.'}','Negocio\NegocioController@public_index');
-	Route::get('/', 'Negocio\NegocioController@public_index');
+	Route::get('/{'.$account.'}','Negocio\NegocioController@public_index');
+	//Route::get('/', 'Negocio\NegocioController@public_index');
     // Route::get('/', function ($account) {
     //     return $account;
     // });

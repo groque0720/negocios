@@ -154,7 +154,12 @@
 			</div>
 		</div>
 		<!-- <vue-gallery-slideshow v-if="viewGaleria" :images="images" :index="index" @close="index = null"></vue-gallery-slideshow> -->
-		<LightBox v-if="viewGaleria" ref="lightbox" :media="images" :startAt="imagen_ppal_index" v-on:onClosed="closeLightBox()"></LightBox>
+		<LightBox v-if="viewGaleria"
+					ref="lightbox"
+					:media="images"
+					:startAt="imagen_ppal_index"
+					v-on:onClosed="closeLightBox()">
+		</LightBox>
 
 		<div class="m-t-20 p-5" style="background: rgba(0,0,0,0.1);">
 			<layout-productos-mismas-categorias  v-bind:negocio="negocio" v-bind:producto="producto" v-bind:categorias="categorias_lista"></layout-productos-mismas-categorias>
@@ -194,7 +199,6 @@
 	            $(window).on('popstate', function() {
 	            	// remuevo clase que me quita el scroll del body
 	            	$('body').removeClass('vue-lb-open');
-
 	                self_galeria.viewGaleria  = false;
 	                self_galeria.$refs.lightbox.closeLightBox();
 	            });
@@ -262,7 +266,6 @@
 					self.$refs.lightbox.showImage(index);
                     },
                 150);
-
 		    },
 		    get_extension(filename) {
 		    	console.log(filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2));
