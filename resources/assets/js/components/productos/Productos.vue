@@ -57,9 +57,12 @@
                             </div>
                             <div  class="flex flex-content-end">
                             <!-- muestro el precio solo si es de tipo producto (valor 1) -->
-                                <span v-if="producto.tipo_id == 1" class="fz-12">${{ $root.formatoPrecio(producto.precio)  }}</span>
+                                <!-- <span v-if="producto.tipo_id == 1" class="fz-12">${{ $root.formatoPrecio(producto.precio)  }}</span> -->
+                                <span class="fz-12">${{ $root.formatoPrecio(producto.precio)  }} {{ producto.precio_obs }}</span>
+                            </div>
                             <!-- Muestro la fecha de creacion del album (valor 2) -->
-                                <span v-if="producto.tipo_id == 2" class="fz-12">{{ $root.diffForHumans(producto.created_at) }}</span>
+                            <div v-if="producto.tipo_id == 2">
+                                <span  class="fz-12">{{ $root.diffForHumans(producto.created_at) }}</span>
                             </div>
                         </div>
                     </div>

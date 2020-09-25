@@ -30,25 +30,29 @@
 				</div>
 			</div>
 			<div class="ancho-100 p-10 m-b-10">
-					<div class="flex flex-item-center flex-content-center m-b-5">
-						<span class="fz-30 txt-negrita txt-mayuscula titulo">{{ producto.producto }}</span>
+					<div class="flex flex-item-center flex-content-center m-b-10">
+						<span class="fz-20 txt-negrita txt-mayuscula titulo">{{ producto.producto }}</span>
 					</div>
 
-					<div class="precio" >
+					<div class="precio m-b-10" >
 						<!-- <div class="fz-15 txt-negrita txt-mayuscula titulo m-b-5">Precio</div> -->
 						<div class="flex flex-wrap txt-negrita fz-25" v-if="producto.precio>0">
-							<span class="m-r-10 fz-25">$</span><span class="fz-25">{{ $root.formatoPrecio(producto.precio) }}</span>
+							<span class="m-r-10 fz-16" >$</span><span class="fz-16">{{ $root.formatoPrecio(producto.precio) }}</span>
+							<span class="fz-16 m-l-10">{{ producto.precio_obs }}</span>
 						</div>
 					</div>
 
 					<div class="descripcion m-b-10">
-						<span>{{ producto.descripcion }}</span>
+						<span class="fz-16">{{ producto.descripcion }}</span>
 					</div>
 
-					<div class="caracteristicas m-b-10">
+					<div class="caracteristicas m-b-10 flex flex-wrap">
 						<!-- <div class="fz-15 txt-negrita txt-mayuscula titulo m-b-5">Características</div> -->
-						<div v-for="caracteristica in producto.caracteristicas">
-							<div class="txt-negrita">{{caracteristica.caracteristica}} : {{ caracteristica.pivot.valor }}</div>
+						<div v-for="caracteristica in producto.caracteristicas" class="ancho-50 m-b-5">
+							<div class="ancho-100 flex  flex-item-center flex-content-star">
+								<div class="txt-negrita fz-16">{{caracteristica.caracteristica}} :</div>
+								<div class=" m-l-10 fz-16">{{ caracteristica.pivot.valor }}</div>
+							</div>
 						</div>
 					</div>
 
@@ -56,8 +60,28 @@
 						<!-- <div class="fz-15 txt-negrita txt-mayuscula titulo m-b-5">Etiquetas</div> -->
 						<div class="flex flex-wrap">
 							<div v-for="categoria in categorias_lista" class="m-r-10">
-								<a href="" class="link"><span class="txt-celeste">#{{ categoria.categoria }} </span></a>
+								<a href="" class="link"><span class="txt-celeste fz-16">#{{ categoria.categoria }} </span></a>
 							</div>
+						</div>
+					</div>
+					<!-- productos relacionados -->
+					<div class="flex flex-wrap flex-content-center">
+						<div class="producto-relacionado ancho-45 flex p-5 m-b-10 cursor" v-if="producto.relacionados"
+							 v-for="relacion in producto.relacionados" style="background: white; margin-right: 2%; border-radius: 5px; box-shadow: 0px 0px 5px 2px #ddd;"
+							 @click.prevent="irProducto(relacion.codigo, '')">
+							 <div class="flex m-r-5" style="width: 50px; height: 50px;">
+							 	<img v-if="$root.esImagen(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;"  :src="'/storage/'+relacion.imagen_ppal" alt="">
+							 	<video v-if="$root.esVideo(relacion.imagen_ppal)" style="object-fit: cover; width: 50px !important; height: 50px !important;" class="ancho-100" autoplay muted loop>
+	                                <source :src="'/storage/'+relacion.imagen_ppal" type="video/mp4">
+	                            </video>
+							 </div>
+							 <div class="ancho-100 flex flex-direction-column">
+								<div class="txt-mayuscula txt-negrita fz-11 p-2">{{ relacion.producto }}</div>
+								<div class="flex flex-wrap" v-if="relacion.precio>0">
+									<span class="fz-11 txt-negrita" >$ {{ $root.formatoPrecio(relacion.precio) }}</span>
+									<span class="fz-11 m-l-5">{{ relacion.precio_obs }}</span>
+								</div>
+							 </div>
 						</div>
 					</div>
 			</div>
@@ -90,7 +114,8 @@
 					<div class="precio">
 						<!-- <div class="fz-15 txt-negrita txt-mayuscula titulo m-b-5">Precio</div> -->
 						<div class="flex flex-wrap txt-negrita fz-25" v-if="producto.precio>0">
-							<span class="m-r-10 fz-20">$</span><span class="fz-20">{{ $root.formatoPrecio(producto.precio) }}</span>
+							<span class="m-r-10 fz-20" >$</span><span class="fz-20">{{ $root.formatoPrecio(producto.precio) }}</span>
+							<span class="fz-20 m-l-10">{{ producto.precio_obs }}</span>
 						</div>
 					</div>
 
@@ -123,13 +148,16 @@
 							 @click.prevent="irProducto(relacion.codigo, '')">
 							 <div class="flex m-r-5" style="width: 50px; height: 50px;">
 							 	<img v-if="$root.esImagen(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;"  :src="'/storage/'+relacion.imagen_ppal" alt="">
-							 	<video v-if="$root.esVideo(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;" class="ancho-100" autoplay muted loop>
+							 	<video v-if="$root.esVideo(relacion.imagen_ppal)" style="object-fit: cover; width: 50px !important; height: 50px !important;" class="ancho-100" autoplay muted loop>
 	                                <source :src="'/storage/'+relacion.imagen_ppal" type="video/mp4">
 	                            </video>
 							 </div>
 							 <div class="ancho-100 flex flex-direction-column">
 								<div class="txt-mayuscula txt-negrita fz-11 p-2">{{ relacion.producto }}</div>
-								<div class=""><span class="fz-11" v-if="relacion.precio>0">$ {{ $root.formatoPrecio(relacion.precio) }}</span></div>
+								<div class="flex flex-wrap" v-if="relacion.precio>0">
+									<span class="fz-11 txt-negrita" >$ {{ $root.formatoPrecio(relacion.precio) }}</span>
+									<span class="fz-11">{{ relacion.precio_obs }}</span>
+								</div>
 							 </div>
 						</div>
 					</div>

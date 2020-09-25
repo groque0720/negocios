@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="ancho-100">
 		<div>
 			<h1 class="txt-centrar">
 				<span v-if="producto.guardar == 0">Nuevo</span><span v-else>Editar</span>
@@ -50,17 +50,21 @@
 							</div>
 						</div>
 						<!-- muestro el precio solo si es de tipo producto -->
-						<div v-if="producto.tipo_id == 1" class="form-linea flex flex-item-center flex-space-between">
-							<div class="form-columna ancho-50">
+						<!-- <div v-if="producto.tipo_id == 1" class="form-linea flex flex-item-center flex-space-between"> -->
+						<div class="form-linea flex flex-item-center flex-space-between">
+							<div class="form-columna ancho-20">
 								<label class="form-label" for=""> Precio </label>
 							</div>
-							<div class="form-columna ancho-50">
+							<div class="form-columna ancho-35">
 								<div class="ancho-100 flex flex-content-end" v-if="!viewActualizarPrecio">
 									<div class="ancho-80 flex flex-item-center">
 										<span>$</span>
 										<input type="text" ref="valor_precio" class="form-input numero precio txt-derecha" v-model='precio_display' placeholder="$" @focus="evt=>seleccionarPrecio(evt)" @focusout="actulizarPrecio()" @keypress.enter.prevent="actulizarPrecio()">
 									</div>
 								</div>
+							</div>
+							<div class="form-columna ancho-35">
+								<input type="text" class="form-input" v-model="producto.precio_obs" placeholder="obs. precio">
 							</div>
 						</div>
 					</div>
@@ -92,13 +96,11 @@
 		                    <div class="ancho-100 flex flex-item-center">
 		                        <div class="ancho-30 m-r-10 flex" style="width: 60px; height: 60px; overflow: hidden; border-radius: 2px; box-shadow: 1px 1px #ddd;">
 
-
-		                            <img v-if="$root.esVideo(producto.imagen_ppal)" style="object-fit: cover;" :src="'/storage/'+producto.imagen_ppal" alt="" width="100%" >
+		                            <img v-if="$root.esImagen(producto.imagen_ppal)" style="object-fit: cover;" :src="'/storage/'+producto.imagen_ppal" alt="" width="100%" >
 
 		                            <video v-if="$root.esVideo(producto.imagen_ppal)" style="object-fit: cover; width: 60px; height: 60px;"  autoplay muted loop>
 		                                <source :src="'/storage/'+producto.imagen_ppal" type="video/mp4">
 		                            </video>
-
 
 		                        </div>
 		                        <div class="ancho-70 flex flex-space-between flex-direction-column" style="height: 100%;">
@@ -203,7 +205,7 @@
 						<div class="zona-categorias-item flex flex-item-center flex-content-center" style="flex-flow:row wrap;">
 							<template v-for="(categoria, i) in categorias_activas">
 								<div class="flex flex-item-center flex-space-between categoria-item p-5" v-if="categoria.seleccion_confirmacion">
-									<div class="ancho-100 m-r-5">
+									<div class="ancho-100 m-r-5 flex flex-content-center">
 										{{ categoria.categoria }}
 									</div>
 									<div class="flex flex-item-center flex-content-center cursor" style="width: 20px;" @click="quitarCategoria(i)">
@@ -252,7 +254,7 @@
 						</draggable>
 						<div id="div_file" class="flex flex-item-center flex-content-center m-5" style="border: 1px solid #ccc; border-radius: 5px; width: 80%; margin: auto; height: 45px;">
 								<input id="file" type="file" @change="obtenerImagen" multiple style="display: block;">
-								<i class="fas fa-upload" style="color: #A777C8;"></i><span class="m-l-10">Subir Imagen</span>
+								<i class="fas fa-upload" style="color: #A777C8;"></i><span class="m-l-10">Subir Imagen/Videos</span>
 						</div>
 					</div>
 					<!-- lienzo ccarga imagenes -->
@@ -260,7 +262,7 @@
 							<div class="box-upload flex flex-item-center flex-space-between " style="width: 300px; height: 150px; background: white; border-radius: 10px;">
 								<div class="ancho-50">
 									<div class="flex flex-item-center flex-content-center m-b-10">
-										<span>Subiendo Imagenes</span>
+										<span>Subiendo Imagenes/Videos </span>
 									</div>
 									<div class="flex flex-item-center flex-content-center">
 										<span class="fz-20">{{ uploadImagen.nro_imagen }} / {{ uploadImagen.max_nro }}</span>
@@ -273,20 +275,24 @@
 					</div>
 				</div>
 			</div>
-            <div class="form-foot p-t-10" style="position: fixed; bottom: 0px; left: 0px; background: white;">
-	            <div class="form-linea flex flex-space-between flex-item-center" >
-	                <div class="form-columna m-b-0">
-	                    <button class="btn form-btn-cancelar cursor p-l-20 p-r-20" @click.prevent="cancelar()">Cancelar</button>
-	                </div>
-	                <div class="form-columna m-b-0">
-	                    <button class="btn form-btn-entrar cursor p-l-20 p-r-20" @click.prevent="guardarFormulario()">Guardar</button>
-	                </div>
-	            </div>
+            <div class="form-foot p-t-10 flex flex-item-center flex-content-center" style="position: fixed; bottom: 0px; left: 0px; background: white;">
+            	<div class="ancho-95 ancho-sx-95 ancho-s-90 ancho-m-80 ancho-l-70 ancho-lg-60 flex flex-content-center" >
+		            <div class="form-linea flex flex-space-between flex-item-center ancho-100" >
+		                <div class="form-columna m-b-0">
+		                    <button class="btn form-btn-cancelar cursor p-l-20 p-r-20" @click.prevent="cancelar()">Cancelar</button>
+		                </div>
+		                <div class="form-columna m-b-0">
+		                    <button class="btn form-btn-entrar cursor p-l-20 p-r-20" @click.prevent="guardarFormulario()">Guardar</button>
+		                </div>
+		            </div>
+            	</div>
+
         	</div>
 		<!-- </form> -->
 
 		<!-- seleccion Lienzo -->
-		<caracteristicas-seleccionar ref="formCaracteristicas" v-bind:caracteristicas="caracteristicas_activas" v-bind:producto="producto"></caracteristicas-seleccionar>
+			<caracteristicas-seleccionar ref="formCaracteristicas" v-bind:caracteristicas="caracteristicas_activas" v-bind:producto="producto"></caracteristicas-seleccionar>
+
 		<categorias-seleccionar ref="formCategorias" v-bind:categorias="categorias_activas" v-bind:producto="producto"></categorias-seleccionar>
 		<productos-seleccionar ref="formProductosRelacionados" v-bind:productos_relacionados="productos_relacionados" v-bind:producto="producto"></productos-seleccionar>
 	</div>

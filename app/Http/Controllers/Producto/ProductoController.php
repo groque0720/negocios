@@ -262,6 +262,7 @@ class ProductoController extends Controller
         $producto->producto = $producto_form['producto'];
         $producto->descripcion = $producto_form['descripcion'];
         $producto->precio = $producto_form['precio'];
+        $producto->precio_obs = $producto_form['precio_obs'];
         $producto->guardar = 1;
         $producto->save();
 

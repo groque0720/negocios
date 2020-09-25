@@ -29,7 +29,7 @@
             </div>
         </a>
         <template v-if="mostrarFormulario">
-            <div class="form-lienzo flex flex-item-start flex-content-center">
+            <div class="form-lienzo flex flex-item-start flex-content-center" >
                 <form class="form ancho-80" autocomplete="off">
                     <div class="form-head p-10">
                         <div class="form-titulo">
@@ -110,6 +110,10 @@
             }
         },
         mounted() {
+            var self_caracteristicas = this
+            $(window).on('popstate', function() {
+                self_caracteristicas.mostrarFormulario = false;
+            });
         },
         methods: {
             borrarInputBuscar(){
@@ -151,6 +155,8 @@
                 }
             },
             clickNuevo(){
+                this.limpiarFormulario();
+                history.pushState('', 'Caracteristica', '/caracteristicas');
                 this.formulario.titulo = 'Agregar Caracteristica';
                 this.mostrarFormulario = true;
                 this.accion = 'A';
@@ -218,6 +224,7 @@
             ocultarFormulario(){
                 this.limpiarFormulario();
                 this.mostrarFormulario = false;
+                history.go(-1)
             },
             limpiarFormulario(){
                 this.formulario.titulo = '';
@@ -306,5 +313,6 @@
         left: 0;
         top: 0;
         padding-top: 40px;
+        z-index: 999;
     }
 </style>

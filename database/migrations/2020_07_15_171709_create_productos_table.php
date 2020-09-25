@@ -22,6 +22,7 @@ class CreateProductosTable extends Migration
             $table->text('descripcion')->nullable();
             $table->string('imagen_ppal')->nullable();
             $table->float('precio',11,2)->default(0)->nullable();
+            $table->string('precio_obs')->nullable();
             $table->integer('activo')->default(1);
             $table->integer('guardar')->default(0);
             $table->timestamps();

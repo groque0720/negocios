@@ -1,7 +1,7 @@
 <template>
 	<div v-if="view" style="height: 100vh; width: 100%; background: rgba(0,0,0,0.5); position: fixed; top: 0; left: 0; z-index: 1;">
 		<div class="flex flex-content-center">
-			<div class="ancho-90 p-10" style="background: white; margin-top: 20px; border-radius: 5px;">
+			<div class="ancho-sx-100 ancho-s-95 ancho-m-75 ancho-l-60 ancho-lg-50 p-10" style="background: white; margin-top: 20px; border-radius: 5px;">
 				<form  class="form" action="">
 					<div class="form-head" style="background: white;">
 						<div class="flex flex-space-between">
@@ -9,9 +9,13 @@
 								<i class="fas fa-boxes m-r-10" style="color: #17A6EC;"></i>
 								<span>Seleccionar Categorías</span>
 							</div>
-							<div class="ancho-30 flex flex-item-center flex-space-between p-10 borde-radio-3" @click="nuevacategoria()" style="border: 1px solid #ddd;">
-								<i class="fas fa-plus m-r-10 arrow-categorias" style="color:#17A6EC;"></i>
-								<span>Agregar</span>
+							<div class="flex flex-item-center flex-space-between p-10 borde-radio-3" @click="nuevacategoria()" style="border: 1px solid #ddd; width: 150px;">
+                                <div class="ancho-30">
+                                    <i class="fas fa-plus m-r-10 arrow-categorias" style="color:#17A6EC;"></i>
+                                </div>
+                                <div class="ancho-70 flex flex-content-center">
+                                    <span>Agregar</span>
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -117,7 +121,7 @@
         },
         methods:{
         	mostrar() {
-                history.pushState('', 'Categorías', '/seleccionar/categorias');
+                history.pushState('', 'Categorías', this.producto.codigo);
         		this.view = true;
                 this.categorias_view = this.categorias;
         		this.categorias_view.forEach(function(item, posicion){
@@ -189,6 +193,7 @@
         		});
                 this.query = '';
         		this.view = false;
+                history.go(-1);
         	},
             guardarNuevacategoria(){
                 this.formulario.producto_codigo = this.producto.codigo;
