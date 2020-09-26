@@ -258,7 +258,7 @@
         }
     }
 </script>
-<style scoped>
+<!-- <style scoped>
     .zona-busqueda {
         border: 1px solid #ccc;
         border-radius: 35px;
@@ -307,4 +307,4 @@
         top: 0;
         padding-top: 40px;
     }
-</style>
+</style> -->

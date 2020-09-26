@@ -1,5 +1,5 @@
 <template>
-	<div class="ancho-100">
+	<div class="ancho-100 producto-formulario">
 		<div>
 			<h1 class="txt-centrar">
 				<span v-if="producto.guardar == 0">Nuevo</span><span v-else>Editar</span>
@@ -595,18 +595,18 @@
 		// }
 	}
 </script>
-<style scoped>
-	i{
+<!-- <style scoped>
+	.producto-formulario i{
         -webkit-transition: all 500ms ease-in-out;
         -moz-transition: all 500ms ease-in-out;
         -o-transition: all 500ms ease-in-out;
         -ms-transition: all 500ms ease-in-out;
 	}
-	.rotate{
+	.producto-formulario .rotate{
 		transform: rotate(180deg);
 		z-index: -0;
 	}
-	.categoria-item {
+	.producto-formulario .categoria-item {
 		min-width: 25%;
 		max-width: 40%;
 		margin: 5px;
@@ -614,10 +614,10 @@
 		border: 1px solid #17A6EC;
 		border-radius: 20px;
 	}
-	.input-ingrese-valor {
+	.producto-formulario .input-ingrese-valor {
 		background: #EDD1D1 !important;
 	}
-	    div#div_file{
+	.producto-formulario  div#div_file{
         position:relative;
         cursor: pointer;
         /*margin:50px;*/
@@ -628,19 +628,19 @@
         -webkit-box-shadow:0px 3px 0px #1a71a9;*/
     }
 
-    .lista-linea {
+    .producto-formulario .lista-linea {
         padding: 5px;
         border-bottom: 1px solid #ccc;
     }
-    .lista-linea.linea_0 {
+    .producto-formulario .lista-linea.linea_0 {
         border-top: 1px solid #ccc !important;
     }
 
-    .lista-linea-activa {
+    .producto-formulario .lista-linea-activa {
         background: #ECECEC;
     }
 
-    input#file{
+    .producto-formulario input#file{
         border:1px solid black;
         cursor: pointer;
         position:absolute;
@@ -653,4 +653,4 @@
         opacity: 0;
     }
 
-</style>
+</style> -->

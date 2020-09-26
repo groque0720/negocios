@@ -239,8 +239,8 @@
         }
     }
 </script>
-<style scoped>
+<!-- <style scoped>
 	.no-seleccionado {
 		color: #ccc;
 	}
-</style>
+</style> -->

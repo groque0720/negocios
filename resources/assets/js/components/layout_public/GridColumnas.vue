@@ -3,7 +3,7 @@
         <div class="ancho-95 flex margen-auto">
             <div v-for="(columnas, c) in nro_columnas" class="ancho-50" >
                 <template>
-                    <div v-for="(imagen, f) in imagenes_infinite"  v-if="boleanMostrar(c, f)" class="tarjeta borde-radio-5 m-10 sombra-box cursor" style="position: relative; margin-bottom: 15px;" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
+                    <div v-for="(imagen, f) in imagenes_infinite"  v-if="boleanMostrar(c, f)" class="tarjeta-grid-columnas borde-radio-5 m-10 sombra-box cursor" style="position: relative; margin-bottom: 15px;" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
                         <!-- <div class="display-none imagen-titulo flex flex-item-center p-l-5 p-t-5">
                             <div class="flex flex-item-center p-r-10 p-l-10" style="height: 30px; background: white; border-radius: 30px;">
                                 <span class="txt-negrita">{{ $root.truncarTexto(imagen.producto, 30) }}</span>
@@ -11,7 +11,7 @@
                         </div> -->
                         <div class="imagen flex ancho-100 ">
                            <!--  <img v-if="$root.esImagen(imagen.imagen)" loading="lazy" style="object-fit: cover; min-height: 150px;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt=""> -->
-                           <img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100 lazyload" v-lazy="'/storage/'+imagen.imagen"  alt="">
+                           <img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100 lazyload cursor-lupa" v-lazy="'/storage/'+imagen.imagen"  alt="">
                             <!-- <video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover; min-height: 150px;" class="ancho-100" loop muted autoplay>
                                 <source :src="'/storage/'+imagen.imagen" type="video/mp4">
                             </video> -->
@@ -21,7 +21,7 @@
                             <span class="txt-negrita" style="font-size: 1em;">{{ imagen.producto }}</span>
                         </div>
                         <!-- acciones en la parte inferior de la imagen cuanod pase el mouse -->
-                        <!-- <div class="imagen-acciones ancho-100 display-none">
+                        <!-- <div class="imagen-acciones-grid-columnas ancho-100 display-none">
                             <div class="flex flex-item-center flex-content-end p-r-5 p-b-5">
                                 <div class="flex flex-item-center flex-content-center"
                                      style="width: 30px; height: 30px; border-radius: 50%; background: white;">
@@ -125,28 +125,25 @@
         }
     }
 </script>
-<style scoped>
-    img {
-       cursor: zoom-in;
-    }
-    .tarjeta  {
+<!-- <style scoped>
+    .tarjeta-grid-columnas  {
         transition: all .3s;
         filter: brightness(90%);
     }
-    .tarjeta:hover {
+    .tarjeta-grid-columnas:hover {
         transform: scale(1.03);
         filter: brightness(100%);
     }
-    .tarjeta:hover .imagen-titulo {
+    .tarjeta-grid-columnas:hover .imagen-titulo {
         display: block !important;
     }
-/*    .tarjeta:hover img{
+/*    .tarjeta-grid-columnas:hover img{
         transform: scale(1.1);
     }*/
-    .tarjeta:hover .imagen-acciones {
+    .tarjeta-grid-columnas:hover .imagen-acciones-grid-columnas {
         display: block !important;
     }
-    .imagen-titulo {
+    .tarjeta-grid-columnas .imagen-titulo {
         position: absolute;
         top: 0;
         left: 0;
@@ -155,7 +152,7 @@
         background: linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,1));*/
         padding: 5px;
     }
-    .imagen-acciones {
+    .imagen-acciones-grid-columnas {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -166,4 +163,4 @@
         background-repeat:no-repeat;
         background-position:center;
     }
-</style>
+</style> -->

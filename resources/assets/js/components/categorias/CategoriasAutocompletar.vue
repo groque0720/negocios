@@ -63,7 +63,7 @@
  }
 </script>
 
-<style>
+<!-- <style>
 	.panel-lista {
 		position: absolute !important;
 		border: 1px solid #E5E2E2;
@@ -89,4 +89,4 @@
 		color: white;
 	}
 
-</style>
+</style> -->

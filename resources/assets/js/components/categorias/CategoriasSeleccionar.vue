@@ -237,8 +237,3 @@
         }
     }
 </script>
-<style scoped>
-	.no-seleccionado {
-		color: #ccc;
-	}
-</style>

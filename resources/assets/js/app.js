@@ -7,7 +7,7 @@
 
 require('./bootstrap');
 
-require('vue-image-lightbox/dist/vue-image-lightbox.min.css')
+require('vue-image-lightbox/dist/vue-image-lightbox.min.css');
 
 window.Vue = require('vue');
 
@@ -19,7 +19,7 @@ window.Vue = require('vue');
 
 Vue.component('InfiniteLoading', require('vue-infinite-loading'));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+// Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 Vue.component('categorias', require('./components/categorias/Categorias.vue'));
 Vue.component('categorias-seleccionar', require('./components/categorias/CategoriasSeleccionar.vue'));
@@ -34,18 +34,16 @@ Vue.component('productos-seleccionar', require('./components/productos/Productos
 Vue.component('layout-public', require('./components/layout_public/Layout.vue'));
 Vue.component('layout-cabecera', require('./components/layout_public/Cabecera.vue'));
 Vue.component('layout-grid-columnas', require('./components/layout_public/GridColumnas.vue'));
-Vue.component('layout-grid-albumes', require('./components/layout_public/GridAlbumes.vue'));
+// Vue.component('layout-grid-albumes', require('./components/layout_public/GridAlbumes.vue'));
 Vue.component('layout-producto', require('./components/layout_public/Producto.vue'));
 Vue.component('layout-productos-mismas-categorias', require('./components/layout_public/ProductosMismasCategorias.vue'));
 
-import router from './routes'
-import myMixin from './mixins'
-
-
+// import router from './routes'
+import myMixin from './mixins';
 
 const app = new Vue({
     el: '#app',
-    router,
+    // router,
     mixins: [myMixin]
 });
 

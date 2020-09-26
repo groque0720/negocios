@@ -7,7 +7,7 @@
 
             <div v-for="(columnas, col) in nro_columnas" class="ancho-50" >
 
-                <div v-for="(producto, filas) in productos"  v-if="boleanMostrar(col, filas)" class="tarjeta cursor-lupa ancho-100 p-10"
+                <div v-for="(producto, filas) in productos"  v-if="boleanMostrar(col, filas)" class="producto-misma-categoria-tarjeta cursor-lupa ancho-100 p-10"
                         @click.prevent="irProducto(producto.codigo, '')" >
 
                     <div class="flex" style="width: 100%; height: 200px; border-radius: 10px; overflow: hidden;">
@@ -96,13 +96,13 @@
         }
     }
 </script>
-<style scoped>
-    .tarjeta  {
+<!-- <style scoped>
+    .producto-misma-categoria-tarjeta  {
         transition: all .3s;
         filter: brightness(90%);
     }
-    .tarjeta:hover {
+    .producto-misma-categoria-tarjeta:hover {
         transform: scale(1.03);
         filter: brightness(100%);
     }
-</style>
+</style> -->

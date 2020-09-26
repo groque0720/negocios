@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="productos-productos">
         <div>
             <div class="zona-busqueda flex ancho-100">
                 <div class="ancho-10 flex flex-item-center flex-content-center" style="border: 1px solid #">
@@ -273,7 +273,7 @@
         }
     }
 </script>
-<style scoped>
+<!-- <style scoped>
     .zona-busqueda {
         border: 1px solid #ccc;
         border-radius: 35px;
@@ -325,4 +325,4 @@
         top: 0;
         padding-top: 40px;
     }
-</style>
+</style> -->

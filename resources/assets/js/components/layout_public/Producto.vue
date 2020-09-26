@@ -17,8 +17,8 @@
 	 			</div>
 	 		</div>
 	 		<div class="imagenes ancho-100 p-10">
-				<div class="scrolling-wrapper scrollbar" id="style-2">
-					<div v-for="(imagen, index) in producto.imagenes" class="card" style="overflow: hidden; position: relative;" @click="openLightbox(index)">
+				<div class="producto-scrolling-wrapper producto-scrollbar" id="style-2">
+					<div v-for="(imagen, index) in producto.imagenes" class="producto-card" style="overflow: hidden; position: relative;" @click="openLightbox(index)">
 						<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover;" :src="'/storage/'+imagen.imagen" alt="">
 						<video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay muted loop>
 		                    <source :src="'/storage/'+imagen.imagen" type="video/mp4">
@@ -165,8 +165,8 @@
 				</div>
 			</div>
 			<div class="imagenes ancho-100">
-				<div class="scrolling-wrapper scrollbar" id="style-2">
-					<div v-for="(imagen, index) in producto.imagenes" class="card" style="border-radius: 10px; overflow: hidden; position: relative;" @click="openLightbox(index)">
+				<div class="producto-scrolling-wrapper producto-scrollbar" id="style-2">
+					<div v-for="(imagen, index) in producto.imagenes" class="producto-card" style="border-radius: 10px; overflow: hidden; position: relative;" @click="openLightbox(index)">
 						<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt="">
 						<video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay loop muted>
 		                    <source :src="'/storage/'+imagen.imagen" type="video/mp4">
@@ -311,13 +311,10 @@
 
     }
 </script>
-<style>
+<!-- <style>
 
-	.titulo {
-		/*font-family: 'Archivo Black', sans-serif*/
-	}
 
-	.scrolling-wrapper {
+	.producto-scrolling-wrapper {
 		display: flex;
 	  	flex-wrap: nowrap;
 	  	overflow-x: auto;
@@ -326,48 +323,48 @@
 	  	padding-bottom: 0px !important;
 	}
 
-	.scrolling-wrapper::-webkit-scrollbar {
+	.producto-scrolling-wrapper::-webkit-producto-scrollbar {
 		/*display: none;*/
 		height: 10px;
 	}
-	.card {
+	.producto-card {
 		flex: 0 0 auto;
 		margin-right: 10px;
 	}
-	.card img, .card video  {
+	.producto-card img, .producto-card video  {
 		width: 150px;
 		height: 150px;
 		cursor: zoom-in;
 	}
 
 	@media  (min-width: 980px) and  (max-width: 1200px){
-		.card img, .card video {
+		.producto-card img, .producto-card video {
 			width: 130px !important;
 			height: 130px !important;
 		}
 	}
 
 	@media (min-width: 768px) and (max-width: 979px) {
-		.card img, .card video {
+		.producto-card img, .producto-card video {
 			width: 110px !important;
 			height: 110px !important;
 		}
 	}
 	@media (min-width: 480px) and (max-width: 767px) {
-		.card img, .card video {
+		.producto-card img, .producto-card video {
 			width: 90px !important;
 			height: 90px !important;
 		}
-		.scrolling-wrapper::-webkit-scrollbar  {
+		.producto-scrolling-wrapper::-webkit-producto-scrollbar  {
 			display: none;
 		}
 	}
 	@media (max-width: 479px) {
-		.card img, .card video {
+		.producto-card img, .producto-card video {
 			width: 70px !important;
 			height: 70px !important;
 		}
-		.scrolling-wrapper::-webkit-scrollbar  {
+		.producto-scrolling-wrapper::-webkit-producto-scrollbar  {
 			display: none;
 		}
 	}
@@ -392,4 +389,4 @@
 /*		transform: scale(1.25);
 	}*/
 
-</style>
+</style> -->

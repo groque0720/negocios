@@ -43,8 +43,3 @@
         }
     }
 </script>
-<style scoped>
-    .view_activa {
-        color: #555 !important;
-    }
-</style>

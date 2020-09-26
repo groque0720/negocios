@@ -1,5 +1,5 @@
 <template>
-	<div v-if="view" style="height: 100vh; width: 100%; background: rgba(0,0,0,0.5); position: fixed; top: 0; left: 0; z-index: 1;">
+	<div v-if="view" class="productos-productos-seleccionar" style="height: 100vh; width: 100%; background: rgba(0,0,0,0.5); position: fixed; top: 0; left: 0; z-index: 1;">
 		<div class="flex flex-content-center">
 			<div class="ancho-90 p-10" style="background: white; margin-top: 20px; border-radius: 5px;">
 				<form  class="form" action="">
@@ -181,15 +181,15 @@
         }
     }
 </script>
-<style scoped>
-    .lista-linea {
+<!-- <style scoped>
+    .productos-productos-seleccionar .lista-linea {
         padding: 5px;
         border-bottom: 1px solid #ccc;
     }
-    .lista-linea.linea_0 {
+    .productos-productos-seleccionar .lista-linea.linea_0 {
         border-top: 1px solid #ccc !important;
     }
-    .lista-linea-activa {
+    .productos-productos-seleccionar .lista-linea-activa {
         background: #ECECEC;
     }
-</style>
+</style> -->
