@@ -148,6 +148,7 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 Route::get('/{url_negocio}','Negocio\NegocioController@public_index')->name('url_negocio.index');
+Route::get('/{url_negocio}/redes_sociales','RedSocial\RedsocialController@redes_sociales_negocio');
 Route::get('/{url_negocio}/buscar_imagenes_random/{producto_id?}','Negocio\NegocioController@buscar_imagenes_random');
 Route::get('/{url_negocio}/buscar_albumes','Negocio\NegocioController@buscar_albumes');
 Route::get('/{url_negocio}/producto/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
@@ -156,3 +157,4 @@ Route::get('/{url_negocio}/album/{codigo}/{imagen_id?}','Negocio\NegocioControll
 
 Route::get('/{url_negocio}/productos/mismas_categorias/','Negocio\NegocioController@mostrar_productos_mismas_categorias');
 Route::get('/{url_negocio}/productos/categoria/{categoria}/','Negocio\NegocioController@mostrar_productos_categoria');
+

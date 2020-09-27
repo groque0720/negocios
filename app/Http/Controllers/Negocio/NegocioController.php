@@ -79,7 +79,7 @@ class NegocioController extends Controller
     public function mostrar_producto(Request $request, $url_negocio, $codigo, $imagen_id =''){
 
         // if ($request->ajax()) {
-            if ($negocio = Negocio::where('url', $url_negocio)->first()) {
+            if ($negocio = Negocio::where('url', $url_negocio)->with(['redes_sociales'])->first()) {
                 $producto = Producto::where('productos.codigo','=',$codigo)
                         // ->where('tipo_id','=',1)
                         ->where('productos.negocio_id','=', $negocio->id)
