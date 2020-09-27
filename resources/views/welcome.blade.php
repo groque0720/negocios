@@ -12,8 +12,8 @@
         <meta id="token" name="csrf-token" content="{{ csrf_token() }}">
 
 <meta property="og:title" content="The Rock" />
-<meta property="og:type" content="video.movie" />
-<meta property="og:url" content="https://www.imdb.com/title/tt0117500/" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.infobae.com/economia/2020/09/27/que-le-propone-el-campo-al-gobierno-para-sumar-usd-15000-millones-de-exportaciones-anuales-y-generar-500000-puestos-de-trabajo/" />
 <meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" />
 
         <!-- Styles -->
