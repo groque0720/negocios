@@ -13,18 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-<meta property="og:locale" content="es_ES" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Neveras inteligentes para hostelería" />
-<meta property="og:description" content="Las bebidas más frías del mundo" />
-<meta property="og:url" content="https://vidriera.online/" />
-<meta property="og:site_name" content="Wondercool | Neveras inteligentes" />
-<!-- Para whatsapp -->
-<meta property="og:image" content="https://vidriera.online/storage/ideas-en-laser/da2251e6f6dfcb3dca7f4c38265b3e3d.jpg" />
-<meta property="og:image:secure_url" content="https://vidriera.online/storage/ideas-en-laser/da2251e6f6dfcb3dca7f4c38265b3e3d.jpg" />
-<meta property="og:image:type" content="image/jpg" />
-<meta property="og:image:width" content="300" />
-<meta property="og:image:height" content="300" />
+
 
 
 
