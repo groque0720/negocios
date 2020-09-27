@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-item-center p-r-10">
-		<div v-for="red in redes_sociales" class="m-l-10 ">
-			<a :href="red.pivot.url" target="_blank" :title="red.red_social">
+		<div v-for="red in redes_sociales" class="m-l-15">
+			<a :href="red.pivot.url" target="_blank" :title="red.red_social" class="flex flex-item-center">
 				<img style="width: 30px; height: 30px;" :src="/images/+red.icono" alt="">
 			</a>
 		</div>

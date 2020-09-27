@@ -6,7 +6,7 @@
                     <img style="max-width: 60px; max-height: 40px; margin-left: 15px;" :src="'/storage/'+negocio.logo" :alt="negocio.nombre">
                     <span class="m-l-10" style="font-size: 1.2em;">{{ negocio.nombre }}</span>
                 </div>
-                <div>
+                <div class="flex flex-item-center">
                     <layout-redes-sociales v-bind:negocio="negocio"></layout-redes-sociales>
                 </div>
 <!--                 <div class="ancho-30 ancho-m-20 ancho-l-15 ancho-lg-10  flex flex-item-center flex-space-between flex-content-end" style="margin-left: 15px; margin-right: 15px;">
