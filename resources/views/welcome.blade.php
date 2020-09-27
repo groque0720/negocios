@@ -11,10 +11,29 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <meta id="token" name="csrf-token" content="{{ csrf_token() }}">
 
-<meta property="og:title" content="The Rock" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.infobae.com/economia/2020/09/27/que-le-propone-el-campo-al-gobierno-para-sumar-usd-15000-millones-de-exportaciones-anuales-y-generar-500000-puestos-de-trabajo/" />
-<meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Neveras inteligentes para hostelería" />
+<meta property="og:description" content="Las bebidas más frías del mundo" />
+<meta property="og:url" content="https://wondercool.eu/" />
+<meta property="og:site_name" content="Wondercool | Neveras inteligentes" />
+<!-- Para facebook, SMS -->
+<meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+<meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Neveras para hostelería, Wondercool" />
+<!-- Para twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="Las bebidas más frías del mundo" />
+<meta name="twitter:title" content="Neveras inteligentes para hostelería" />
+<meta name="twitter:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1024x512.png" />
+<!-- Para whatsapp -->
+<meta property="og:image" content="http://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-300x300.png" />
+<meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-300x300.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="300" />
+<meta property="og:image:height" content="300" />
 
         <!-- Styles -->
         <style>
