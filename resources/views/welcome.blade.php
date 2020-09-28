@@ -41,12 +41,11 @@
 <meta name="rating" content="general"/>
 <meta name="language" content="es_ES"/>
 <meta name="news_keywords" content=""/>
-<meta name="twitter:title" content="¿Cual es la nueva ruta que encontró el coronavirus para infectarnos?"/>
+{{-- <meta name="twitter:title" content="¿Cual es la nueva ruta que encontró el coronavirus para infectarnos?"/>
 <meta name="twitter:site" content="@infobae"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:creator" content="@infobae"/>
-<meta name="twitter:image" content="https://www.infobae.com/new-resizer/W2OesLuPvhrh5FKFFgy_7-PrrhM=/1024x512/filters:format(jpg):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/XS44YIFHG2SDDZPRGVVKX2EBFE.jpg"/>
-
+<meta name="twitter:image" content="https://www.infobae.com/new-resizer/W2OesLuPvhrh5FKFFgy_7-PrrhM=/1024x512/filters:format(jpg):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/XS44YIFHG2SDDZPRGVVKX2EBFE.jpg"/> --}}
 <meta property="og:title" content="¿Cual es la nueva ruta que encontró el coronavirus para infectarnos?"/>
 <meta property="og:description" content="Dos grupos de neurofisiólogos y biólogos moleculares europeos coinciden en asegurar que el Sars-CoV-2 podría haber abierto otro cerrojo humano para replicarse en numerosos tejidos del cuerpo, incluidos el cerebro"/>
 <meta property="og:url" content="https://vidriera.online/ideasenlaser/"/>
@@ -58,6 +57,12 @@
 <meta name="dfpPageType" content="nota"/>
 <meta name="dfp_path" content="america"/>
 <meta property="article:publisher" content="https://www.facebook.com/infobae"/>
+
+<meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+<meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Neveras para hostelería, Wondercool" />
 
 
 
