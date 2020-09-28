@@ -4,39 +4,12 @@
 
 @section('metas');
 
-
-
-
-    <meta property="og:locale" content="es_ES">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="12 Leyes de la experiencia de usuario UX - Eniun">
-    <meta property="og:description" content="Las 12 leyes más importantes de la experiencia de usuario UX. Las reglas que nos sirven de guía para generar percepciones positivas en las personas cuando interactúen con nuestros productos. Eniun, expertos en experiencia de usuario y usabilidad web.">
-    <meta property="og:url" content="https://www.eniun.com/12-leyes-experiencia-de-usuario-ux/">
-    <meta property="og:site_name" content="Eniun">
-    <meta property="article:publisher" content="https://www.facebook.com/eniun.es">
-    <meta property="article:section" content="UX">
-    <meta property="article:published_time" content="2018-02-28T09:00:04+00:00">
-    <meta property="article:modified_time" content="2019-08-22T19:41:17+00:00">
-    <meta property="og:updated_time" content="2019-08-22T19:41:17+00:00">
-    <meta property="og:image" content="https://www.eniun.com/wp-content/uploads/12-leyes-de-la-experiencia-de-usuario-UX.jpg">
-    <meta property="og:image:secure_url" content="https://www.eniun.com/wp-content/uploads/12-leyes-de-la-experiencia-de-usuario-UX.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="600">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<!-- Para facebook, SMS -->
+	<meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+	<meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Neveras para hostelería, Wondercool" />
 
 	{{-- <title>your keyword rich title of the website and/or webpage</title> --}}
 	<meta property="og:image" content="https://vidriera.online/storage/{{$negocio->logo}}" />
