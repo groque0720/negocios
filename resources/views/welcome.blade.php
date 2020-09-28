@@ -46,7 +46,9 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:creator" content="@infobae"/>
 <meta name="twitter:image" content="https://www.infobae.com/new-resizer/W2OesLuPvhrh5FKFFgy_7-PrrhM=/1024x512/filters:format(jpg):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/XS44YIFHG2SDDZPRGVVKX2EBFE.jpg"/> --}}
-<meta property="og:title" content="¿Cual es la nueva ruta que encontró el coronavirus para infectarnos?"/>
+
+{{-- ///////////////////////////////////////////// --}}
+{{-- <meta property="og:title" content="¿Cual es la nueva ruta que encontró el coronavirus para infectarnos?"/>
 <meta property="og:description" content="Dos grupos de neurofisiólogos y biólogos moleculares europeos coinciden en asegurar que el Sars-CoV-2 podría haber abierto otro cerrojo humano para replicarse en numerosos tejidos del cuerpo, incluidos el cerebro"/>
 <meta property="og:url" content="https://vidriera.online/"/>
 <meta property="og:type" content="article"/>
@@ -62,11 +64,29 @@
 <meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Neveras para hostelería, Wondercool" />
+<meta property="og:image:alt" content="Neveras para hostelería, Wondercool" /> --}}
 
+{{-- ///////////////////////////////////////// --}}
 
-
-
+<link rel="canonical" href="https://www.webnode.es/blog/2015/01/30/como-insertar-widget-sharethis-compartir-enlaces-web-whatsapp/" />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Cómo hacer que tu web se comparta en Whatsapp fácilmente - Webnode blog" />
+<meta property="og:description" content="En este artículo explico cómo insertar la barra de botones de compartir enlaces de Sharethis que incluye el botón de Whatsapp." />
+<meta property="og:url" content="https://www.webnode.es/blog/2015/01/30/como-insertar-widget-sharethis-compartir-enlaces-web-whatsapp/" />
+<meta property="og:site_name" content="Webnode blog" />
+<meta property="article:section" content="Consejo Rápido" />
+<meta property="article:published_time" content="2015-01-30T07:14:23+00:00" />
+<meta property="article:modified_time" content="2018-10-12T13:40:26+00:00" />
+<meta property="og:updated_time" content="2018-10-12T13:40:26+00:00" />
+<meta property="og:image" content="https://www.webnode.es/blog/files/2015/01/Quicktip_es.jpg" />
+<meta property="og:image:secure_url" content="https://www.webnode.es/blog/files/2015/01/Quicktip_es.jpg" />
+<meta property="og:image:width" content="225" />
+<meta property="og:image:height" content="225" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="En este artículo explico cómo insertar la barra de botones de compartir enlaces de Sharethis que incluye el botón de Whatsapp." />
+<meta name="twitter:title" content="Cómo hacer que tu web se comparta en Whatsapp fácilmente - Webnode blog" />
+<meta name="twitter:image" content="https://www.webnode.es/blog/files/2015/01/Quicktip_es.jpg" />
 
 
 
