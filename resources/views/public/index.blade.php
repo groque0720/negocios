@@ -7,7 +7,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Curso Avanzado de Python" />
 <meta property="og:description" content="Curso Avanzado de Python. Uso avanzado de Python para un dominio eficiente y organizado del lenguaje." />
-<meta property="og:image" content="http://eit.local.com/uploads/python-avanzado-10.jpg" />
+<meta property="og:image" content="https://vidriera.online/storage/{{$negocio->logo}}" />
 <meta property="og:image:width" content="828" />
 <meta property="og:image:height" content="450" />
 <meta property="og:url" content="https://escuela.it/cursos/curso-avanzado-python" />
