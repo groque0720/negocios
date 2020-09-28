@@ -25,8 +25,8 @@
 <meta property="og:type" content="article"/>
 <meta property="og:site_name" content="{!! $negocio->negocio !!}"/>
 <meta property="og:locale" content="es_LA"/>
-<meta itemProp="image" property="og:image" content="https://vidriera.online/storage/{!! $negocio->logo !!}"/>
-<meta property="og:image:secure_url" content="https://vidriera.online/storage/{!! $negocio->logo !!}" />
+<meta itemProp="image" property="og:image" content="/storage/{!! $negocio->logo !!}"/>
+<meta property="og:image:secure_url" content="/storage/{!! $negocio->logo !!}" />
 {{-- <meta name="isDFP" content="true"/>
 <meta name="dfpPageType" content="nota"/>
 <meta name="dfp_path" content="infobae/inhouse"/><meta property="article:publisher" content="https://www.facebook.com/infobae"/> --}}
