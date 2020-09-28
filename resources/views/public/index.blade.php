@@ -5,13 +5,13 @@
 @section('metas');
 
 
-<meta property="keywords" content="recitales por streaming,+Vivo,recitales,streaming,BTS"/>
+{{-- <meta property="keywords" content="recitales por streaming,+Vivo,recitales,streaming,BTS"/>
 <meta name="description" content="{!! $negocio->descripcion !!}"/>
 <meta name="robots" content="index, follow"/>
 <meta name="distribution" content="global"/>
 <meta name="rating" content="general"/>
 <meta name="language" content="es_ES"/>
-<meta name="news_keywords" content=""/>
+<meta name="news_keywords" content=""/> --}}
 {{-- <meta name="twitter:title" content="{!! $negocio->negocio !!}"/>
 <meta name="twitter:site" content="@infobae"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -26,6 +26,7 @@
 <meta property="og:site_name" content="{!! $negocio->negocio !!}"/>
 <meta property="og:locale" content="es_LA"/>
 <meta itemProp="image" property="og:image" content="https://vidriera.online/storage/{!! $negocio->logo !!}"/>
+<meta property="og:image" content="https://vidriera.online/storage/{!! $negocio->logo !!}"/>
 <meta property="og:image:secure_url" content="https://vidriera.online/storage/{!! $negocio->logo !!}" />
 {{-- <meta name="isDFP" content="true"/>
 <meta name="dfpPageType" content="nota"/>
