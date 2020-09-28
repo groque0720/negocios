@@ -7,6 +7,12 @@
 
 <!-- fb & Whatsapp -->
 
+<meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+<meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Neveras para hostelería, Wondercool" />
+
 <!-- Site Name, Title, and Description to be displayed -->
 <meta property="og:site_name" content="The Rock Photo Studio">
 <meta property="og:title" content="The Rock Photo Studio in Florida">

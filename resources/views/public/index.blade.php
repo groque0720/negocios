@@ -3,7 +3,12 @@
 @section('title', $negocio->nombre)
 
 @section('metas');
-	<title>your keyword rich title of the website and/or webpage</title>
+	{{-- <title>your keyword rich title of the website and/or webpage</title> --}}
+	<meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+	<meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Neveras para hostelería, Wondercool" />
 	<!-- MS, fb & Whatsapp -->
 	<!-- MS Tile - for Microsoft apps-->
 	<meta name="msapplication-TileImage" content="https://vidriera.online/storage/{{$negocio->logo}}">
