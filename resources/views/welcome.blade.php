@@ -48,7 +48,7 @@
 <meta name="twitter:image" content="https://www.infobae.com/new-resizer/W2OesLuPvhrh5FKFFgy_7-PrrhM=/1024x512/filters:format(jpg):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/XS44YIFHG2SDDZPRGVVKX2EBFE.jpg"/> --}}
 <meta property="og:title" content="¿Cual es la nueva ruta que encontró el coronavirus para infectarnos?"/>
 <meta property="og:description" content="Dos grupos de neurofisiólogos y biólogos moleculares europeos coinciden en asegurar que el Sars-CoV-2 podría haber abierto otro cerrojo humano para replicarse en numerosos tejidos del cuerpo, incluidos el cerebro"/>
-<meta property="og:url" content="https://vidriera.online/ideasenlaser/"/>
+<meta property="og:url" content="https://vidriera.online/"/>
 <meta property="og:type" content="article"/>
 <meta property="og:site_name" content="infobae"/>
 <meta property="og:locale" content="es_LA"/>
