@@ -74,7 +74,7 @@
 <meta property="og:title" content="Cómo hacer que tu web se comparta en Whatsapp fácilmente - Webnode blog" />
 <meta property="og:description" content="En este artículo explico cómo insertar la barra de botones de compartir enlaces de Sharethis que incluye el botón de Whatsapp." />
 {{-- <meta property="og:url" content="https://www.webnode.es/blog/2015/01/30/como-insertar-widget-sharethis-compartir-enlaces-web-whatsapp/" /> --}}
-<meta property="og:url" content="https://vidriera.online/"/>
+<meta property="og:url" content="https://www.vidriera.online/"/>
 <meta property="og:site_name" content="Webnode blog" />
 <meta property="article:section" content="Consejo Rápido" />
 <meta property="article:published_time" content="2015-01-30T07:14:23+00:00" />
