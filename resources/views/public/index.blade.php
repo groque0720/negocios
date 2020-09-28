@@ -3,7 +3,7 @@
 @section('title', $negocio->nombre)
 
 
-@section('metas')
+@section('metasss')
 
 	<title>your keyword rich title of the website and/or webpage</title>
 
@@ -34,7 +34,7 @@
 	<!-- Website to visit when clicked in fb or WhatsApp-->
 @endsection
 
-@section('metasrr');
+@section('metas');
 
 
 
