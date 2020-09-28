@@ -34,7 +34,8 @@
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.5, maximum-scale=2.0"/>
-<meta property="keywords" content=""/><meta name="description" content="Dos grupos de neurofisiólogos y biólogos moleculares europeos coinciden en asegurar que el Sars-CoV-2 podría haber abierto otro cerrojo humano para replicarse en numerosos tejidos del cuerpo, incluidos el cerebro"/>
+<meta property="keywords" content=""/>
+<meta name="description" content="Dos grupos de neurofisiólogos y biólogos moleculares europeos coinciden en asegurar que el Sars-CoV-2 podría haber abierto otro cerrojo humano para replicarse en numerosos tejidos del cuerpo, incluidos el cerebro"/>
 <meta name="robots" content="index, follow"/>
 <meta name="distribution" content="global"/>
 <meta name="rating" content="general"/>
@@ -45,14 +46,14 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:creator" content="@infobae"/>
 <meta name="twitter:image" content="https://www.infobae.com/new-resizer/W2OesLuPvhrh5FKFFgy_7-PrrhM=/1024x512/filters:format(jpg):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/XS44YIFHG2SDDZPRGVVKX2EBFE.jpg"/>
-<meta name="twitter:description" content="Dos grupos de neurofisiólogos y biólogos moleculares europeos coinciden en asegurar que el Sars-CoV-2 podría haber abierto otro cerrojo humano para replicarse en numerosos tejidos del cuerpo, incluidos el cerebro"/>
+
 <meta property="og:title" content="¿Cual es la nueva ruta que encontró el coronavirus para infectarnos?"/>
 <meta property="og:description" content="Dos grupos de neurofisiólogos y biólogos moleculares europeos coinciden en asegurar que el Sars-CoV-2 podría haber abierto otro cerrojo humano para replicarse en numerosos tejidos del cuerpo, incluidos el cerebro"/>
-<meta property="og:url" content="/america/tendencias-america/2020/09/27/cual-es-la-nueva-ruta-que-encontro-el-coronavirus-para-infectarnos/"/>
+<meta property="og:url" content="una cosa"/>
 <meta property="og:type" content="article"/>
 <meta property="og:site_name" content="infobae"/>
 <meta property="og:locale" content="es_LA"/>
-<meta itemProp="image" property="og:image" content="https://www.infobae.com/new-resizer/uFk5ji-9GAeQhtCOHmGSdFjZHyk=/1200x628/filters:format(jpg):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/XS44YIFHG2SDDZPRGVVKX2EBFE.jpg"/>
+<meta itemProp="image" property="og:image" content="https://vidriera.online/images/pp.jpg"/>
 <meta name="isDFP" content="true"/>
 <meta name="dfpPageType" content="nota"/>
 <meta name="dfp_path" content="america"/>
