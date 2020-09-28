@@ -26,7 +26,6 @@
 <meta property="og:site_name" content="{!! $negocio->negocio !!}"/>
 <meta property="og:locale" content="es_LA"/>
 <meta itemProp="image" property="og:image" content="https://vidriera.online/storage/{!! $negocio->logo !!}"/>
-<meta property="og:image" content="https://vidriera.online/storage/{!! $negocio->logo !!}"/>
 <meta property="og:image:secure_url" content="https://vidriera.online/storage/{!! $negocio->logo !!}" />
 {{-- <meta name="isDFP" content="true"/>
 <meta name="dfpPageType" content="nota"/>
