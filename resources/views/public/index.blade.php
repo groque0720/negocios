@@ -48,7 +48,7 @@
 <meta property="og:url" content="/inhouse/2020/09/28/recitales-por-streaming-como-se-adapta-la-industria-musical-ante-la-nueva-normalidad/"/>
 <meta property="og:type" content="article"/><meta property="og:site_name" content="infobae"/>
 <meta property="og:locale" content="es_LA"/>
-<meta itemProp="image" property="og:image" content="https://www.infobae.com/new-resizer/pFM2MDkajHQck1jmFcb6yMXTquQ=/1200x628/filters:format(jpg):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/6WA4QRFGT5CJJNJXHWFSUPOPMM.jpg"/>
+<meta itemProp="image" property="og:image" content="https://vidriera.online/storage/{{$negocio->logo}}"/>
 <meta name="isDFP" content="true"/>
 <meta name="dfpPageType" content="nota"/>
 <meta name="dfp_path" content="infobae/inhouse"/><meta property="article:publisher" content="https://www.facebook.com/infobae"/>
