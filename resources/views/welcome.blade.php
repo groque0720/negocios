@@ -11,8 +11,8 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <meta id="token" name="csrf-token" content="{{ csrf_token() }}">
 
+<meta property="og:image" content="https://vidriera.online/images/pp.jpg"/>
 
-<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5f71375a17d090001260dc15&product=inline-share-buttons" async="async"></script>
 {{-- <meta property="og:locale" content="es_ES" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Neveras inteligentes para hostelería" />
@@ -180,7 +180,6 @@
     </head>
     <body>
         <div id="app">
-            <div class="sharethis-inline-share-buttons"></div>
            <div class="flex-center position-ref full-height">
                 @if (Route::has('acceder'))
                     <div class="top-right links">
