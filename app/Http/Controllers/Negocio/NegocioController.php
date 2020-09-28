@@ -93,8 +93,13 @@ class NegocioController extends Controller
 
         if ($imagen_id == '') {
             $imagen_id = $producto->imagenes[0]->id;
+            $imagen_url = $producto->imagenes[0]->imagen;
+        }else{
+            $imagen_id = ProductoImagen::find($imagen_id)->id;
+            $imagen_url = ProductoImagen::find($imagen_id)->imagen;
         }
-        return view('public.producto', compact('negocio','producto', 'imagen_id'));
+
+        return view('public.producto', compact('negocio','producto', 'imagen_id','imagen_url'));
 
     }
 
