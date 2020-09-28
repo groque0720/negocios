@@ -29,26 +29,27 @@
 
 
 <meta property="keywords" content="recitales por streaming,+Vivo,recitales,streaming,BTS"/>
-<meta name="description" content="{{ $negocio->descripcion }}"/>
+<meta name="description" content="{!! $negocio->descripcion !!}"/>
 <meta name="robots" content="index, follow"/>
 <meta name="distribution" content="global"/>
 <meta name="rating" content="general"/>
 <meta name="language" content="es_ES"/>
 <meta name="news_keywords" content=""/>
-<meta name="twitter:title" content="{{ $negocio->negocio }}"/>
+{{-- <meta name="twitter:title" content="{!! $negocio->negocio !!}"/>
 <meta name="twitter:site" content="@infobae"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:creator" content="@infobae"/>
-<meta name="twitter:image" content="https://vidriera.online/storage/{{$negocio->logo}}"/>
-<meta name="twitter:description" content="https://vidriera.online/storage/{{$negocio->descripcion}}"/>
+<meta name="twitter:image" content="https://vidriera.online/storage/{!! $negocio->logo !!}"/>
+<meta name="twitter:description" content="https://vidriera.online/storage/{!! $negocio->logo !!}"/> --}}
 
 <meta property="og:title" content="Recitales por streaming: cómo se adapta la industria musical ante la “nueva normalidad”"/>
-<meta property="og:description" content="{{ $negocio->descripcion }}"/>
-<meta property="og:url" content="https://vidriera.online/{{ $negocio->url }}"/>
+<meta property="og:description" content="{!! $negocio->descripcion !!}"/>
+<meta property="og:url" content="https://vidriera.online/{!! $negocio->url !!}"/>
 <meta property="og:type" content="article"/>
-<meta property="og:site_name" content="{{ $negocio->negocio }}"/>
+<meta property="og:site_name" content="{!! $negocio->negocio !!}"/>
 <meta property="og:locale" content="es_LA"/>
-<meta itemProp="image" property="og:image" content="https://vidriera.online/storage/{{$negocio->logo}}"/>
+<meta itemProp="image" property="og:image" content="https://vidriera.online/storage/{!! $negocio->logo !!}"/>
+<meta property="og:image:secure_url" content="https://vidriera.online/storage/{!! $negocio->logo !!}" />
 {{-- <meta name="isDFP" content="true"/>
 <meta name="dfpPageType" content="nota"/>
 <meta name="dfp_path" content="infobae/inhouse"/><meta property="article:publisher" content="https://www.facebook.com/infobae"/> --}}
