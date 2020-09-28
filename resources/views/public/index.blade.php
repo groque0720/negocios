@@ -4,15 +4,8 @@
 
 @section('metas');
 	{{-- <title>your keyword rich title of the website and/or webpage</title> --}}
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Curso Avanzado de Python" />
-<meta property="og:description" content="Curso Avanzado de Python. Uso avanzado de Python para un dominio eficiente y organizado del lenguaje." />
-<meta property="og:image" content="https://vidriera.online/storage/{{$negocio->logo}}" />
-<meta property="og:image:width" content="828" />
-<meta property="og:image:height" content="450" />
-<meta property="og:url" content="https://escuela.it/cursos/curso-avanzado-python" />
-<meta property="og:site_name" content="EscuelaIT" />
-<meta property="fb:app_id" content="928977633900253" />
+	<meta property="og:image" content="https://vidriera.online/storage/{{$negocio->logo}}" />
+	<meta property="og:image:secure_url" content="https://vidriera.online/storage/{{$negocio->logo}}" />
 	<!-- MS, fb & Whatsapp -->
 	<!-- MS Tile - for Microsoft apps-->
 	<meta name="msapplication-TileImage" content="https://vidriera.online/storage/{{$negocio->logo}}">
