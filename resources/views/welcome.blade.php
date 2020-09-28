@@ -68,7 +68,7 @@
 
 {{-- ///////////////////////////////////////// --}}
 
-<link rel="canonical" href="https://www.webnode.es/blog/2015/01/30/como-insertar-widget-sharethis-compartir-enlaces-web-whatsapp/" />
+<link rel="canonical" href="https://vidriera.online/" />
 <meta property="og:locale" content="es_ES" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Cómo hacer que tu web se comparta en Whatsapp fácilmente - Webnode blog" />
