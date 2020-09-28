@@ -11,6 +11,8 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <meta id="token" name="csrf-token" content="{{ csrf_token() }}">
 
+
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5f71375a17d090001260dc15&product=inline-share-buttons" async="async"></script>
 {{-- <meta property="og:locale" content="es_ES" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Neveras inteligentes para hostelería" />
@@ -31,7 +33,7 @@
 <!-- Para whatsapp -->
 
 
-
+{{--
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.5, maximum-scale=2.0"/>
 <meta property="keywords" content=""/>
@@ -40,7 +42,7 @@
 <meta name="distribution" content="global"/>
 <meta name="rating" content="general"/>
 <meta name="language" content="es_ES"/>
-<meta name="news_keywords" content=""/>
+<meta name="news_keywords" content=""/> --}}
 {{-- <meta name="twitter:title" content="¿Cual es la nueva ruta que encontró el coronavirus para infectarnos?"/>
 <meta name="twitter:site" content="@infobae"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -68,13 +70,13 @@
 
 {{-- ///////////////////////////////////////// --}}
 
-<link rel="canonical" href="https://vidriera.online/" />
+{{-- <link rel="canonical" href="https://vidriera.online/" />
 <meta property="og:locale" content="es_ES" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Cómo hacer que tu web se comparta en Whatsapp fácilmente - Webnode blog" />
-<meta property="og:description" content="En este artículo explico cómo insertar la barra de botones de compartir enlaces de Sharethis que incluye el botón de Whatsapp." />
+<meta property="og:description" content="En este artículo explico cómo insertar la barra de botones de compartir enlaces de Sharethis que incluye el botón de Whatsapp." /> --}}
 {{-- <meta property="og:url" content="https://www.webnode.es/blog/2015/01/30/como-insertar-widget-sharethis-compartir-enlaces-web-whatsapp/" /> --}}
-<meta property="og:url" content="https://www.vidriera.online/"/>
+{{-- <meta property="og:url" content="https://www.vidriera.online/"/>
 <meta property="og:site_name" content="Webnode blog" />
 <meta property="article:section" content="Consejo Rápido" />
 <meta property="article:published_time" content="2015-01-30T07:14:23+00:00" />
@@ -88,7 +90,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:description" content="En este artículo explico cómo insertar la barra de botones de compartir enlaces de Sharethis que incluye el botón de Whatsapp." />
 <meta name="twitter:title" content="Cómo hacer que tu web se comparta en Whatsapp fácilmente - Webnode blog" />
-<meta name="twitter:image" content="https://www.webnode.es/blog/files/2015/01/Quicktip_es.jpg" />
+<meta name="twitter:image" content="https://www.webnode.es/blog/files/2015/01/Quicktip_es.jpg" /> --}}
 
 
 
@@ -178,6 +180,7 @@
     </head>
     <body>
         <div id="app">
+            <div class="sharethis-inline-share-buttons"></div>
            <div class="flex-center position-ref full-height">
                 @if (Route::has('acceder'))
                     <div class="top-right links">
