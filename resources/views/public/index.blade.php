@@ -4,12 +4,7 @@
 
 @section('metas');
 
-	<!-- Para facebook, SMS -->
-	<meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
-	<meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
-	<meta property="og:image:width" content="1200" />
-	<meta property="og:image:height" content="630" />
-	<meta property="og:image:alt" content="Neveras para hostelería, Wondercool" />
+
 
 	{{-- <title>your keyword rich title of the website and/or webpage</title> --}}
 	<meta property="og:image" content="https://vidriera.online/storage/{{$negocio->logo}}" />
@@ -32,6 +27,14 @@
 	<meta property="og:image:height" content="300">
 	<!-- Website to visit when clicked in fb or WhatsApp-->
 	<meta property="og:url" content="https://vidriera.online/{{ $negocio->url }}">
+
+
+		<!-- Para facebook, SMS -->
+	<meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+	<meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Neveras para hostelería, Wondercool" />
 
 @endsection
 
