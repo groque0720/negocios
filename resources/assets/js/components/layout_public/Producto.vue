@@ -67,7 +67,7 @@
 					<!-- consulta por whatsapp -->
 					<div class="flex flex-item-center flex-content-end ancho-100">
 						<div class="flex" style="width: 130px;">
-							<a class="link ancho-100" style="display: block; " :href="'https://wa.me/'+negocio.celular+'?text=https://vidriera.online/'+negocio.url+'/producto/'+producto.codigo+'/'+producto.imagenes[imagen_ppal_index].id+'%20%20%20Quiero%20consultar%20de%20este%20producto'">
+							<a class="link ancho-100" style="display: block; " :href="'https://wa.me/'+negocio.celular+'?text=Quiero%20consultar%20de%20este%20producto%20%20https://vidriera.online/'+negocio.url+'/producto/'+producto.codigo+'/'+producto.imagenes[imagen_ppal_index].id">
 								<div class="ancho-100 flex flex-item-center flex-space-around" style="background: #25D366; border-radius:30px;">
 									<div class="ancho-70 flex flex-item-center flex-content-center">
 										<span class="txt-blanco">Consultar</span>
