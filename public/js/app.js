@@ -63624,13 +63624,13 @@ var render = function() {
                           href:
                             "https://wa.me/" +
                             _vm.negocio.celular +
-                            "?text=https://vidriera.online/" +
+                            "?text=Quiero%20consultar%20de%20este%20producto%20%20https://vidriera.online/" +
                             _vm.negocio.url +
                             "/producto/" +
                             _vm.producto.codigo +
                             "/" +
                             _vm.producto.imagenes[_vm.imagen_ppal_index].id +
-                            "%20%20%20Quiero%20consultar%20de%20este%20producto"
+                            "%20"
                         }
                       },
                       [
@@ -64011,14 +64011,14 @@ var render = function() {
                                 href:
                                   "https://wa.me/" +
                                   _vm.negocio.celular +
-                                  "?text=https://vidriera.online/" +
+                                  "?text=Quiero%20consultar%20de%20este%20producto%20%20https://vidriera.online/" +
                                   _vm.negocio.url +
                                   "/producto/" +
                                   _vm.producto.codigo +
                                   "/" +
                                   _vm.producto.imagenes[_vm.imagen_ppal_index]
                                     .id +
-                                  "%20%20%20Quiero%20consultar%20de%20este%20producto"
+                                  "%20"
                               }
                             },
                             [
