@@ -43,22 +43,22 @@ use Illuminate\Support\Facades\URL;
 // 	mkdir("storage/"."omar", 0700);
 // });
 
-// Route::group(['domain' => '{account}.vidriera.online'], function () {
+Route::group(['domain' => '{account}.vidriera.online'], function () {
 
-//     Route::get('/', function ($account) {
-//     	$url_negocio = $account;
-//         return redirect()->route('/', compact('url_negocio'));
-//     });
+    Route::get('/', function ($account) {
+    	$url_negocio = $account;
+        return redirect()->route('/', compact('url_negocio'));
+    });
 
-//     Route::get('/','Negocio\NegocioController@public_index');
-// 	Route::get('/buscar_imagenes_random/{producto_id?}','Negocio\NegocioController@buscar_imagenes_random');
-// 	Route::get('/buscar_albumes','Negocio\NegocioController@buscar_albumes');
-// 	Route::get('/producto/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
-// 	Route::get('/album/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
-// 	Route::get('/productos/mismas_categorias/','Negocio\NegocioController@mostrar_productos_mismas_categorias');
-// 	Route::get('/productos/categoria/{categoria}/','Negocio\NegocioController@mostrar_productos_categoria');
+    Route::get('/','Negocio\NegocioController@public_index');
+	Route::get('/buscar_imagenes_random/{producto_id?}','Negocio\NegocioController@buscar_imagenes_random');
+	Route::get('/buscar_albumes','Negocio\NegocioController@buscar_albumes');
+	Route::get('/producto/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
+	Route::get('/album/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
+	Route::get('/productos/mismas_categorias/','Negocio\NegocioController@mostrar_productos_mismas_categorias');
+	Route::get('/productos/categoria/{categoria}/','Negocio\NegocioController@mostrar_productos_categoria');
 
-// });
+});
 
 Route::get('/', function () {
 	// $url_negocio = 'ideas-en-laser';
