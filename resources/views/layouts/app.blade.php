@@ -12,7 +12,7 @@
     <title>@yield('title', config('app.name', 'Laravel'))</title>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <meta property="og:locale" content="es_ES" />
+{{--     <meta property="og:locale" content="es_ES" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Neveras inteligentes para hostelería" />
 <meta property="og:description" content="Las bebidas más frías del mundo" />
@@ -35,7 +35,7 @@
 <meta property="og:description" content="Programa de fiestas" />
 <meta property="og:image" itemprop="image" content="http://pollosweb.wesped.es/programa_pollos/play.png">
 <meta property="og:type" content="website" />
-<meta property="og:updated_time" content="1440432930" />
+<meta property="og:updated_time" content="1440432930" /> --}}
 </head>
 <body>
     <div id="app">

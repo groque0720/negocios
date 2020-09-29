@@ -63247,6 +63247,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -63577,6 +63607,74 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
+              {
+                staticClass: "flex flex-item-center flex-content-end ancho-100"
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "flex", staticStyle: { width: "130px" } },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "link ancho-100",
+                        staticStyle: { display: "block" },
+                        attrs: {
+                          href:
+                            "https://wa.me/" +
+                            _vm.negocio.celular +
+                            "?text=https://vidriera.online/" +
+                            _vm.negocio.url +
+                            "/producto/" +
+                            _vm.producto.codigo +
+                            "/" +
+                            _vm.producto.imagenes[_vm.imagen_ppal_index].id +
+                            "%20%20%20Quiero%20consultar%20de%20este%20producto"
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "ancho-100 flex flex-item-center flex-space-around",
+                            staticStyle: {
+                              background: "#25D366",
+                              "border-radius": "30px"
+                            }
+                          },
+                          [
+                            _vm._m(3),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "ancho-30 flex flex-item-center flex-content-center"
+                              },
+                              [
+                                _c("img", {
+                                  attrs: {
+                                    width: "35px",
+                                    height: "35px",
+                                    src: "/images/whatsapp.png",
+                                    alt: ""
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
               { staticClass: "flex flex-wrap flex-content-center" },
               _vm._l(_vm.producto.relacionados, function(relacion) {
                 return _vm.producto.relacionados
@@ -63772,9 +63870,9 @@ var render = function() {
                           )
                         : _vm._e(),
                       _vm._v(" "),
-                      _vm._m(3),
+                      _vm._m(4),
                       _vm._v(" "),
-                      _vm._m(4)
+                      _vm._m(5)
                     ]
                   )
                 ]
@@ -63889,6 +63987,79 @@ var render = function() {
                       0
                     )
                   ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "flex flex-item-center flex-content-end ancho-100"
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "flex",
+                          staticStyle: { width: "130px" }
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "link ancho-100",
+                              staticStyle: { display: "block" },
+                              attrs: {
+                                href:
+                                  "https://wa.me/" +
+                                  _vm.negocio.celular +
+                                  "?text=https://vidriera.online/" +
+                                  _vm.negocio.url +
+                                  "/producto/" +
+                                  _vm.producto.codigo +
+                                  "/" +
+                                  _vm.producto.imagenes[_vm.imagen_ppal_index]
+                                    .id +
+                                  "%20%20%20Quiero%20consultar%20de%20este%20producto"
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "ancho-100 flex flex-item-center flex-space-around",
+                                  staticStyle: {
+                                    background: "#25D366",
+                                    "border-radius": "30px"
+                                  }
+                                },
+                                [
+                                  _vm._m(6),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "ancho-30 flex flex-item-center flex-content-center"
+                                    },
+                                    [
+                                      _c("img", {
+                                        attrs: {
+                                          width: "35px",
+                                          height: "35px",
+                                          src: "/images/whatsapp.png",
+                                          alt: ""
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -64077,7 +64248,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm._m(5, true)
+                    _vm._m(7, true)
                   ]
                 )
               }),
@@ -64123,7 +64294,7 @@ var render = function() {
         "div",
         { staticClass: "m-t-10" },
         [
-          _vm._m(6),
+          _vm._m(8),
           _vm._v(" "),
           _c("layout-grid-columnas", { attrs: { negocio: _vm.negocio } })
         ],
@@ -64211,6 +64382,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
+      { staticClass: "ancho-70 flex flex-item-center flex-content-center" },
+      [_c("span", { staticClass: "txt-blanco" }, [_vm._v("Consultar")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
       {
         staticClass: "flex flex-item-center flex-content-center",
         staticStyle: {
@@ -64250,6 +64431,16 @@ var staticRenderFns = [
           }
         })
       ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "ancho-70 flex flex-item-center flex-content-center" },
+      [_c("span", { staticClass: "txt-blanco" }, [_vm._v("Consultar")])]
     )
   },
   function() {
