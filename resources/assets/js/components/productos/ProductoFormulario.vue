@@ -258,7 +258,7 @@
 						</div>
 					</div>
 					<!-- lienzo ccarga imagenes subiendoImagenes-->
-					<div v-if="true" class="flex flex-item-center flex-content-center" style="width: 100%; height: 100vh; position: fixed; background: rgba(0,0,0,0.5); z-index: 99; top: 0; left: 0;">
+					<div v-if="subiendoImagenes" class="flex flex-item-center flex-content-center" style="width: 100%; height: 100vh; position: fixed; background: rgba(0,0,0,0.5); z-index: 99; top: 0; left: 0;">
 							<div class="box-upload flex flex-item-center flex-space-between " style="width: 300px; height: 150px; background: white; border-radius: 10px;">
 								<div class="ancho-50">
 									<div class="ancho-100 flex flex-item-center flex-content-center m-b-10">
