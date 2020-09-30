@@ -189,7 +189,7 @@ class ProductoController extends Controller
 
     public function producto_imagenes_guardar(Request $request)
     {
-        $imageName = md5(microtime()).'.'.$request->file->getClientOriginalExtension();
+        $imageName = md5(microtime()).'.'.strtolower($request->file->getClientOriginalExtension());
         $imageName = str_replace(' ', '_', $imageName);
 
         if ($request->file->getClientOriginalExtension() == 'mp4') {
