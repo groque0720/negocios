@@ -16,27 +16,27 @@ use Illuminate\Support\Facades\URL;
 |
 */
 
-// Route::get('/crear_perfiles', function(){
-// 	$perfil = new Perfil;
-// 	$perfil->perfil = 'AdminSitio';
-// 	$perfil->save();
+Route::get('/crear_perfiles', function(){
+	$perfil = new Perfil;
+	$perfil->perfil = 'AdminSitio';
+	$perfil->save();
 
-// 	$perfil = new Perfil;
-// 	$perfil->perfil = 'AdminNegocio';
-// 	$perfil->save();
+	$perfil = new Perfil;
+	$perfil->perfil = 'AdminNegocio';
+	$perfil->save();
 
-// });
+});
 
 
-// Route::get('/crear_usuario_admin', function(){
-// 	$usuario = new User;
-// 	$usuario->name = 'Roque Gómez';
-// 	$usuario->email = 'gomezroque@hotmail.com';
-// 	$usuario->password =  bcrypt('Chimango0720');
-// 	$usuario->perfil_id = 1;
-// 	$usuario->save();
+Route::get('/crear_usuario_admin', function(){
+	$usuario = new User;
+	$usuario->name = 'Roque Gómez';
+	$usuario->email = 'gomezroque@hotmail.com';
+	$usuario->password =  bcrypt('Chimango0720');
+	$usuario->perfil_id = 1;
+	$usuario->save();
 
-// });
+});
 
 
 // Route::get('/crear_carpeta', function(){
