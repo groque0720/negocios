@@ -64,21 +64,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- consulta por whatsapp -->
-					<div class="flex flex-item-center flex-content-end ancho-100">
-						<div class="flex" style="width: 130px;">
-							<a class="link ancho-100" style="display: block; " :href="'https://wa.me/'+negocio.celular+'?text=Quiero%20consultar%20de%20este%20producto%20%20https://vidriera.online/'+negocio.url+'/producto/'+producto.codigo+'/'+producto.imagenes[imagen_ppal_index].id+'%20'">
-								<div class="ancho-100 flex flex-item-center flex-space-around" style="background: #25D366; border-radius:30px;">
-									<div class="ancho-70 flex flex-item-center flex-content-center">
-										<span class="txt-blanco">Consultar</span>
-									</div>
-									<div class="ancho-30 flex flex-item-center flex-content-center">
-										<img width="35px" height="35px" :src="'/images/whatsapp.png'" alt="">
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
+
 					<!-- productos relacionados -->
 					<div class="flex flex-wrap flex-content-center">
 						<div class="producto-relacionado ancho-45 flex p-5 m-b-10 cursor" v-if="producto.relacionados"
@@ -97,6 +83,21 @@
 									<span class="fz-11 m-l-5">{{ relacion.precio_obs }}</span>
 								</div>
 							 </div>
+						</div>
+					</div>
+										<!-- consulta por whatsapp -->
+					<div class="flex flex-item-center flex-content-end ancho-100">
+						<div class="flex" style="width: 130px;">
+							<a class="link ancho-100" style="display: block; " :href="'https://wa.me/'+negocio.celular+'?text=Quiero%20consultar%20de%20este%20producto%20%20https://vidriera.online/'+negocio.url+'/producto/'+producto.codigo+'/'+producto.imagenes[imagen_ppal_index].id+'%20'">
+								<div class="ancho-100 flex flex-item-center flex-space-around" style="background: #25D366; border-radius:30px;">
+									<div class="ancho-70 flex flex-item-center flex-content-center">
+										<span class="txt-blanco">Consultar</span>
+									</div>
+									<div class="ancho-30 flex flex-item-center flex-content-center">
+										<img width="35px" height="35px" :src="'/images/whatsapp.png'" alt="">
+									</div>
+								</div>
+							</a>
 						</div>
 					</div>
 			</div>
@@ -156,21 +157,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- consulta por whatsapp -->
-					<div class="flex flex-item-center flex-content-end ancho-100">
-						<div class="flex" style="width: 130px;">
-							<a class="link ancho-100" style="display: block; " :href="'https://wa.me/'+negocio.celular+'?text=Quiero%20consultar%20de%20este%20producto%20%20https://vidriera.online/'+negocio.url+'/producto/'+producto.codigo+'/'+producto.imagenes[imagen_ppal_index].id+'%20'">
-								<div class="ancho-100 flex flex-item-center flex-space-around" style="background: #25D366; border-radius:30px;">
-									<div class="ancho-70 flex flex-item-center flex-content-center">
-										<span class="txt-blanco">Consultar</span>
-									</div>
-									<div class="ancho-30 flex flex-item-center flex-content-center">
-										<img width="35px" height="35px" :src="'/images/whatsapp.png'" alt="">
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
 					<!-- productos relacionados -->
 					<div class="flex flex-wrap">
 						<div class="producto-relacionado ancho-32 flex p-5 m-b-5 cursor" v-if="producto.relacionados"
@@ -191,7 +177,21 @@
 							 </div>
 						</div>
 					</div>
-
+					<!-- consulta por whatsapp -->
+					<div class="flex flex-item-center flex-content-end ancho-100">
+						<div class="flex" style="width: 130px;">
+							<a class="link ancho-100" style="display: block; " :href="'https://wa.me/'+negocio.celular+'?text=Quiero%20consultar%20de%20este%20producto%20%20https://vidriera.online/'+negocio.url+'/producto/'+producto.codigo+'/'+producto.imagenes[imagen_ppal_index].id+'%20'">
+								<div class="ancho-100 flex flex-item-center flex-space-around" style="background: #25D366; border-radius:30px;">
+									<div class="ancho-70 flex flex-item-center flex-content-center">
+										<span class="txt-blanco">Consultar</span>
+									</div>
+									<div class="ancho-30 flex flex-item-center flex-content-center">
+										<img width="35px" height="35px" :src="'/images/whatsapp.png'" alt="">
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="imagenes ancho-100">
@@ -219,10 +219,10 @@
 					v-on:onClosed="closeLightBox()">
 		</LightBox>
 
-		<div class="m-t-20 p-5" style="background: rgba(0,0,0,0.1);">
+		<div class="m-t-20 p-5" style="background: #eee;">
 			<layout-productos-mismas-categorias  v-bind:negocio="negocio" v-bind:producto="producto" v-bind:categorias="categorias_lista"></layout-productos-mismas-categorias>
 		</div>
-		<div class="m-t-10">
+		<div class="m-t-15">
 			<div class="flex flex-item-center flex-content-center m-b-10">
 				<span class="fz-18 txt-negrita txt-mayuscula">Otros</span>
 			</div>

@@ -155,7 +155,7 @@ class RegisterController extends Controller
         foreach ($palabras as $palabra) {
             $cant ++;
             if ($cant > 1) {
-                $url_negocio .='-'.$palabra;
+                $url_negocio .=$palabra;
             }else{
                 $url_negocio .=$palabra;
             }

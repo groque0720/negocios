@@ -74,10 +74,13 @@
 	  	height: 100% !important;
 	  	padding-bottom: 0px !important;
 	}
+    #style-2::-webkit-scrollbar{
+        height: 10px;
+    }
 
 	.producto-scrolling-wrapper::-webkit-producto-scrollbar {
 		/*display: none;*/
-		height: 10px;
+		height: 5px !important;
 	}
 	.producto-card {
 		flex: 0 0 auto;
@@ -135,10 +138,7 @@
         filter: brightness(100%);
     }
 
-
-
-
-
+    .productos-similares.scroll-style-2
 
 	.tarjeta-grid-columnas  {
         transition: all .3s;
