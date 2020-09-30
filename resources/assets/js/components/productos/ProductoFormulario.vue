@@ -257,19 +257,19 @@
 								<i class="fas fa-upload" style="color: #A777C8;"></i><span class="m-l-10">Subir Imagen/Videos</span>
 						</div>
 					</div>
-					<!-- lienzo ccarga imagenes -->
-					<div v-if="subiendoImagenes" class="flex flex-item-center flex-content-center" style="width: 100%; height: 100vh; position: fixed; background: rgba(0,0,0,0.5); z-index: 99; top: 0; left: 0;">
+					<!-- lienzo ccarga imagenes subiendoImagenes-->
+					<div v-if="true" class="flex flex-item-center flex-content-center" style="width: 100%; height: 100vh; position: fixed; background: rgba(0,0,0,0.5); z-index: 99; top: 0; left: 0;">
 							<div class="box-upload flex flex-item-center flex-space-between " style="width: 300px; height: 150px; background: white; border-radius: 10px;">
 								<div class="ancho-50">
-									<div class="flex flex-item-center flex-content-center m-b-10">
-										<span>Subiendo Imagenes/Videos </span>
+									<div class="ancho-100 flex flex-item-center flex-content-center m-b-10">
+										<span class="txt-centrar">Subiendo Imagenes/Videos </span>
 									</div>
-									<div class="flex flex-item-center flex-content-center">
+									<div class="ancho-100 flex flex-item-center flex-content-center">
 										<span class="fz-20">{{ uploadImagen.nro_imagen }} / {{ uploadImagen.max_nro }}</span>
 									</div>
 								</div>
-								<div class="ancho-50 flex flex-item-center">
-									<img :src="'/images/Preloader_1.gif'" alt="">
+								<div class="ancho-50 flex flex-item-center flex-content-center">
+									<img width="50px" height="50px" :src="'/images/Preloader_1.gif'" alt="">
 								</div>
 							</div>
 					</div>
