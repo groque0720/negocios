@@ -5,9 +5,11 @@
  		<div class="ancho-100 ancho-m-80 margen-auto no-display-lg no-display-l display-m" style="background: white;" >
 	 		<div style="border-radius: 15px; position: relative;" @click="openLightbox(imagen_ppal_index)">
 	 			<img v-if="$root.esImagen(imagen_ppal)" style="object-fit: cover;" class="ancho-100" :src="imagen_ppal" alt="" >
-	 			<video v-if="$root.esVideo(imagen_ppal)" style="object-fit: cover; max-height: 350px;" class="ancho-100" autoplay muted loop>
+<!-- 	 			<video v-if="$root.esVideo(imagen_ppal)" style="object-fit: cover; max-height: 350px;" class="ancho-100" autoplay muted loop>
                     <source :src="imagen_ppal" type="video/mp4">
-                </video>
+                </video> -->
+				<LazyVideo v-if="$root.esVideo(imagen_ppal)" :src="'/storage/'+imagen_ppal"  style="object-fit: cover; max-height: 350px;" class="ancho-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
+
 	 			<div class="flex flex-item-center flex-content-center"
 	 				 style="position: absolute; bottom: 15px; left: 15px; width: 35px; height: 35px; background: rgba(0,0,0,0.5); border-radius: 50%;" >
 	 				<i class="fas fa-expand txt-blanco"></i>
@@ -19,10 +21,11 @@
 	 		<div class="imagenes ancho-100 p-10">
 				<div class="producto-scrolling-wrapper producto-scrollbar" id="style-2">
 					<div v-for="(imagen, index) in producto.imagenes" class="producto-card" style="overflow: hidden; position: relative;" @click="openLightbox(index)">
-						<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover;" :src="'/storage/'+imagen.imagen" alt="">
-						<video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay muted loop>
+						<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover;" v-lazy="'/storage/'+imagen.imagen" alt="">
+						<!-- <video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay muted loop>
 		                    <source :src="'/storage/'+imagen.imagen" type="video/mp4">
-		                </video>
+		                </video> -->
+		                <LazyVideo v-if="$root.esVideo(imagen.imagen)" :src="'/storage/'+imagen.imagen"  style="object-fit: cover;" class="ancho-100 alto-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
 						<div style="position: absolute; top: calc(50% - 15px); left: calc(50% - 15px);" >
 			 				<i class="fas fa-search-plus" style="font-size: 30px !important; color: white; opacity: 0.5;"></i>
 			 			</div>
@@ -71,10 +74,11 @@
 							 v-for="relacion in producto.relacionados" style="background: white; margin-right: 2%; border-radius: 5px; box-shadow: 0px 0px 5px 2px #ddd;"
 							 @click.prevent="irProducto(relacion.codigo, '')">
 							 <div class="flex m-r-5" style="width: 50px; height: 50px;">
-							 	<img v-if="$root.esImagen(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;"  :src="'/storage/'+relacion.imagen_ppal" alt="">
+							 	<img v-if="$root.esImagen(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;"  v-lazy="'/storage/'+relacion.imagen_ppal" alt="">
 							 	<video v-if="$root.esVideo(relacion.imagen_ppal)" style="object-fit: cover; width: 50px !important; height: 50px !important;" class="ancho-100" autoplay muted loop>
 	                                <source :src="'/storage/'+relacion.imagen_ppal" type="video/mp4">
 	                            </video>
+	                            <LazyVideo v-if="$root.esVideo(imagen.imagen)" :src="'/storage/'+imagen.imagen"  style="object-fit: cover;" class="ancho-100 alto-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
 							 </div>
 							 <div class="ancho-100 flex flex-direction-column">
 								<div class="txt-mayuscula txt-negrita fz-11 p-2">{{ relacion.producto }}</div>
@@ -108,7 +112,7 @@
 				<div class="ancho-100 flex flex-item-center flex-content-center" @click="openLightbox(imagen_ppal_index)">
 					<div class="flex cursor-lupa"
 						 style="position: relative; max-width: 100%; max-height: 400px; border-radius: 15px; overflow: hidden;" >
-						<img v-if="$root.esImagen(imagen_ppal)" style="object-fit: cover;" class="ancho-100" :src="imagen_ppal" alt="" >
+						<img v-if="$root.esImagen(imagen_ppal)" style="object-fit: cover;" class="ancho-100" v-lazy="imagen_ppal" alt="" >
 						<video v-if="$root.esVideo(imagen_ppal)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay loop muted>
 		                    <source :src="imagen_ppal" type="video/mp4">
 		                </video>
@@ -163,7 +167,7 @@
 							 v-for="relacion in producto.relacionados" style="background: white; margin-right: 1%; border-radius: 5px; box-shadow: 0px 0px 5px 2px #ddd;"
 							 @click.prevent="irProducto(relacion.codigo, '')">
 							 <div class="flex m-r-5" style="width: 50px; height: 50px;">
-							 	<img v-if="$root.esImagen(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;"  :src="'/storage/'+relacion.imagen_ppal" alt="">
+							 	<img v-if="$root.esImagen(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;"  v-lazy="'/storage/'+relacion.imagen_ppal" alt="">
 							 	<video v-if="$root.esVideo(relacion.imagen_ppal)" style="object-fit: cover; width: 50px !important; height: 50px !important;" class="ancho-100" autoplay muted loop>
 	                                <source :src="'/storage/'+relacion.imagen_ppal" type="video/mp4">
 	                            </video>
@@ -197,7 +201,7 @@
 			<div class="imagenes ancho-100">
 				<div class="producto-scrolling-wrapper producto-scrollbar" id="style-2">
 					<div v-for="(imagen, index) in producto.imagenes" class="producto-card" style="border-radius: 10px; overflow: hidden; position: relative;" @click="openLightbox(index)">
-						<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover;" class="ancho-100" :src="'/storage/'+imagen.imagen" alt="">
+						<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover;" class="ancho-100" v-lazy="'/storage/'+imagen.imagen" alt="">
 						<video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay loop muted>
 		                    <source :src="'/storage/'+imagen.imagen" type="video/mp4">
 		                </video>
@@ -233,7 +237,9 @@
 <script>
 	import LightBox from 'vue-image-lightbox'
 	import VueLazyLoad from 'vue-lazyload'
+	import VueLazyLoadVideo from 'vue-lazyload-video'
 	Vue.use(VueLazyLoad)
+	Vue.use(VueLazyLoadVideo)
     export default {
         props:['negocio', 'producto','imagen_id'],
 		components: {

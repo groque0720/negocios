@@ -260,16 +260,23 @@
 					<!-- lienzo ccarga imagenes subiendoImagenes-->
 					<div v-if="subiendoImagenes" class="flex flex-item-center flex-content-center" style="width: 100%; height: 100vh; position: fixed; background: rgba(0,0,0,0.5); z-index: 99; top: 0; left: 0;">
 							<div class="box-upload flex flex-item-center flex-space-between " style="width: 300px; height: 150px; background: white; border-radius: 10px;">
-								<div class="ancho-50">
+								<div class="ancho-50 flex flex-direction-column flex-space-between">
 									<div class="ancho-100 flex flex-item-center flex-content-center m-b-10">
 										<span class="txt-centrar">Subiendo Imagenes/Videos </span>
 									</div>
-									<div class="ancho-100 flex flex-item-center flex-content-center">
+									<div class="ancho-100 flex flex-item-center flex-content-center m-b-10">
 										<span class="fz-20">{{ uploadImagen.nro_imagen }} / {{ uploadImagen.max_nro }}</span>
+									</div>
+									<div class="ancho-80 margen-auto progress-bar" id="progressBar" style="height: 20px; border: 1px solid darkblue; overflow: hidden; position: relative;">
+										<div class="progress-bar-fill flex flex-item-center" style="height: 20px;background: lightblue; transition: width 0.25s; " :style="{width: percentCompleted+'%'}">
+											<div style="position: absolute; left: 40%;">
+												<span class="progress-bar-text">{{ percentCompleted }} %</span>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="ancho-50 flex flex-item-center flex-content-center">
-									<img width="50px" height="50px" :src="'/images/Preloader_1.gif'" alt="">
+									<img width="100px" height="100px" :src="'/images/Preloader_1.gif'" alt="">
 								</div>
 							</div>
 					</div>
@@ -309,6 +316,7 @@
 				precio_display:'',
 				valor_precio: '',
 				viewActualizarPrecio: false,
+				percentCompleted : 0,
 				// viewSeleccionarCaracteristicas: false,
 				// viewSeleccionarCategorias:false,
 				productos_relacionados:[],
@@ -399,25 +407,35 @@
 			obtenerImagen(e){
 				let files = e.target.files;
 				let url = "/producto/imagenes/guardar";
-				this.cargarImagenes(files, 0, files.length);
+				this.cargarImagenes(files, 1, files.length);
 			},
 			cargarImagenes(files, nro_imagen, max_nro){
 				this.uploadImagen.nro_imagen = nro_imagen;
 				this.uploadImagen.max_nro = max_nro;
+				var self_cargar_imagenes = this;
+				self_cargar_imagenes.percentCompleted = 0;
 
 				let url = "/producto/imagenes/guardar";
-				if (nro_imagen < max_nro) {
+				if (nro_imagen <= max_nro) {
 					this.subiendoImagenes = true;
 					let formData = new FormData();
-					formData.append('file', files[nro_imagen]);
+					formData.append('file', files[nro_imagen-1]);
 					formData.append('negocio_url', this.negocio.url);
 					formData.append('producto_id', this.producto.id);
 
-					axios.post(url, formData, { headers: {'Content-Type': 'multipart/form-data'} })
+					axios.post(url, formData, { headers: {'Content-Type': 'multipart/form-data'},
+												onUploadProgress: function(progressEvent) {
+      												self_cargar_imagenes.percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+    												}
+    											})
 					.then(response => {
 						this.buscarImagenes(this.producto.id);
 						var i = nro_imagen + 1;
 						this.cargarImagenes(files, i, max_nro);
+					})
+					.catch(function(){
+						self_cargar_imagenes.mostarMensaje('error','Upload', 'Ocurrio un error al subir los archivos');
+						self_cargar_imagenes.subiendoImagenes = false;
 					})
 				}else{
 					this.subiendoImagenes = false;
