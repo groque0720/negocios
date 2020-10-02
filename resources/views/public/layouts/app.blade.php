@@ -30,6 +30,7 @@
                 </header>
                 <section class="flex flex-content-center" style="margin-top: 55px;">
                    {{--  @include('public.layouts.parciales.mensajes') --}}
+                   <validador></validador>
                     @yield('contenido')
                 </section>
             </div>

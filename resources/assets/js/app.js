@@ -41,6 +41,8 @@ Vue.component('layout-productos-mismas-categorias', require('./components/layout
 
 Vue.component('redes-sociales', require('./components/redessociales/index.vue'));
 
+Vue.component('validador', require('./components/validador/ValidadorForm.vue'));
+
 // import router from './routes'
 import myMixin from './mixins';
 

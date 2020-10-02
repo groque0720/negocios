@@ -4,6 +4,7 @@ use App\Negocio;
 use App\Perfil;
 use App\User;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,70 @@ use Illuminate\Support\Facades\URL;
 // 	mkdir("storage/"."omar", 0700);
 // });
 
+Route::post('/token_validacion', function(Request $request){
+
+	$caracteres = ['0','1','2','3','4','5','6','7','8','9','@','#','$','%','*','+','a','b','c','ch','d','e','f','g','h','i','j','k','l','ll','m','n','ñ','o','p','q','r','s','t','v','w','x','y','z','A','B','C','CH','D','E','F','G','H','I','J','K','L','LL','M','N','Ñ','O','P','Q','R','S','T','V','W','X','Y','Z'];
+
+	$palabra_a_validar = $request->desordenado;
+	$valor_validacion = true;
+	foreach ($palabra_a_validar as $key => $letra) {
+		$posicion = array_search($letra['letra'], $caracteres);
+		$token_a_validar = $letra['token'];
+		$token_origen = md5(date('h').$caracteres[$posicion].$key.$posicion);
+		if ($token_origen == $token_a_validar AND $valor_validacion) {
+			$valor_validacion = true;
+		}else{
+			$valor_validacion = false;
+		}
+	}
+	$validacion_completa = $valor_validacion ? 'exito' :'error';
+	return $validacion_completa;
+});
+
+Route::get('/token_validacion', function(){
+
+	$caracteres = ['0','1','2','3','4','5','6','7','8','9','@','#','$','%','*','+','a','b','c','ch','d','e','f','g','h','i','j','k','l','ll','m','n','ñ','o','p','q','r','s','t','v','w','x','y','z','A','B','C','CH','D','E','F','G','H','I','J','K','L','LL','M','N','Ñ','O','P','Q','R','S','T','V','W','X','Y','Z'];
+	// md5(microtime())
+	// $rango = range(1, 71);
+	// shuffle($rango);
+
+	$posiciones = 71;
+	$array_ordenado = [];
+	$array_desordenado = [];
+	$array_desifrado = [];
+	$posiciones_usadas =[''];
+	$posicion='';
+
+	for ($i=0; $i < 6; $i++) {
+
+		while (in_array($posicion, $posiciones_usadas)) {
+			$posicion = rand(1, $posiciones);
+		}
+		array_push($array_ordenado, $caracteres[$posicion]);
+		// array_push($array_desordenado, md5(date('h').$caracteres[$posicion].$i.$posicion));
+		$letra = [ 'letra' => $caracteres[$posicion],
+				  'token' => md5(date('h').$caracteres[$posicion].$i.$posicion)];
+		array_push($array_desordenado,$letra);
+		array_push($posiciones_usadas, $posicion);
+	}
+
+	foreach ($array_ordenado as $key => $value) {
+		$posicion = array_search($value, $caracteres);
+		array_push($array_desifrado, md5(date('h').$caracteres[$posicion].$key.$posicion));
+	}
+
+	// $array_desordenado = $array_ordenado;
+	shuffle($array_desordenado);
+	shuffle($array_desordenado);
+	$datosValidacion = [
+		'ordenado' => $array_ordenado,
+		'desordenado' => $array_desordenado,
+		'desifrado' => $array_desifrado
+	];
+
+	return $datosValidacion;
+});
+
 Route::group(['domain' => '{account}.vidriera.online'], function () {
 
     Route::get('/', function ($account) {
@@ -78,6 +143,7 @@ Route::get('/', function () {
 
 
         // Authentication Routes...
+		Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
         Route::get('acceder', 'Auth\LoginController@showLoginForm')->name('acceder');
         Route::post('acceder', 'Auth\LoginController@login');
         Route::post('logout', 'Auth\LoginController@logout')->name('logout');
