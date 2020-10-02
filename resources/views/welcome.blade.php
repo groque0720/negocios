@@ -119,7 +119,7 @@
 
                 <div class="content">
                     <div class="title m-b-md">
-                       <validador></validador>
+                       {{-- <validador></validador> --}}
                     </div>
                     <div class="links">
                         <a href="https://laravel.com/docs">Documentation</a>

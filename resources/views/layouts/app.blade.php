@@ -50,7 +50,7 @@
                    @include('layouts.parciales.cabecera')
                 </header>
                 <section class="flex flex-content-center m-h-10" style="margin-top: 75px;">
-                    <validador></validador>
+                    {{-- <validador></validador> --}}
                     @include('layouts.parciales.mensajes')
                     @yield('contenido')
                 </section>
