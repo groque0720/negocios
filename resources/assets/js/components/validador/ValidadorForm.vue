@@ -60,7 +60,7 @@
                 .then(response => {
                 	this.ordenado = response.data.ordenado;
                 	this.desordenado = response.data.desordenado;
-                	 // console.log(response.data);
+                	 console.log(response.data);
                 });
         	},
         	// mostrar(){
