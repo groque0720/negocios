@@ -1,10 +1,10 @@
 <template>
-	<div class="p-10" style="border: 1px solid #ccc; border-radius: 10px; width: 320px;">
+	<div class="p-10" style="border: 1px solid #cecece; border-radius: 10px; width: 320px;">
 		<div class="flex" style="position: relative; width: 300px; height: 80px; overflow: hidden;">
-			<img :src="'/images/fondoletras03.jpg'" width="300px;" alt="" style="object-fit: cover; opacity: 0.5">
+			<img :src="'/images/fondoletras03.jpg'" width="300px;" alt="" style="object-fit: cover; opacity: 0.4">
 			<div class="ancho-100 flex flex-item-center flex-content-center" style="position: absolute; top: 10px;">
 				<div v-for="(letra, i) in ordenado" >
-					<span class="txt-negrita m-r-10" :style="{color: rand_colores()}" style="font-size:50px; text-shadow: 0px 0px 10px white; font-weight: 600;">{{ letra }}</span>
+					<span class="txt-negrita m-r-10" :style="{color: rand_colores()}" style="font-size:50px; text-shadow: 0px 0px 10px #595858; font-weight: 600;">{{ letra }}</span>
 				</div>
 			</div>
 			<div v-if="procesando_validacion" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.7);">
@@ -19,7 +19,7 @@
 		</div>
 		<div class="m-t-10">
 			<!-- <draggable v-model="desordenado" @start="drag=true" @end="drag=false" @change="mostrar()" class="flex flex-content-center" > -->
-			<draggable v-model="desordenado" @start="drag=true" @end="drag=false" class="flex flex-content-center" >
+			<draggable v-model="desordenado" @start="drag=true" @end="drag=false" :disabled="!enabled" class="flex flex-content-center" >
 				<div v-for="(letra, i) in desordenado" >
 					<div class="p-10 m-5 cursor flex flex-item-center flex-content-center content_letra" :class="'content_letra_'+i" style="width: 35px; hyphens: 30px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 1px 1px 2px #ccc; background: white;">
 						<span class="fz-18 txt-negrita letra" :class="'letra_'+i">{{ letra.letra }}</span>
@@ -27,7 +27,7 @@
 				</div>
 			</draggable>
 		</div>
-		<div class="ancho-100 flex flex-item-center flex-content-center m-t-10">
+		<div v-if="enabled" class="ancho-100 flex flex-item-center flex-content-center m-t-10">
 			<div class="ancho-100 cursor p-5" @click="validar()" style="background-color: #1883ba; border-radius: 6px;
     			border: 1px solid #0016b0;">
 				<center><span class="fz-18 txt-blanco txt-negrita">Validar</span></center>
@@ -43,6 +43,7 @@
         },
         data(){
             return {
+            	enabled: true,
             	ordenado:[],
             	desordenado:[],
             	procesando_validacion:false,
@@ -98,6 +99,7 @@
 			            100);
                 	 }else{
                 	 	setTimeout(function(){
+                	 		self.enabled = false;
                 		$('#check').attr({
 	                			checked: true,
 	                		});
