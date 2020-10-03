@@ -3,7 +3,7 @@
 @section('title', $negocio->nombre)
 
 
-@section('metas');
+@section('metas')
 	{{-- <title>your keyword rich title of the website and/or webpage</title> --}}
 	<!-- MS, fb & Whatsapp -->
 	<!-- MS Tile - for Microsoft apps-->
