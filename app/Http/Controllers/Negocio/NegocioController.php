@@ -18,7 +18,7 @@ class NegocioController extends Controller
 
 
             if ($request->session()->has('session_rand')) {
-                if((time() - $request->session()->get('session_rand')) > 1000){
+                if((time() - $request->session()->get('session_rand')) > 500){
                     $request->session()->put('session_rand', time());
                 }
             }else{
