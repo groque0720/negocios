@@ -96,11 +96,13 @@
 		                    <div class="ancho-100 flex flex-item-center">
 		                        <div class="ancho-30 m-r-10 flex" style="width: 60px; height: 60px; overflow: hidden; border-radius: 2px; box-shadow: 1px 1px #ddd;">
 
-		                            <img v-if="$root.esImagen(producto.imagen_ppal)" style="object-fit: cover;" :src="'/storage/'+producto.imagen_ppal" alt="" width="100%" >
+		                            <img v-if="$root.esImagen(producto.imagen_ppal)" style="object-fit: cover;" v-lazy="'/storage/'+producto.imagen_ppal" alt="" width="100%" >
 
-		                            <video v-if="$root.esVideo(producto.imagen_ppal)" style="object-fit: cover; width: 60px; height: 60px;"  autoplay muted loop>
+		                            <LazyVideo v-if="$root.esVideo(producto.imagen_ppal)" :src="'/storage/'+producto.imagen_ppal"  style="object-fit: cover; width: 60px; height: 60px;" class="ancho-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
+
+		                            <!-- <video v-if="$root.esVideo(producto.imagen_ppal)" style="object-fit: cover; width: 60px; height: 60px;"  autoplay muted loop>
 		                                <source :src="'/storage/'+producto.imagen_ppal" type="video/mp4">
-		                            </video>
+		                            </video> -->
 
 		                        </div>
 		                        <div class="ancho-70 flex flex-space-between flex-direction-column" style="height: 100%;">
@@ -241,10 +243,9 @@
 										<a href="" style="display: block;" @click.prevent="eliminarImagen(i)"><i class="fas fa-trash-alt fz-14 txt-rojo-claro" @click.prevent="eliminarImagen(i)"></i></a>
 
 									</div>
-									<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover" :src="'/storage/'+imagen.imagen" alt="" width="90" height="90">
-									<video v-if="$root.esVideo(imagen.imagen)" width="90" height="90" style="object-fit: cover;" controls>
-		                                <source :src="'/storage/'+imagen.imagen" type="video/mp4">
-		                            </video>
+									<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover" v-lazy="'/storage/'+imagen.imagen" alt="" width="90" height="90">
+
+									<LazyVideo v-if="$root.esVideo(imagen.imagen)" width="90" height="90" :src="'/storage/'+imagen.imagen"  style="object-fit: cover; width: 90px; height: 90px;"  :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
 								</div>
 							</div>
 <!-- 							<div id="div_file" class="flex flex-item-center flex-content-center m-5" style="border: 1px solid #ddd; border-radius: 5px; width: 95px; height: 95px;">
@@ -276,7 +277,7 @@
 									</div>
 								</div>
 								<div class="ancho-50 flex flex-item-center flex-content-center">
-									<img width="100px" height="100px" :src="'/images/Preloader_1.gif'" alt="">
+									<img width="100px" height="100px" v-lazy="'/images/Preloader_1.gif'" alt="">
 								</div>
 							</div>
 					</div>
@@ -306,6 +307,10 @@
 </template>
 <script>
 	import draggable from 'vuedraggable'
+	import VueLazyload from 'vue-lazyload'
+    import VueLazyLoadVideo from 'vue-lazyload-video'
+    Vue.use(VueLazyload)
+    Vue.use(VueLazyLoadVideo)
 	export default{
 		props:['producto', 'negocio'],
 		components: {
