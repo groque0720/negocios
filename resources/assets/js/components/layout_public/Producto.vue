@@ -20,16 +20,16 @@
 	 		</div>
 	 		<div class="imagenes ancho-100 p-10">
 				<div class="producto-scrolling-wrapper producto-scrollbar" id="style-2">
-					<div v-for="(imagen, index) in producto.imagenes" class="producto-card" style="overflow: hidden; position: relative;" @click="openLightbox(index)">
+<!-- 					<div v-for="(imagen, index) in producto.imagenes" class="producto-card" style="overflow: hidden; position: relative;" @click="openLightbox(index)">
 						<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover;" v-lazy="'/storage/'+imagen.imagen" alt="">
-						<!-- <video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay muted loop>
+						<video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay muted loop>
 		                    <source :src="'/storage/'+imagen.imagen" type="video/mp4">
-		                </video> -->
+		                </video>
 		                <LazyVideo v-if="$root.esVideo(imagen.imagen)" :src="'/storage/'+imagen.imagen"  style="object-fit: cover;" class="ancho-100 alto-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
 						<div style="position: absolute; top: calc(50% - 15px); left: calc(50% - 15px);" >
 			 				<i class="fas fa-search-plus" style="font-size: 30px !important; color: white; opacity: 0.5;"></i>
 			 			</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="ancho-100 p-10 m-b-10">
