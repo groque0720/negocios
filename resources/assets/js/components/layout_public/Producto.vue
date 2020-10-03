@@ -75,9 +75,9 @@
 							 @click.prevent="irProducto(relacion.codigo, '')">
 							 <div class="flex m-r-5" style="width: 50px; height: 50px;">
 							 	<img v-if="$root.esImagen(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;"  v-lazy="'/storage/'+relacion.imagen_ppal" alt="">
-							 	<video v-if="$root.esVideo(relacion.imagen_ppal)" style="object-fit: cover; width: 50px !important; height: 50px !important;" class="ancho-100" autoplay muted loop>
+							 	<!-- <video v-if="$root.esVideo(relacion.imagen_ppal)" style="object-fit: cover; width: 50px !important; height: 50px !important;" class="ancho-100" autoplay muted loop>
 	                                <source :src="'/storage/'+relacion.imagen_ppal" type="video/mp4">
-	                            </video>
+	                            </video> -->
 	                            <LazyVideo v-if="$root.esVideo(imagen.imagen)" :src="'/storage/'+imagen.imagen"  style="object-fit: cover;" class="ancho-100 alto-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
 							 </div>
 							 <div class="ancho-100 flex flex-direction-column">
