@@ -20,16 +20,16 @@
 	 		</div>
 	 		<div class="imagenes ancho-100 p-10">
 				<div class="producto-scrolling-wrapper producto-scrollbar" id="style-2">
-<!-- 					<div v-for="(imagen, index) in producto.imagenes" class="producto-card" style="overflow: hidden; position: relative;" @click="openLightbox(index)">
+					<div v-for="(imagen, index) in producto.imagenes" class="producto-card" style="overflow: hidden; position: relative;" @click="openLightbox(index)">
 						<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover;" v-lazy="'/storage/'+imagen.imagen" alt="">
-						<video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay muted loop>
+						<!-- <video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay muted loop>
 		                    <source :src="'/storage/'+imagen.imagen" type="video/mp4">
-		                </video>
+		                </video> -->
 		                <LazyVideo v-if="$root.esVideo(imagen.imagen)" :src="'/storage/'+imagen.imagen"  style="object-fit: cover;" class="ancho-100 alto-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
 						<div style="position: absolute; top: calc(50% - 15px); left: calc(50% - 15px);" >
 			 				<i class="fas fa-search-plus" style="font-size: 30px !important; color: white; opacity: 0.5;"></i>
 			 			</div>
-					</div> -->
+					</div>
 				</div>
 			</div>
 			<div class="ancho-100 p-10 m-b-10">
@@ -75,9 +75,9 @@
 							 @click.prevent="irProducto(relacion.codigo, '')">
 							 <div class="flex m-r-5" style="width: 50px; height: 50px;">
 							 	<img v-if="$root.esImagen(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;"  v-lazy="'/storage/'+relacion.imagen_ppal" alt="">
-							 	<!-- <video v-if="$root.esVideo(relacion.imagen_ppal)" style="object-fit: cover; width: 50px !important; height: 50px !important;" class="ancho-100" autoplay muted loop>
+							 	<video v-if="$root.esVideo(relacion.imagen_ppal)" style="object-fit: cover; width: 50px !important; height: 50px !important;" class="ancho-100" autoplay muted loop>
 	                                <source :src="'/storage/'+relacion.imagen_ppal" type="video/mp4">
-	                            </video> -->
+	                            </video>
 	                            <LazyVideo v-if="$root.esVideo(imagen.imagen)" :src="'/storage/'+imagen.imagen"  style="object-fit: cover;" class="ancho-100 alto-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
 							 </div>
 							 <div class="ancho-100 flex flex-direction-column">
@@ -199,7 +199,7 @@
 				</div>
 			</div>
 			<div class="imagenes ancho-100">
-<!-- 				<div class="producto-scrolling-wrapper producto-scrollbar" id="style-2">
+				<div class="producto-scrolling-wrapper producto-scrollbar" id="style-2">
 					<div v-for="(imagen, index) in producto.imagenes" class="producto-card" style="border-radius: 10px; overflow: hidden; position: relative;" @click="openLightbox(index)">
 						<img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover;" class="ancho-100" v-lazy="'/storage/'+imagen.imagen" alt="">
 						<video v-if="$root.esVideo(imagen.imagen)" style="object-fit: cover;" class="ancho-100 alto-100" autoplay loop muted>
@@ -209,7 +209,7 @@
 			 				<i class="fas fa-search-plus" style="font-size: 50px !important; color: black; opacity: 0.3;"></i>
 			 			</div>
 					</div>
-				</div> -->
+				</div>
 			</div>
 			<div class="consultar_ws">
 
@@ -224,13 +224,13 @@
 		</LightBox>
 
 		<div class="m-t-20 p-5" style="background: #eee;">
-<!-- 			<layout-productos-mismas-categorias  v-bind:negocio="negocio" v-bind:producto="producto" v-bind:categorias="categorias_lista"></layout-productos-mismas-categorias> -->
+			<layout-productos-mismas-categorias  v-bind:negocio="negocio" v-bind:producto="producto" v-bind:categorias="categorias_lista"></layout-productos-mismas-categorias>
 		</div>
 		<div class="m-t-15">
 			<div class="flex flex-item-center flex-content-center m-b-10">
 				<span class="fz-18 txt-negrita txt-mayuscula">Otros</span>
 			</div>
-			<!-- <layout-grid-columnas v-bind:negocio="negocio"></layout-grid-columnas> -->
+			<layout-grid-columnas v-bind:negocio="negocio"></layout-grid-columnas>
 		</div>
 	</div>
 </template>
