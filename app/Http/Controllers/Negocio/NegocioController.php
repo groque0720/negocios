@@ -134,7 +134,7 @@ class NegocioController extends Controller
                                 -- productos.tipo_id = 1 AND
                                 productos.guardar = 1 AND
                                 categorias_productos.categoria_id IN ($cat_search)
-                                ORDER BY RAND() LIMIT 10", [$request->producto_id]);
+                                ORDER BY RAND() LIMIT 50", [$request->producto_id]);
 
 
         // $productos = Producto::where('productos.negocio_id','=', $request->negocio_id)
