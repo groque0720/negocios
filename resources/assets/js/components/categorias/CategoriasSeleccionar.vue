@@ -9,7 +9,7 @@
 								<i class="fas fa-boxes m-r-10" style="color: #17A6EC;"></i>
 								<span>Seleccionar Categorías</span>
 							</div>
-							<div class="flex flex-item-center flex-space-between p-10 borde-radio-3" @click="nuevacategoria()" style="border: 1px solid #ddd; width: 150px;">
+							<div class="flex flex-item-center flex-space-between p-10 borde-radio-3 cursor" @click="nuevacategoria()" style="border: 1px solid #ddd; width: 150px;">
                                 <div class="ancho-30">
                                     <i class="fas fa-plus m-r-10 arrow-categorias" style="color:#17A6EC;"></i>
                                 </div>
@@ -66,7 +66,7 @@
 		</div>
 		<template v-if="mostrarFormulario">
             <div class="form-lienzo flex flex-item-start flex-content-center" style="z-index: 1000; position: fixed; top: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.3);">
-                <form class="form ancho-80" autocomplete="off" style="margin-top: 50px;">
+                <form class="form ancho-sx-100 ancho-s-90 ancho-m-70 ancho-l-55 ancho-lg-45" autocomplete="off" style="margin-top: 50px;">
                     <div class="form-head p-10">
                         <div class="form-titulo">
                             {{ formulario.titulo }}

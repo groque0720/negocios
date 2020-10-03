@@ -163,8 +163,8 @@
 					</div>
 					<!-- productos relacionados -->
 					<div class="flex flex-wrap">
-						<div class="producto-relacionado ancho-32 flex p-5 m-b-5 cursor" v-if="producto.relacionados"
-							 v-for="relacion in producto.relacionados" style="background: white; margin-right: 1%; border-radius: 5px; box-shadow: 0px 0px 5px 2px #ddd;"
+						<div class="producto-relacionado ancho-45 flex p-5 m-b-10 cursor" v-if="producto.relacionados"
+							 v-for="relacion in producto.relacionados" style="background: white; margin-right:10px; border-radius: 5px; box-shadow: 0px 0px 5px 2px #ddd;"
 							 @click.prevent="irProducto(relacion.codigo, '')">
 							 <div class="flex m-r-5" style="width: 50px; height: 50px;">
 							 	<img v-if="$root.esImagen(relacion.imagen_ppal)" style="object-fit: cover; width: 50px; height: 50px;"  v-lazy="'/storage/'+relacion.imagen_ppal" alt="">
@@ -176,7 +176,7 @@
 								<div class="txt-mayuscula txt-negrita fz-11 p-2">{{ relacion.producto }}</div>
 								<div class="flex flex-wrap" v-if="relacion.precio>0">
 									<span class="fz-11 txt-negrita" >$ {{ $root.formatoPrecio(relacion.precio) }}</span>
-									<span class="fz-11">{{ relacion.precio_obs }}</span>
+									<span class="fz-11 m-l-5">{{ relacion.precio_obs }}</span>
 								</div>
 							 </div>
 						</div>

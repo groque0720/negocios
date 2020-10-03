@@ -49,7 +49,7 @@
 
                         </div>
                         <div class="ancho-70 flex flex-space-between flex-direction-column" style="height: 100%;">
-                            <div>
+                            <div class="cursor" @click.prevent="irAlProducto(producto.codigo)">
                                 <span style="font-weight: bold;">{{ producto.producto }}</span>
                             </div>
                             <div>
@@ -69,7 +69,7 @@
                     <div class="ancho-30 zona-acciones flex flex-space-between flex-item-center"  :class="'accion_'+indice" style="width: 0px; overflow: hidden;">
                         <div class="ancho-45 flex flex-content-center">
                             <!-- <a :href="'/producto/edit/'+producto.id" @click.prevent="clickEditar(producto)"> -->
-                            <a @click.prevent="irAlProducto(producto.codigo)">
+                            <a href="#" @click.prevent="irAlProducto(producto.codigo)">
                                 <i class="fas fa-edit txt-celeste"></i>
                             </a>
                         </div>

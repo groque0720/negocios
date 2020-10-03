@@ -49,10 +49,15 @@
                 <header class="m-b-5">
                    @include('layouts.parciales.cabecera')
                 </header>
-                <section class="flex flex-content-center m-h-10" style="margin-top: 75px;">
+                <section class="flex m-h-10" style="margin-top: 60px; position: relative;">
                     {{-- <validador></validador> --}}
                     @include('layouts.parciales.mensajes')
-                    @yield('contenido')
+                    <div class="menu-lateral-lg no-display-m" style="width: 250px; margin-right: 30px; position: fixed; left: 0;">
+                         @include('layouts.parciales.menu-lateral')
+                    </div>
+                    <div class="flex flex-content-center ancho-100 p-t-10 m-r-250-display-m">
+                         @yield('contenido')
+                    </div>
                 </section>
             </div>
 {{--             <footer class="flex-item-end">

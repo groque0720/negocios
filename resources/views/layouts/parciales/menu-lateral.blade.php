@@ -1,4 +1,4 @@
-<div>
+<div style="overflow-y: auto; background: white;">
 	<div class="menu-lateral-lienzo menu-lateral-lienzo-oculto ancho-100 screen-vh position-fixed"
 		 style="position: fixed; background: rgba(250,250,250,0.85); z-index: -1">
 		<div class="flex flex-item-center flex-content-center"

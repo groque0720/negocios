@@ -283,7 +283,9 @@
 					</div>
 				</div>
 			</div>
-            <div class="form-foot p-t-10 flex flex-item-center flex-content-center" style="position: fixed; bottom: 0px; left: 0px; background: white;">
+			<!-- botonera (se mostara una u otra dependiendo de la vista) -->
+				<!-- Botonera 01 -->
+            <div class="form-foot p-t-10 flex flex-item-center flex-content-center display-sx display-s no-display-m no-display-l no-display-lg" style="position: fixed; bottom: 0px; left: 0px; background: white;">
             	<div class="ancho-95 ancho-sx-95 ancho-s-90 ancho-m-80 ancho-l-70 ancho-lg-60 flex flex-content-center" >
 		            <div class="form-linea flex flex-space-between flex-item-center ancho-100" >
 		                <div class="form-columna m-b-0">
@@ -294,7 +296,13 @@
 		                </div>
 		            </div>
             	</div>
-
+        	</div>
+        		<!-- Botonera 02 -->
+			<div class="no-display-s display-m display-l display-lg " style="position: fixed; bottom: 50px; right: 10px; background: white;">
+				<div class="flex flex-direction-column">
+	                <button class="btn form-btn-entrar cursor p-l-20 p-r-20 m-b-10" @click.prevent="guardarFormulario()">Guardar</button>
+	                <button class="btn form-btn-cancelar cursor p-l-20 p-r-20" @click.prevent="cancelar()">Cancelar</button>
+				</div>
         	</div>
 		<!-- </form> -->
 

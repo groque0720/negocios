@@ -2233,6 +2233,10 @@ input:checked + .slider:before {
   .no-display-lg {
     display: none !important;
   }
+
+  .m-r-250-display-m {
+    margin-left: 250px;
+  }
 }
 
 @media (max-width: 1199px) {
@@ -2242,6 +2246,10 @@ input:checked + .slider:before {
 
   .no-display-l {
     display: none !important;
+  }
+
+  .m-r-250-display-m {
+    margin-left: 250px;
   }
 }
 
@@ -2256,6 +2264,10 @@ input:checked + .slider:before {
 
   .no-display-m {
     display: none !important;
+  }
+
+  .m-r-250-display-m {
+    margin-left: 0px;
   }
 }
 
