@@ -39,10 +39,29 @@ use Illuminate\Http\Request;
 
 // });
 
-
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('acceder');
 // Route::get('/crear_carpeta', function(){
 // 	mkdir("storage/"."omar", 0700);
 // });
+
+        // Authentication Routes...
+		// Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+        Route::get('acceder', 'Auth\LoginController@showLoginForm')->name('acceder');
+        Route::post('acceder', 'Auth\LoginController@login');
+        Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+        // Registration Routes...
+        Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+        Route::post('register', 'Auth\RegisterController@register');
+
+        // Password Reset Routes...
+        Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+        Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+        Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+
+
 
 Route::post('/token_validacion', function(Request $request){
 
@@ -125,11 +144,11 @@ Route::group(['domain' => '{account}.vidriera.online'], function () {
 
 });
 
-Route::get('/', function () {
-	// $url_negocio = 'ideas-en-laser';
-	// return redirect()->route('url_negocio.index', compact('url_negocio'));
-    return view('welcome');
-});
+// Route::get('/', function () {
+// 	// $url_negocio = 'ideas-en-laser';
+// 	// return redirect()->route('url_negocio.index', compact('url_negocio'));
+//     return view('welcome');
+// });
 
 // Auth::routes();
 
@@ -142,21 +161,7 @@ Route::get('/', function () {
 
 
 
-        // Authentication Routes...
-		Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-        Route::get('acceder', 'Auth\LoginController@showLoginForm')->name('acceder');
-        Route::post('acceder', 'Auth\LoginController@login');
-        Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-        // Registration Routes...
-        Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-        Route::post('register', 'Auth\RegisterController@register');
-
-        // Password Reset Routes...
-        Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-        Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-        Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 

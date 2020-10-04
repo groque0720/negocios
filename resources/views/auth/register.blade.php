@@ -38,13 +38,13 @@
 						</div>
 					</div>
 				</div>
-                <div class="form-head">
+{{--                 <div class="form-head">
                     <div class="ancho-100 flex flex-item-center flex-space-between">
                         <div class="form-titulo ancho-100 fz-20">
                             Registro
                         </div>
                     </div>
-                </div>
+                </div> --}}
 				<div class="form-body">
                     <div class="form-linea">
                         <div class="form-columna">
@@ -75,8 +75,8 @@
                                     <input class="form-input" type="password" name="password" id="password" placeholder="" required data-id="password">
                                 </div>
                                 <div class="ancho-10 flex flex-item-center">
-                                    <i class="fas fa-eye margen-auto cursor fz-18 ver_contraseña" data-id="password" style="color: var(--main-ppal-color);" ></i>
-                                    <i class="far fa-eye-slash margen-auto cursor fz-18 ocultar_contraseña ocultar" data-id="password" style="color: var(--main-ppal-color);" ></i>
+                                    <i class="fas fa-eye margen-auto cursor ver_contraseña" data-id="password" style="color: var(--main-ppal-color);" ></i>
+                                    <i class="far fa-eye-slash margen-auto cursor ocultar_contraseña ocultar" data-id="password" style="color: var(--main-ppal-color);" ></i>
                                 </div>
                             </div>
 						</div>
@@ -95,7 +95,10 @@
                             </div>
                         </div>
                     </div>
-				</div>
+                    <div class="lienzo flex flex-item-center flex-content-center">
+                        <validador></validador>
+                    </div>
+    			</div>
 				<div class="form-foot">
 					<div class="form-linea flex flex-space-between flex-item-center">
 						<div class="form-columna m-b-0">

@@ -1,6 +1,18 @@
 <template>
-	<div class="p-10" style="border: 1px solid #cecece; border-radius: 10px; width: 320px;">
+	<div class="p-10" style="border: 1px solid #cecece; border-radius: 10px; width: 320px; background: white;">
+        <div class="p-10 flex flex-item-center flex-content-center m-b-10" style="height: 40px;">
+            <span class="txt-negrita fz-18">Verificación de seguridad</span>
+        </div>
+        <div class="m-b-10">
+            <div class="flex flex-item-center flex-content-center"">
+                <span>Ordena los simbolos como la imagen</span>
+            </div>
+            <div class="flex flex-item-center flex-content-center">
+                <img  :src="'/images/move-mouse02.png'" width="50%" >
+            </div>
+        </div>
 		<div class="flex" style="position: relative; width: 300px; height: 80px; overflow: hidden;">
+
 			<img :src="'/images/fondoletras03.jpg'" width="300px;" alt="" style="object-fit: cover; opacity: 0.4">
 			<div class="ancho-100 flex flex-item-center flex-content-center" style="position: absolute; top: 10px;">
 				<div v-for="(letra, i) in ordenado" >
@@ -17,7 +29,7 @@
 				</label>
 			</div>
 		</div>
-		<div class="m-t-10">
+		<div class="m-t-10 m-b-10">
 			<!-- <draggable v-model="desordenado" @start="drag=true" @end="drag=false" @change="mostrar()" class="flex flex-content-center" > -->
 			<draggable v-model="desordenado" @start="drag=true" @end="drag=false" :disabled="!enabled" class="flex flex-content-center" >
 				<div v-for="(letra, i) in desordenado" >
@@ -27,10 +39,20 @@
 				</div>
 			</draggable>
 		</div>
+        <div v-if="enabled" class="flex flex-item-center flex-content-center">
+            <div class="flex flex-item-center cursor" @click.prevent="buscar_datos_validacion()">
+                <div>
+                     <img :src="'/images/reload_78477.png'" style="width: 30px; height: 30px;" alt="recargar letras" >
+                </div>
+                <div>
+                    <span>Recargar Símbolos</span>
+                </div>
+            </div>
+        </div>
 		<div v-if="enabled" class="ancho-100 flex flex-item-center flex-content-center m-t-10">
 			<div class="ancho-100 cursor p-5" @click="validar()" style="background-color: #1883ba; border-radius: 6px;
     			border: 1px solid #0016b0;">
-				<center><span class="fz-18 txt-blanco txt-negrita">Validar</span></center>
+				<center><span class="fz-18 txt-blanco">Verificar y Enviar Formulario</span></center>
 			</div>
 		</div>
 	</div>
@@ -47,7 +69,7 @@
             	ordenado:[],
             	desordenado:[],
             	procesando_validacion:false,
-            	colores_letras: ['WHITE','GRAY','BLACK','RED','MAROON','YELLOW','OLIVE','LIME','GREEN','AQUA','TEAL','BLUE','NAVY','FUCHSIA','PURPLE','INDIANRED','DEEPPINK','CORAL','ORANGE','DARKKHAKI','SEAGREEN','MEDIUMSLATEBLUE','BLUEVIOLET','MEDIUMORCHID'],
+            	colores_letras: ['WHITE','BLACK','RED','MAROON','YELLOW','OLIVE','LIME','GREEN','AQUA','TEAL','BLUE','NAVY','FUCHSIA','PURPLE','INDIANRED','DEEPPINK','CORAL','ORANGE','SEAGREEN','MEDIUMSLATEBLUE','BLUEVIOLET','MEDIUMORCHID'],
             }
         },
         mounted() {
@@ -90,7 +112,7 @@
                 		self.procesando_validacion = false;
                 	 	Swal.fire(
 			              'Volver a Internar',
-			              'No se ordenó correctamente las letras',
+			              'No se ordenó correctamente los símbolos',
 			              'error'
 			            );
 	                	setTimeout(function(){
