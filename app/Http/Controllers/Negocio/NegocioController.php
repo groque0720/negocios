@@ -150,6 +150,8 @@ class NegocioController extends Controller
 
         $productos = array_merge($albumes, $productos);
 
+        shuffle($productos);
+
 
         // $productos = Producto::where('productos.negocio_id','=', $request->negocio_id)
         //                         ->where('tipo_id','=',1)
