@@ -5,7 +5,7 @@
         </div>
         <div class="m-b-10">
             <div class="flex flex-item-center flex-content-center"">
-                <span>Ordena los simbolos como la imagen</span>
+                <span>Mueve y ordena los simbolos como la imagen</span>
             </div>
             <div class="flex flex-item-center flex-content-center">
                 <img  :src="'/images/mover-letra.png'" width="50%" >
