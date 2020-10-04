@@ -8,7 +8,7 @@
                 <span>Ordena los simbolos como la imagen</span>
             </div>
             <div class="flex flex-item-center flex-content-center">
-                <img  :src="'/images/move-mouse02.png'" width="50%" >
+                <img  :src="'/images/mover-letra.png'" width="50%" >
             </div>
         </div>
 		<div class="flex" style="position: relative; width: 300px; height: 80px; overflow: hidden;">
