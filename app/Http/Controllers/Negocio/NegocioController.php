@@ -125,6 +125,18 @@ class NegocioController extends Controller
         //                     ->limit(10)
         //                     ->get();
 
+        $albumes = DB::select("SELECT DISTINCT
+                                albumes.*
+                                FROM
+                                productos AS albumes
+                                INNER JOIN productos_relaciones ON productos_relaciones.album_id = albumes.id
+                                INNER JOIN productos ON productos_relaciones.producto_id = productos.id
+                                INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
+                                WHERE
+                                albumes.id <> ? AND
+                                categorias_productos.categoria_id IN ($cat_search)
+                                ORDER BY RAND() LIMIT 10", [$request->producto_id]);
+
         $productos = DB::select("SELECT DISTINCT productos.*
                                 FROM
                                 productos
@@ -134,7 +146,9 @@ class NegocioController extends Controller
                                 productos.tipo_id = 1 AND
                                 productos.guardar = 1 AND
                                 categorias_productos.categoria_id IN ($cat_search)
-                                ORDER BY RAND() LIMIT 50", [$request->producto_id]);
+                                ORDER BY RAND() LIMIT 10", [$request->producto_id]);
+
+        $productos = array_merge($albumes, $productos);
 
 
         // $productos = Producto::where('productos.negocio_id','=', $request->negocio_id)
