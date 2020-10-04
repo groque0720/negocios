@@ -131,7 +131,7 @@ class NegocioController extends Controller
                                 INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
                                 WHERE
                                 productos.id <> ? AND
-                                -- productos.tipo_id = 1 AND
+                                productos.tipo_id = 2 AND
                                 productos.guardar = 1 AND
                                 categorias_productos.categoria_id IN ($cat_search)
                                 ORDER BY RAND() LIMIT 50", [$request->producto_id]);
