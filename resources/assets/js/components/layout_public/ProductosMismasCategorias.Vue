@@ -1,14 +1,16 @@
 <template>
     <div class="">
         <div v-if="productos.length > 0" class="m-10 flex flex-item-center flex-content-center">
-            <span class="fz-18 txt-negrita txt-mayuscula">Similares</span>
+            <span class="fz-18 txt-negrita txt-mayuscula">Sugerencias</span>
         </div>
 
         <div class="ancho-95 margen-auto  flex productos-similares producto-scrollbar" id="style-2" style="overflow: auto;">
             <div class="ancho-100 flex p-5" style="flex-wrap: nowrap;">
                 <div v-for="(producto, filas) in productos"  class="cursor-lupa m-b-10" style="width: 156px; margin-right: 10px; border: 3px solid white; border-radius: 10px; background: white; box-shadow: 0 0 1px 1px #bbb;" @click.prevent="irProducto(producto.codigo, '')">
                         <div class="flex" style="width: 150px; height: 150px; border-radius: 10px 10px 0 0; overflow: hidden;">
-                            <img style="object-fit: cover;" class="ancho-100" :src="'/storage/'+producto.imagen_ppal" alt="">
+                            <!-- <img style="object-fit: cover;" class="ancho-100" :src="'/storage/'+producto.imagen_ppal" alt=""> -->
+                            <img v-if="$root.esImagen(producto.imagen_ppal)" style="object-fit: cover; " class="ancho-100 lazyload cursor-lupa" v-lazy="'/storage/'+producto.imagen_ppal"  alt="">
+                            <LazyVideo v-if="$root.esVideo(producto.imagen_ppal)" :src="'/storage/'+producto.imagen_ppal"  style="object-fit: cover; min-height: 150px;" class="ancho-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
                         </div>
                         <div class="p-5 p-l-10 ancho-100" style="overflow: hidden;">
                             <span class="txt-negrita" style="font-size: 1em;">{{ $root.truncarTexto(producto.producto,28) }}</span>
@@ -20,6 +22,10 @@
 </template>
 
 <script>
+    import VueLazyLoad from 'vue-lazyload'
+    import VueLazyLoadVideo from 'vue-lazyload-video'
+    Vue.use(VueLazyLoad)
+    Vue.use(VueLazyLoadVideo)
     export default {
         props:['negocio', 'producto','categorias'],
         data(){
@@ -79,7 +85,7 @@
                             categorias: this.categorias
                         }})
                 .then( response => {
-                    console.log( response.data );
+                    // console.log( response.data );
                     this.productos = response.data;
                 });
             },
