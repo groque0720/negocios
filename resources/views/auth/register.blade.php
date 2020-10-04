@@ -95,9 +95,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="lienzo flex flex-item-center flex-content-center">
-                        <validador></validador>
-                    </div>
+
+                    <validador ref="validador" ></validador>
+
     			</div>
 				<div class="form-foot">
 					<div class="form-linea flex flex-space-between flex-item-center">
@@ -105,7 +105,9 @@
                             <span class="obligatorio txt-color-ppal txt-italic" style="font-size: 12px !important;">Campo Obligatorio</span>
                         </div>
 						<div class="form-columna m-b-0">
-							<button class="btn form-btn-entrar cursor p-l-20 p-r-20">Aceptar</button>
+							<button class="btn form-btn-entrar cursor p-l-20 p-r-20"
+                             onclick="event.preventDefault(); app.__vue__.$refs.validador.mostrar()">
+                                Aceptar</button>
 						</div>
 					</div>
 				</div>
@@ -115,6 +117,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
+
             $(".ver_contraseña").click(function(){
                 $("#"+$(this).attr('data-id')).attr('type','text');
                 $(this).addClass('ocultar');
