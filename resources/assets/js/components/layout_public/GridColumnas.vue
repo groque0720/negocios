@@ -30,7 +30,7 @@
                             </div>
                         </div> -->
                     </div>
-                    <template v-if="c==1">
+                    <template v-if="c==2">
                         <infinite-loading  @infinite="InfiniteHandler">
                                 <div slot="no-more"></div>
                                 <!-- <div slot="spinner"></div> -->
