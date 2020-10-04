@@ -144,11 +144,11 @@ Route::group(['domain' => '{account}.vidriera.online'], function () {
 
 });
 
-// Route::get('/', function () {
-// 	// $url_negocio = 'ideas-en-laser';
-// 	// return redirect()->route('url_negocio.index', compact('url_negocio'));
-//     return view('welcome');
-// });
+Route::get('/', function () {
+	// $url_negocio = 'ideas-en-laser';
+	// return redirect()->route('url_negocio.index', compact('url_negocio'));
+    return view('welcome');
+});
 
 // Auth::routes();
 
