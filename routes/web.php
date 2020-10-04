@@ -39,13 +39,13 @@ use Illuminate\Http\Request;
 
 // });
 
-Route::get('/', 'Auth\LoginController@showLoginForm')->name('acceder');
+
 // Route::get('/crear_carpeta', function(){
 // 	mkdir("storage/"."omar", 0700);
 // });
 
         // Authentication Routes...
-		// Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+		Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
         Route::get('acceder', 'Auth\LoginController@showLoginForm')->name('acceder');
         Route::post('acceder', 'Auth\LoginController@login');
         Route::post('logout', 'Auth\LoginController@logout')->name('logout');
