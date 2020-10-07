@@ -2,7 +2,7 @@
     <div class="ancho-100">
         <div class="ancho-95 margen-auto flex flex-wrap" >
             <!-- :style="{'width':ancho_columna+'%'}"  -->
-            <div v-for="imagen in imagenes_infinite" class="flex tarjeta-grid-columnas " :style="{'width':ancho_columna+'%'}" >
+            <div v-for="imagen in imagenes_infinite" class="flex tarjeta-grid-columnas " :style="{'width':ancho_columna+'%'}" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
                 <div class="ancho-100" style="padding: 5px;" >
                     <div class="ancho-100 flex flex-direction-column" style="padding: 5px; border: 1px solid #ccc; border-radius: 5px; height: 100%;">
                         <div class="ancho-100" style="height: 200px;">
