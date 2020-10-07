@@ -41,7 +41,12 @@ class NegocioController extends Controller
 
         if ($request->ajax() && $negocio = Negocio::where('url', $url_negocio)->first()) {
 
-            $imagenes = ProductoImagen::select('productos_imagenes.*', 'productos.producto','productos.codigo AS producto_codigo')
+            $imagenes = ProductoImagen::select('productos_imagenes.*',
+                                                'productos.producto',
+                                                'productos.descripcion',
+                                                'productos.precio',
+                                                'productos.precio_obs',
+                                                'productos.codigo AS producto_codigo')
                                         ->join('productos', 'productos.id', '=', 'productos_imagenes.producto_id')
                                         ->where('productos.negocio_id','=', $negocio->id)
                                         ->where('productos.guardar','=', 1)

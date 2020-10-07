@@ -2,7 +2,7 @@
 
 @section('title', $negocio->nombre)
 
-@section('metas');
+@section('metas')
 
 	{{-- <title>your keyword rich title of the website and/or webpage</title> --}}
 	<meta property="og:image" content="https://vidriera.online/storage/{{$negocio->logo}}" />

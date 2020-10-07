@@ -96,7 +96,7 @@
                         </div>
                     </div>
 
-                    <validador ref="validador" ></validador>
+                    <validador ref="validador" :mostrar_validador="false"></validador>
 
     			</div>
 				<div class="form-foot">
@@ -139,6 +139,17 @@
                 $(".ver_contraseña_confirmacion").removeClass('ocultar');
             });
     </script>
+
+
+    @if (session('error'))
+        <script>
+            Swal.fire(
+              'Error en la Validación de Seguridad',
+              'Por favor ordene correctamente los símbolos / letras',
+              'error'
+            )
+        </script>
+    @endif
 
     @if ($errors->has('nombre'))
         <script>

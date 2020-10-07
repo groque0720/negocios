@@ -1,7 +1,7 @@
 <template>
     <div class="ancho-100">
         <layout-cabecera v-bind:negocio="negocio"></layout-cabecera>
-<!--         <div class="ancho-100 flex flex-item-center flex-space-between flex-content-end">
+        <div class="ancho-100 flex flex-item-center flex-space-between flex-content-end">
             <div class="p-l-10 m-l-5">
                 <a href="" @click.prevent="viewSelect(1)" title="Popurri">
                     <i class="fas fa-th txt-gris view_icon view_icon_1"></i>
@@ -17,9 +17,10 @@
                     <i class="fas fa-th-list txt-gris view_icon view_icon_3"></i>
                 </a>
             </div>
-        </div> -->
+        </div>
         <layout-grid-columnas v-if="view_activa == 1" v-bind:negocio="negocio"></layout-grid-columnas>
-        <layout-grid-albumes v-if="view_activa == 2" v-bind:negocio="negocio"></layout-grid-albumes>
+        <layout-grid-columnas-ordenado v-if="view_activa == 2" v-bind:negocio="negocio"></layout-grid-columnas-ordenado>
+        <layout-grid-albumes v-if="view_activa == 3" v-bind:negocio="negocio"></layout-grid-albumes>
     </div>
 </template>
 
@@ -28,7 +29,7 @@
         props:['negocio'],
         data(){
             return {
-                view_activa: 1,
+                view_activa: 2,
             }
         },
         mounted() {

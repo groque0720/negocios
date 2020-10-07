@@ -35,6 +35,7 @@ Vue.component('layout-public', require('./components/layout_public/Layout.vue'))
 Vue.component('layout-cabecera', require('./components/layout_public/Cabecera.vue'));
 Vue.component('layout-redes-sociales', require('./components/layout_public/RedesSociales.vue'));
 Vue.component('layout-grid-columnas', require('./components/layout_public/GridColumnas.vue'));
+Vue.component('layout-grid-columnas-ordenado', require('./components/layout_public/GridColumnasOrdenado.vue'));
 // Vue.component('layout-grid-albumes', require('./components/layout_public/GridAlbumes.vue'));
 Vue.component('layout-producto', require('./components/layout_public/Producto.vue'));
 Vue.component('layout-productos-mismas-categorias', require('./components/layout_public/ProductosMismasCategorias.vue'));
