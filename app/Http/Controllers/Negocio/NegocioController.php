@@ -152,15 +152,13 @@ class NegocioController extends Controller
                         productos.guardar = 1 AND
                         categorias_productos.categoria_id = ?
                        LIMIT 10", [$request->producto_id, $categoria_id]);
-            if ($cont == 0) {
-                array_merge($productos_, $productos);
-                array_merge($albumes_, $albumes);
+
+            foreach ($albumes as $key => $album) {
+               array_push($albumes_, $album);
             }
-
-            $cont++;
-
-            // array_merge($productos_, $productos_);
-            // array_merge($albumes_, $albumes_);
+            foreach ($productos as $key => $producto) {
+               array_push($productos_, $producto);
+            }
 
         }
 
