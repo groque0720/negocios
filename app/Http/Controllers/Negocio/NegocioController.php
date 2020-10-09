@@ -113,47 +113,36 @@ class NegocioController extends Controller
 
     public function mostrar_productos_mismas_categorias(Request $request){
 
-        // $categorias_buscar = [];
-        $cat_search = '';
-
-        // return $request->categorias;
-
         $albumes_ = [];
         $productos_ = [];
 
-        // return $request->categorias;
-
-        $cont = 0;
-
         foreach ($request->categorias as $categoria) {
-            // array_push($categorias_buscar, json_decode($categoria)->id);
-            $cat_search .= json_decode($categoria)->id.', ';
+
             $categoria_id = json_decode($categoria)->id;
 
             $albumes = DB::select("SELECT DISTINCT albumes.*
-                        FROM
-                        productos AS albumes
-                        INNER JOIN productos_relaciones ON productos_relaciones.album_id = albumes.id
-                        INNER JOIN productos ON productos_relaciones.producto_id = productos.id
-                        INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
-                        WHERE
-                        albumes.id <> ? AND
-                        categorias_productos.categoria_id = ?
-                        GROUP BY albumes.id
-                        LIMIT 10", [$request->producto_id, $categoria_id]);
+                                    FROM
+                                    productos AS albumes
+                                    INNER JOIN productos_relaciones ON productos_relaciones.album_id = albumes.id
+                                    INNER JOIN productos ON productos_relaciones.producto_id = productos.id
+                                    INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
+                                    WHERE
+                                    albumes.id <> ? AND
+                                    categorias_productos.categoria_id = ?
+                                    LIMIT 10", [$request->producto_id, $categoria_id]);
 
             $productos = DB::select("SELECT DISTINCT productos.*
-                        FROM
-                        productos
-                        INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
-                        WHERE
-                        productos.id <> ? AND
-                        productos.tipo_id = 1 AND
-                        productos.guardar = 1 AND
-                        categorias_productos.categoria_id = ?
-                       LIMIT 10", [$request->producto_id, $categoria_id]);
+                                        FROM
+                                        productos
+                                        INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
+                                        WHERE
+                                        productos.id <> ? AND
+                                        productos.tipo_id = 1 AND
+                                        productos.guardar = 1 AND
+                                        categorias_productos.categoria_id = ?
+                                       LIMIT 10", [$request->producto_id, $categoria_id]);
 
-            foreach ($albumes as $key => $album) {
+            foreach ($albumes as $album) {
                array_push($albumes_, $album);
             }
             foreach ($productos as $key => $producto) {
@@ -162,33 +151,8 @@ class NegocioController extends Controller
 
         }
 
-        return $albumes_;
-
-        $cat_search .="0";
-
-
-        // $albumes_ = DB::select("SELECT DISTINCT
-        //                         albumes.*
-        //                         FROM
-        //                         productos AS albumes
-        //                         INNER JOIN productos_relaciones ON productos_relaciones.album_id = albumes.id
-        //                         INNER JOIN productos ON productos_relaciones.producto_id = productos.id
-        //                         INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
-        //                         WHERE
-        //                         albumes.id <> ?
-        //                         -- categorias_productos.categoria_id IN ($cat_search)
-        //                         ORDER BY FIELD (categorias_productos.categoria_id, $cat_search) LIMIT 10", [$request->producto_id]);
-
-        // $productos_ = DB::select("SELECT DISTINCT productos.*
-        //                         FROM
-        //                         productos
-        //                         INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
-        //                         WHERE
-        //                         productos.id <> ? AND
-        //                         productos.tipo_id = 1 AND
-        //                         productos.guardar = 1
-        //                         -- categorias_productos.categoria_id IN ($cat_search)
-        //                         ORDER BY FIELD (categorias_productos.categoria_id, $cat_search) LIMIT 10", [$request->producto_id]);
+        $albumes_ =  array_map("unserialize", array_unique(array_map("serialize", $albumes_)));
+        $productos_ =  array_map("unserialize", array_unique(array_map("serialize", $productos_)));
 
         $cant_album = count($albumes_);
         $cant_productos = count($productos_);
@@ -205,24 +169,8 @@ class NegocioController extends Controller
                array_push($productos, $albumes_[$i]);
            }
         }
-
-        // $productos = array_merge($albumes, $productos);
-
-        // shuffle($productos);
-
-
-        // $productos = Producto::where('productos.negocio_id','=', $request->negocio_id)
-        //                         ->where('tipo_id','=',1)
-        //                         ->where('guardar','=',1)
-        //                         ->with(['categorias' => function($categorias){
-        //                             $categorias->whereIn('categoria', $categorias_buscar);
-        //                         }])->get();
-
         return $productos;
-
-
     }
-
 
     public function mostrar_productos_categoria(Request $request, $url_negocio, $categoria){
 
