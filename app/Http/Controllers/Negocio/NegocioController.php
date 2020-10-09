@@ -130,8 +130,7 @@ class NegocioController extends Controller
             $cat_search .= json_decode($categoria)->id.', ';
             $categoria_id = json_decode($categoria)->id;
 
-            $albumes = DB::select("SELECT DISTINCT
-                        albumes.*
+            $albumes = DB::select("SELECT DISTINCT albumes.*
                         FROM
                         productos AS albumes
                         INNER JOIN productos_relaciones ON productos_relaciones.album_id = albumes.id
@@ -140,6 +139,7 @@ class NegocioController extends Controller
                         WHERE
                         albumes.id <> ? AND
                         categorias_productos.categoria_id = ?
+                        GROUP BY albumes.id
                         LIMIT 10", [$request->producto_id, $categoria_id]);
 
             $productos = DB::select("SELECT DISTINCT productos.*
