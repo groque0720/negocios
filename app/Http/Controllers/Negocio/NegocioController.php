@@ -156,7 +156,7 @@ class NegocioController extends Controller
 
         }
 
-        return $productos_;
+        return $albumes_;
 
         $cat_search .="0";
 
