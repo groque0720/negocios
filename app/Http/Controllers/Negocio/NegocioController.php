@@ -115,6 +115,8 @@ class NegocioController extends Controller
 
         $albumes_ = [];
         $productos_ = [];
+        $cant_album = 0;
+        $cant_productos = 0;
 
         foreach ($request->categorias as $categoria) {
 
@@ -143,19 +145,26 @@ class NegocioController extends Controller
                                        LIMIT 10", [$request->producto_id, $categoria_id]);
 
             foreach ($albumes as $album) {
-               array_push($albumes_, $album);
+                if (!in_array($album, $albumes_)) {
+                   array_push($albumes_, $album);
+                   $cant_album++;
+                }
+
             }
-            foreach ($productos as $key => $producto) {
-               array_push($productos_, $producto);
+            foreach ($productos as $producto) {
+                if (!in_array($producto, $productos_)) {
+                    array_push($productos_, $producto);
+                    $cant_productos++;
+                }
             }
 
         }
 
-        $albumes_ =  array_map("unserialize", array_unique(array_map("serialize", $albumes_)));
-        $productos_ =  array_map("unserialize", array_unique(array_map("serialize", $productos_)));
+        // $albumes_ =  array_map("unserialize", array_unique(array_map("serialize", $albumes_)));
+        // $productos_ =  array_map("unserialize", array_unique(array_map("serialize", $productos_)));
 
-        $cant_album = count($albumes_);
-        $cant_productos = count($productos_);
+        // $cant_album = count($albumes_);
+        // $cant_productos = count($productos_);
 
         $cant_max = $cant_productos >= $cant_album ? $cant_productos : $cant_album;
 
