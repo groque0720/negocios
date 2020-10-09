@@ -121,7 +121,7 @@ class NegocioController extends Controller
         $albumes_ = [];
         $productos_ = [];
 
-        return $request->categorias;
+        // return $request->categorias;
 
         foreach ($request->categorias as $categoria) {
             // array_push($categorias_buscar, json_decode($categoria)->id);
@@ -156,7 +156,7 @@ class NegocioController extends Controller
 
         }
 
-        // return $productos_;
+        return $productos_;
 
         $cat_search .="0";
 
