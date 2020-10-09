@@ -17,6 +17,7 @@ class CreateCategoriaProductosTable extends Migration
             $table->increments('id');
             $table->integer('categoria_id');
             $table->integer('producto_id');
+            $table->integer('posicion')->default(99);
             $table->timestamps();
         });
     }

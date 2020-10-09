@@ -93,7 +93,7 @@
                     let imagenes = response.data.data;
                     if (imagenes.length) {
                         this.albumes_infinite = this.albumes_infinite.concat(imagenes);
-                        console.log(this.albumes_infinite);
+                        // console.log(this.albumes_infinite);
                         // this.productos = this.productos_infinite;
                         $state.loaded();
                     }else{

@@ -89,7 +89,12 @@ class NegocioController extends Controller
                         // ->where('tipo_id','=',1)
                         ->where('productos.negocio_id','=', $negocio->id)
                         ->where('guardar','=',1)
-                        ->with(['caracteristicas','categorias','imagenes','relacionados' => function($relacionados){
+                        ->with(['caracteristicas',
+                                'categorias' => function($categorias){
+                                    $categorias->orderBy('posicion');
+                                },
+                                'imagenes',
+                                'relacionados' => function($relacionados){
                             $relacionados->with('categorias');
                         }])->first();
                 // return $producto;
@@ -130,7 +135,7 @@ class NegocioController extends Controller
         //                     ->limit(10)
         //                     ->get();
 
-        $albumes = DB::select("SELECT DISTINCT
+        $albumes_ = DB::select("SELECT DISTINCT
                                 albumes.*
                                 FROM
                                 productos AS albumes
@@ -140,9 +145,9 @@ class NegocioController extends Controller
                                 WHERE
                                 albumes.id <> ? AND
                                 categorias_productos.categoria_id IN ($cat_search)
-                                ORDER BY RAND() LIMIT 10", [$request->producto_id]);
+                                ORDER BY FIELD (categorias_productos.categoria_id, $cat_search) LIMIT 10", [$request->producto_id]);
 
-        $productos = DB::select("SELECT DISTINCT productos.*
+        $productos_ = DB::select("SELECT DISTINCT productos.*
                                 FROM
                                 productos
                                 INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
@@ -151,11 +156,27 @@ class NegocioController extends Controller
                                 productos.tipo_id = 1 AND
                                 productos.guardar = 1 AND
                                 categorias_productos.categoria_id IN ($cat_search)
-                                ORDER BY RAND() LIMIT 10", [$request->producto_id]);
+                                ORDER BY FIELD (categorias_productos.categoria_id, $cat_search) LIMIT 10", [$request->producto_id]);
 
-        $productos = array_merge($albumes, $productos);
+        $cant_album = count($albumes_);
+        $cant_productos = count($productos_);
 
-        shuffle($productos);
+        $cant_max = $cant_productos >= $cant_album ? $cant_productos : $cant_album;
+
+        $productos = [];
+
+        for ($i=0; $i < $cant_max; $i++) {
+           if ($i < $cant_productos) {
+               array_push($productos, $productos_[$i]);
+           }
+            if ($i < $cant_album) {
+               array_push($productos, $albumes_[$i]);
+           }
+        }
+
+        // $productos = array_merge($albumes, $productos);
+
+        // shuffle($productos);
 
 
         // $productos = Producto::where('productos.negocio_id','=', $request->negocio_id)

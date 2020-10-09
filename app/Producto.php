@@ -15,7 +15,7 @@ class Producto extends Model
     }
 
     public function categorias(){
-    	return $this->belongsToMany(Categoria::class, 'categorias_productos');
+    	return $this->belongsToMany(Categoria::class, 'categorias_productos')->withPivot('posicion');
     }
 
     public function imagenes(){

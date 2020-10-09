@@ -25,7 +25,7 @@
 				axios.get(url)
                 .then(response => {
                 	this.redes_sociales = response.data;
-                	 console.log(response.data);
+                	 // console.log(response.data);
                 });
         	}
         }

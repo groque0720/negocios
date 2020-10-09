@@ -12,11 +12,11 @@
                     <i class="fas fa-th-large txt-gris view_icon view_icon_2"></i>
                 </a>
             </div>
-            <div class="p-l-10 p-r-10 m-l-5">
+            <!-- <div class="p-l-10 p-r-10 m-l-5">
                 <a href="" @click.prevent="viewSelect(3)" title="Productos">
                     <i class="fas fa-th-list txt-gris view_icon view_icon_3"></i>
                 </a>
-            </div>
+            </div> -->
         </div>
         <layout-grid-columnas v-if="view_activa == 1" v-bind:negocio="negocio"></layout-grid-columnas>
         <layout-grid-columnas-ordenado v-if="view_activa == 2" v-bind:negocio="negocio"></layout-grid-columnas-ordenado>
@@ -29,7 +29,7 @@
         props:['negocio'],
         data(){
             return {
-                view_activa: 2,
+                view_activa: 1,
             }
         },
         mounted() {

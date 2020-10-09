@@ -167,7 +167,7 @@
                 //var categorias_filtro = this.categorias.filter(categoria => categoria.categoria.length > 6);
 
                 this.categorias_view = categorias_filtro;
-                console.log(categorias_filtro);
+                // console.log(categorias_filtro);
             },
             borrarInputBuscar(){
                 this.query = '';

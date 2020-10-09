@@ -93,7 +93,7 @@
                     let imagenes = response.data.data;
                     if (imagenes.length) {
                         this.imagenes_infinite = this.imagenes_infinite.concat(imagenes);
-                        console.log(this.imagenes_infinite);
+                        // console.log(this.imagenes_infinite);
                         $state.loaded();
                     }else{
                         $state.complete();

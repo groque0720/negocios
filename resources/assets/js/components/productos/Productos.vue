@@ -217,7 +217,7 @@
                 let url = 'productos/accion';
                 axios.post(url, data)
                 .then( response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.productos = response.data.productos;
                     this.ocultarFormulario();
                     this.mostarMensaje(response.data.msg);

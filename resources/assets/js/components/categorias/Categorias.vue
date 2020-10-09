@@ -122,7 +122,7 @@
             },
             InfiniteHandler($state){
                 this.page++;
-                console.log(this.page)
+                // console.log(this.page)
                 let url = '/categorias/buscar?page=' + this.page;
                 axios.get(url)
                 .then( response => {
@@ -143,7 +143,7 @@
                         params: {
                             query: this.query
                         }}).then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
                         this.categorias = res.data;
                     });
                 }else{
@@ -203,7 +203,7 @@
                 let url = 'categorias/accion';
                 axios.post(url, data)
                 .then( response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.categorias = response.data.categorias;
                     this.ocultarFormulario();
                     this.mostarMensaje(response.data.msg);

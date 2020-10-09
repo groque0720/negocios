@@ -406,8 +406,8 @@
 				}
 			},
 			mostrarCategorias(){
-				console.log(this.categorias_activas);
-				console.log(this.categorias_activas_orden_posicion);
+				// console.log(this.categorias_activas);
+				// console.log(this.categorias_activas_orden_posicion);
 			},
 			mostrar(){
 				// console.log(this.imagenes);
@@ -546,7 +546,7 @@
                             producto_codigo: this.producto.codigo
                         }})
                 .then( response => {
-                	console.log(response.data);
+                	// console.log(response.data);
                 	this.categorias_activas = response.data;
                 	this.categorias_activas_orden_posicion = response.data;
                 	this.categorias_activas_orden_posicion.sort(function(a, b){
@@ -559,7 +559,7 @@
 						  // a must be equal to b
 						  return 0;
                 	});
-                	console.log(this.categorias_activas);
+                	// console.log(this.categorias_activas);
                 });
 			},
 			seleccionarPrecio(evt){
@@ -589,7 +589,7 @@
 				});
 			},
 			mostrarSeleccionarCategorias(){
-				console.log(this.categorias_activas);
+				// console.log(this.categorias_activas);
 				this.$refs.formCategorias.mostrar();
 			},
 			mostrarSeleccionarCaracteristicas(){

@@ -90,7 +90,7 @@
 
             },
             InfiniteHandler($state){
-                console.log(this.page);
+                // console.log(this.page);
                 this.page++;
                 let url = '/'+this.negocio.url+'/buscar_imagenes_random/?page=' + this.page;
                 axios.get(url)
