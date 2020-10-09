@@ -85,7 +85,7 @@
                             categorias: this.categorias
                         }})
                 .then( response => {
-                    // console.log( response.data );
+                    console.log( response.data );
                     this.productos = response.data;
                 });
             },

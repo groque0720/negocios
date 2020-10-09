@@ -304,6 +304,9 @@
         	// uso una variable 'categorias_lista' para que liste las categorias,
         	// pero en los albumes no tiene categorias, sino hay que listar las
         	// categorias de los productos relacionados
+
+        	console.log(this.categorias_lista);
+
         	this.categorias_lista = this.producto.categorias;
 
         	// preparo las categorias del los albumes que tiene productos relacionados

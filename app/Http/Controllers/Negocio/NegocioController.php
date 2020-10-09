@@ -90,9 +90,7 @@ class NegocioController extends Controller
                         ->where('productos.negocio_id','=', $negocio->id)
                         ->where('guardar','=',1)
                         ->with(['caracteristicas',
-                                'categorias' => function($categorias){
-                                    $categorias->orderBy('posicion');
-                                },
+                                'categorias',
                                 'imagenes',
                                 'relacionados' => function($relacionados){
                             $relacionados->with('categorias');
@@ -118,45 +116,71 @@ class NegocioController extends Controller
         // $categorias_buscar = [];
         $cat_search = '';
 
+        // return $request->categorias;
+
+        $albumes_ = [];
+        $productos_ = [];
+
         foreach ($request->categorias as $categoria) {
             // array_push($categorias_buscar, json_decode($categoria)->id);
             $cat_search .= json_decode($categoria)->id.', ';
+            $categoria_id = json_decode($categoria)->id;
+
+            $albumes_ = DB::select("SELECT DISTINCT
+                        albumes.*
+                        FROM
+                        productos AS albumes
+                        INNER JOIN productos_relaciones ON productos_relaciones.album_id = albumes.id
+                        INNER JOIN productos ON productos_relaciones.producto_id = productos.id
+                        INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
+                        WHERE
+                        albumes.id <> ? AND
+                        categorias_productos.categoria_id = ?
+                        LIMIT 10", [$request->producto_id, $categoria_id]);
+
+            $productos_ = DB::select("SELECT DISTINCT productos.*
+                        FROM
+                        productos
+                        INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
+                        WHERE
+                        productos.id <> ? AND
+                        productos.tipo_id = 1 AND
+                        productos.guardar = 1 AND
+                        categorias_productos.categoria_id = ?
+                       LIMIT 10", [$request->producto_id, $categoria_id]);
+
+            array_merge($productos_, $productos_);
+            array_merge($albumes_, $albumes_);
+
         }
+
+        // return $productos_;
 
         $cat_search .="0";
 
-        // $productos = Producto::where('productos.negocio_id','=', $request->negocio_id)
-        //                     ->where('productos.id','<>',$request->producto_id)
-        //                     ->where('tipo_id','=',1)
-        //                     ->where('guardar','=',1)
-        //                     ->join('categorias_productos', 'categorias_productos.producto_id', '=', 'productos.id')
-        //                     ->whereIn('categorias_productos.categoria_id', $categorias_buscar)
-        //                     ->orderBy(DB::raw('RAND('.$request->session()->get('session_rand').')'))
-        //                     ->limit(10)
-        //                     ->get();
 
-        $albumes_ = DB::select("SELECT DISTINCT
-                                albumes.*
-                                FROM
-                                productos AS albumes
-                                INNER JOIN productos_relaciones ON productos_relaciones.album_id = albumes.id
-                                INNER JOIN productos ON productos_relaciones.producto_id = productos.id
-                                INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
-                                WHERE
-                                albumes.id <> ? AND
-                                categorias_productos.categoria_id IN ($cat_search)
-                                ORDER BY FIELD (categorias_productos.categoria_id, $cat_search) LIMIT 10", [$request->producto_id]);
+        // $albumes_ = DB::select("SELECT DISTINCT
+        //                         albumes.*
+        //                         FROM
+        //                         productos AS albumes
+        //                         INNER JOIN productos_relaciones ON productos_relaciones.album_id = albumes.id
+        //                         INNER JOIN productos ON productos_relaciones.producto_id = productos.id
+        //                         INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
+        //                         WHERE
+        //                         albumes.id <> ?
+        //                         -- categorias_productos.categoria_id IN ($cat_search)
+        //                         ORDER BY FIELD (categorias_productos.categoria_id, $cat_search) LIMIT 10", [$request->producto_id]);
 
-        $productos_ = DB::select("SELECT DISTINCT productos.*
-                                FROM
-                                productos
-                                INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
-                                WHERE
-                                productos.id <> ? AND
-                                productos.tipo_id = 1 AND
-                                productos.guardar = 1 AND
-                                categorias_productos.categoria_id IN ($cat_search)
-                                ORDER BY FIELD (categorias_productos.categoria_id, $cat_search) LIMIT 10", [$request->producto_id]);
+        // $productos_ = DB::select("SELECT DISTINCT productos.*
+        //                         FROM
+        //                         productos
+        //                         INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
+        //                         WHERE
+        //                         productos.id <> ? AND
+        //                         productos.tipo_id = 1 AND
+        //                         productos.guardar = 1
+        //                         -- categorias_productos.categoria_id IN ($cat_search)
+        //                         ORDER BY FIELD (categorias_productos.categoria_id, $cat_search) LIMIT 10", [$request->producto_id]);
 
         $cant_album = count($albumes_);
         $cant_productos = count($productos_);
