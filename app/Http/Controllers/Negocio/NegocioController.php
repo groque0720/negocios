@@ -130,7 +130,7 @@ class NegocioController extends Controller
             $cat_search .= json_decode($categoria)->id.', ';
             $categoria_id = json_decode($categoria)->id;
 
-            $albumes_ = DB::select("SELECT DISTINCT
+            $albumes = DB::select("SELECT DISTINCT
                         albumes.*
                         FROM
                         productos AS albumes
@@ -142,7 +142,7 @@ class NegocioController extends Controller
                         categorias_productos.categoria_id = ?
                         LIMIT 10", [$request->producto_id, $categoria_id]);
 
-            $productos_ = DB::select("SELECT DISTINCT productos.*
+            $productos = DB::select("SELECT DISTINCT productos.*
                         FROM
                         productos
                         INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
@@ -153,8 +153,8 @@ class NegocioController extends Controller
                         categorias_productos.categoria_id = ?
                        LIMIT 10", [$request->producto_id, $categoria_id]);
             if ($cont == 0) {
-                array_merge($productos_, $productos_);
-                array_merge($albumes_, $albumes_);
+                array_merge($productos_, $productos);
+                array_merge($albumes_, $albumes);
             }
 
             $cont++;
