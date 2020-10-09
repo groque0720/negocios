@@ -205,18 +205,21 @@
 							</div>
 						</div>
 						<div class="zona-categorias-item flex flex-item-center flex-content-center" style="flex-flow:row wrap;">
-							<template v-for="(categoria, i) in categorias_activas">
-								<div class="flex flex-item-center flex-space-between categoria-item p-5" v-if="categoria.seleccion_confirmacion">
-									<div class="ancho-100 m-r-5 flex flex-content-center">
-										{{ categoria.categoria }}
-									</div>
-									<div class="flex flex-item-center flex-content-center cursor" style="width: 20px;" @click="quitarCategoria(i)">
-										<div class="flex flex-item-center flex-content-center" style="border:1px solid red; border-radius: 50%; width: 20px; height: 20px;">
-											<i class="fas fa-times fz-14 txt-rojo-claro"></i>
+							<draggable v-model="categorias_activas_orden_posicion" @start="drag=true" @end="drag=false" @change="mostrarCategorias()"
+							 class="flex flex-content-center" style="flex-flow:row wrap;">
+								<template v-for="(categoria, i) in categorias_activas_orden_posicion">
+									<div class="flex flex-item-center flex-space-between categoria-item p-5 cursor" v-if="categoria.seleccion_confirmacion" style="min-width: 150px; background: white;">
+										<div class="ancho-100 m-r-5 flex flex-content-center">
+											{{ categoria.categoria }}
+										</div>
+										<div class="flex flex-item-center flex-content-center cursor" style="width: 20px;" @click="quitarCategoria(i)">
+											<div class="flex flex-item-center flex-content-center" style="border:1px solid red; border-radius: 50%; width: 20px; height: 20px;">
+												<i class="fas fa-times fz-14 txt-rojo-claro"></i>
+											</div>
 										</div>
 									</div>
-								</div>
-							</template>
+								</template>
+							</draggable>
 						</div>
 					</div>
 				</div>
@@ -335,6 +338,7 @@
 				productos_relacionados:[],
 				caracteristicas_activas:[],
 				categorias_activas:[],
+				categorias_activas_orden_posicion:[],
 				imagenes:[],
 				activarObligatorios:false,
 				subiendoImagenes:false,
@@ -377,7 +381,7 @@
 					let form = {};
 					form.producto = this.producto;
 					form.caracteristicas = this.caracteristicas_activas;
-					form.categorias = this.categorias_activas;
+					form.categorias = this.categorias_activas_orden_posicion;
 					form.imagenes = this.imagenes;
 					axios.post(url, form)
 					.then(response => {
@@ -400,6 +404,10 @@
 						$("#producto_nombre").addClass('input-obligatorio');
 					}
 				}
+			},
+			mostrarCategorias(){
+				console.log(this.categorias_activas);
+				console.log(this.categorias_activas_orden_posicion);
 			},
 			mostrar(){
 				// console.log(this.imagenes);
@@ -538,8 +546,20 @@
                             producto_codigo: this.producto.codigo
                         }})
                 .then( response => {
-                	// console.log(response.data);
-                	this.categorias_activas= response.data;
+                	console.log(response.data);
+                	this.categorias_activas = response.data;
+                	this.categorias_activas_orden_posicion = response.data;
+                	this.categorias_activas_orden_posicion.sort(function(a, b){
+                		  if (a.posicion > b.posicion) {
+						    return 1;
+						  }
+						  if (a.posicion < b.posicion) {
+						    return -1;
+						  }
+						  // a must be equal to b
+						  return 0;
+                	});
+                	console.log(this.categorias_activas);
                 });
 			},
 			seleccionarPrecio(evt){
@@ -569,6 +589,7 @@
 				});
 			},
 			mostrarSeleccionarCategorias(){
+				console.log(this.categorias_activas);
 				this.$refs.formCategorias.mostrar();
 			},
 			mostrarSeleccionarCaracteristicas(){

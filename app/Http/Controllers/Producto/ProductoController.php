@@ -12,6 +12,7 @@ use App\Producto;
 use App\ProductoImagen;
 use App\ProductoRelacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -150,18 +151,45 @@ class ProductoController extends Controller
         $producto_codigo = $request->producto_codigo;
 
         $producto_categorias = [];
+
         if ($producto_codigo) {
             $producto = Producto::where('codigo', $producto_codigo)->first();
             $producto_categorias = $producto->categorias()->pluck('categoria_id')->values()->all();
+            // $producto_categorias_posicion = $producto->categorias()->withPivot('posicion')->get();
         }
+        // $posicion = array_search(1, $producto_categorias);
+        // return $producto_categorias_posicion;
 
         $categorias = [];
 
         foreach ($negocio_categorias  as $negocio_categoria ) {
+
+
+            // if ($producto_categorias) {
+            //     $index_arreglo = array_search($negocio_categoria['id'], $producto_categorias);
+            //     $aux['posicion'] = $producto_categorias_posicion[$index_arreglo]['pivot']['posicion'];
+            // }else{
+            //     $aux['posicion'] = 99;
+            // }
+
+            $aux['posicion'] = 99;
+            if (in_array($negocio_categoria['id'], $producto_categorias)) {
+                $posicion = DB::select('SELECT categorias_productos.posicion FROM
+                                categorias_productos
+                                WHERE categorias_productos.categoria_id = ? AND categorias_productos.producto_id = ?',
+                                [$negocio_categoria['id'], $producto->id])[0];
+                $aux['posicion'] = $posicion->posicion;
+            }
+
+
             $aux['id'] = $negocio_categoria['id'];
             $aux['categoria'] = $negocio_categoria['categoria'];
+            // $index_arreglo = array_search($negocio_categoria['id'], $producto_categorias);
+            // $aux['posicion'] = $producto_categorias_posicion[$index_arreglo]['pivot']['posicion'];
             $aux['seleccion'] = in_array($negocio_categoria['id'], $producto_categorias);
             $aux['seleccion_confirmacion'] = in_array($negocio_categoria['id'], $producto_categorias);
+
+
             array_push($categorias, $aux);
         }
         return $categorias;
@@ -293,13 +321,39 @@ class ProductoController extends Controller
 
         // caracteristicas
 
-        $categorias_seleccion = [];
-        foreach ($categorias_form as $categoria_form) {
-            if ($categoria_form['seleccion_confirmacion']) {
-                array_push($categorias_seleccion, $categoria_form['id']);
+                    // $categorias_seleccion = [];
+                    // foreach ($categorias_form as $categoria_form) {
+                    //     if ($categoria_form['seleccion_confirmacion']) {
+                    //         array_push($categorias_seleccion, $categoria_form['id']);
+                    //     }
+                    // }
+
+                    // $producto->categorias()->sync($categorias_seleccion);
+
+
+        // return $categorias_form;
+
+        $posicion = 0;
+        foreach ($categorias_form as $key => $categoria_form) {
+            if ($categoria_form['seleccion_confirmacion']){
+                $categoria = CategoriaProducto::where('producto_id',$producto->id)->where('categoria_id',$categoria_form['id'])->first();
+                if ($categoria == null) {
+                    $categoria = new CategoriaProducto;
+                    $categoria->producto_id = $producto->id;
+                    $categoria->categoria_id = $categoria_form['id'];
+                    $categoria->posicion = $posicion;
+                    $categoria->save();
+                }else{
+                    $categoria->posicion = $posicion;
+                    $categoria->save();
+                }
+                $posicion++;
+            }else{
+                CategoriaProducto::where('producto_id',$producto->id)->where('categoria_id',$categoria_form['id'])->delete();
             }
         }
-        $producto->categorias()->sync($categorias_seleccion);
+
+
 
         //imagenes
         foreach ($imagenes_form as $key=>$imagen) {

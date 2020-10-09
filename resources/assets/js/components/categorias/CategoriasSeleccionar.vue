@@ -123,9 +123,9 @@
         	mostrar() {
                 history.pushState('', 'Categorías', this.producto.codigo);
         		this.view = true;
-                this.categorias_view = this.categorias;
+                this.categorias_view = this.ordenarCategorias();
         		this.categorias_view.forEach(function(item, posicion){
-                    item.posicion = posicion;
+                    // item.posicion = posicion;
                     if (item.seleccion_confirmacion) {
                         item.seleccion = true;
                     }else{
@@ -133,6 +133,30 @@
                     }
         		});
         	},
+            ordenarCategorias(){
+                return this.categorias.sort(function(a, b){
+                          if ( (a.categoria).toLowerCase() > (b.categoria).toLowerCase() ) {
+                            return 1;
+                          }
+                          if ( (a.categoria).toLowerCase()  < (b.categoria).toLowerCase() ) {
+                            return -1;
+                          }
+                          // a must be equal to b
+                          return 0;
+                    });
+            },
+            ordenarCategoriasPosicion(){
+                return this.categorias.sort(function(a, b){
+                          if ( a.posicion > b.posicion ) {
+                            return 1;
+                          }
+                          if ( a.posicion  < b.posicion ) {
+                            return -1;
+                          }
+                          // a must be equal to b
+                          return 0;
+                    });
+            },
             filtrarCategorias(evt = ''){
                 var query = evt ? evt.target.value : '';
                 var categorias_filtro = this.categorias.filter(function(registro){
@@ -191,6 +215,7 @@
         				item.seleccion_confirmacion = false;
         			}
         		});
+                this.categorias_view = this.ordenarCategoriasPosicion();
                 this.query = '';
         		this.view = false;
                 history.go(-1);
@@ -207,14 +232,16 @@
                         categoria: response.data.categoria,
                         seleccion: false,
                         seleccion_confirmacion: false,
-                        valor: '',
+                        posicion: 99,
                     }
                     this.categorias.push(nueva_categoria);
+                    this.categorias_view = this.ordenarCategorias();
+                    this.query = '';
                     this.categorias.sort(function (a, b) {
-                      if (a.categoria > b.categoria) {
+                      if (a.posicion > b.posicion) {
                         return 1;
                       }
-                      if (a.categoria < b.categoria) {
+                      if (a.posicion < b.posicion) {
                         return -1;
                       }
                       // a must be equal to b
