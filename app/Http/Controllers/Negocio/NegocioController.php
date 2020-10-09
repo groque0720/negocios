@@ -123,6 +123,8 @@ class NegocioController extends Controller
 
         // return $request->categorias;
 
+        $cont = 0;
+
         foreach ($request->categorias as $categoria) {
             // array_push($categorias_buscar, json_decode($categoria)->id);
             $cat_search .= json_decode($categoria)->id.', ';
@@ -150,13 +152,19 @@ class NegocioController extends Controller
                         productos.guardar = 1 AND
                         categorias_productos.categoria_id = ?
                        LIMIT 10", [$request->producto_id, $categoria_id]);
+            if ($cont == 0) {
+                array_merge($productos_, $productos_);
+                array_merge($albumes_, $albumes_);
+            }
 
-            array_merge($productos_, $productos_);
-            array_merge($albumes_, $albumes_);
+            $cont++;
+
+            // array_merge($productos_, $productos_);
+            // array_merge($albumes_, $albumes_);
 
         }
 
-        // return $productos_;
+        return $productos_;
 
         $cat_search .="0";
 
