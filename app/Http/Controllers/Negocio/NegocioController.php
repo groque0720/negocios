@@ -162,7 +162,7 @@ class NegocioController extends Controller
 
         }
 
-        return $$albumes_;
+        return $albumes_;
 
         $cat_search .="0";
 
