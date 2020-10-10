@@ -30,7 +30,7 @@
                             </div>
                         </div> -->
                     </div>
-                    <template v-if="c==2">
+                    <template>
                         <infinite-loading  @infinite="InfiniteHandler">
                                 <div slot="no-more"></div>
                                 <!-- <div slot="spinner"></div> -->
@@ -67,7 +67,6 @@
         methods: {
             handleResize() {
 
-
                 var ancho_usuario = window.innerWidth;
 
                 if (ancho_usuario <= 480) {
@@ -98,7 +97,7 @@
                     let imagenes = response.data.data;
                     if (imagenes.length) {
                         this.imagenes_infinite = this.imagenes_infinite.concat(imagenes);
-                        // this.productos = this.productos_infinite;
+                        this.productos = this.productos_infinite;
                         $state.loaded();
                     }else{
                         $state.complete();
