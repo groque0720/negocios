@@ -230,7 +230,7 @@
 			<div class="flex flex-item-center flex-content-center m-b-10">
 				<span class="fz-18 txt-negrita txt-mayuscula">Otros</span>
 			</div>
-			<layout-grid-columnas-ordenado v-bind:negocio="negocio"></layout-grid-columnas-ordenado>
+			<layout-grid-columnas v-bind:negocio="negocio"></layout-grid-columnas>
 		</div>
 	</div>
 </template>

@@ -170,7 +170,7 @@
 								</div>
 								<div class="ancho-30">
 									<input type="text" class="form-input txt-centrar"
-										 :class="['caracteristica_'+i, {'input-ingrese-valor': !caracteristica.valor}]"   @focus="evt=>seleccionCaracteristicaValor(evt)" v-model="caracteristica.valor" placeholder="Ingrese Valor">
+										 :class="['caracteristica_'+i, {'input-ingrese-valor': !caracteristica.valor}]"   @focus="evt=>seleccionCaracteristicaValor(evt)" v-model="caracteristica.valor" placeholder="Ingrese Valor" autocomplete="off">
 								</div>
 							</div>
 						</template>
