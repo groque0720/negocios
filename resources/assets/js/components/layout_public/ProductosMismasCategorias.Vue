@@ -1,8 +1,8 @@
 <template>
     <div class="">
-        <div v-if="productos.length > 0" class="m-10 flex flex-item-center flex-content-center">
+        <!-- <div v-if="productos.length > 0" class="m-10 flex flex-item-center flex-content-center">
             <span class="fz-18 txt-negrita txt-mayuscula">Sugerencias</span>
-        </div>
+        </div> -->
 
         <div class="ancho-95 margen-auto  flex productos-similares producto-scrollbar" id="style-2" style="overflow: auto;">
             <div class="ancho-100 flex p-5" style="flex-wrap: nowrap;">

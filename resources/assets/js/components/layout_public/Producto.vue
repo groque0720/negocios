@@ -224,10 +224,10 @@
 		</LightBox>
 
 		<div class="m-t-20 p-5" style="background: #eee;">
-			<layout-productos-mismas-categorias  v-bind:negocio="negocio" v-bind:producto="producto" v-bind:categorias="categorias_lista"></layout-productos-mismas-categorias>
-		</div>
-		<div class="m-t-20 p-5" style="background: #eee;">
 			<layout-albumes-mismas-categorias  v-bind:negocio="negocio" v-bind:producto="producto" v-bind:categorias="categorias_lista"></layout-albumes-mismas-categorias>
+		</div>
+		<div class="p-5" style="background: #eee;">
+			<layout-productos-mismas-categorias  v-bind:negocio="negocio" v-bind:producto="producto" v-bind:categorias="categorias_lista"></layout-productos-mismas-categorias>
 		</div>
 		<div class="m-t-15">
 			<div class="flex flex-item-center flex-content-center m-b-10">
