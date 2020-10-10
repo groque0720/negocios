@@ -113,10 +113,80 @@ class NegocioController extends Controller
 
     public function mostrar_productos_mismas_categorias(Request $request){
 
-        $albumes_ = [];
+        // $albumes_ = [];
         $productos_ = [];
-        $cant_album = 0;
+        // $cant_album = 0;
         $cant_productos = 0;
+
+        foreach ($request->categorias as $categoria) {
+
+            $categoria_id = json_decode($categoria)->id;
+
+            // $albumes = DB::select("SELECT DISTINCT albumes.*
+            //                         FROM
+            //                         productos AS albumes
+            //                         INNER JOIN productos_relaciones ON productos_relaciones.album_id = albumes.id
+            //                         INNER JOIN productos ON productos_relaciones.producto_id = productos.id
+            //                         INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
+            //                         WHERE
+            //                         albumes.id <> ? AND
+            //                         categorias_productos.categoria_id = ?
+            //                         LIMIT 50", [$request->producto_id, $categoria_id]);
+
+            $productos = DB::select("SELECT DISTINCT productos.*
+                                        FROM
+                                        productos
+                                        INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
+                                        WHERE
+                                        productos.id <> ? AND
+                                        productos.tipo_id = 1 AND
+                                        productos.guardar = 1 AND
+                                        categorias_productos.categoria_id = ?
+                                       LIMIT 50", [$request->producto_id, $categoria_id]);
+
+            // foreach ($albumes as $album) {
+            //     if (!in_array($album, $albumes_)) {
+            //        array_push($albumes_, $album);
+            //        $cant_album++;
+            //     }
+
+            // }
+            foreach ($productos as $producto) {
+                if (!in_array($producto, $productos_)) {
+                    array_push($productos_, $producto);
+                    $cant_productos++;
+                }
+            }
+
+        }
+
+        // $albumes_ =  array_map("unserialize", array_unique(array_map("serialize", $albumes_)));
+        // $productos_ =  array_map("unserialize", array_unique(array_map("serialize", $productos_)));
+
+        // $cant_album = count($albumes_);
+        // $cant_productos = count($productos_);
+
+        // $cant_max = $cant_productos >= $cant_album ? $cant_productos : $cant_album;
+
+        $productos = [];
+
+        for ($i=0; $i < $cant_productos; $i++) {
+           if ($i < $cant_productos) {
+               array_push($productos, $productos_[$i]);
+           }
+           //  if ($i < $cant_album) {
+           //     array_push($productos, $albumes_[$i]);
+           // }
+        }
+        return $productos;
+    }
+
+    public function mostrar_albumes_mismas_categorias(Request $request){
+
+        $albumes_ = [];
+        // $productos_ = [];
+        $cant_album = 0;
+        // $cant_productos = 0;
 
         foreach ($request->categorias as $categoria) {
 
@@ -133,16 +203,16 @@ class NegocioController extends Controller
                                     categorias_productos.categoria_id = ?
                                     LIMIT 50", [$request->producto_id, $categoria_id]);
 
-            $productos = DB::select("SELECT DISTINCT productos.*
-                                        FROM
-                                        productos
-                                        INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
-                                        WHERE
-                                        productos.id <> ? AND
-                                        productos.tipo_id = 1 AND
-                                        productos.guardar = 1 AND
-                                        categorias_productos.categoria_id = ?
-                                       LIMIT 50", [$request->producto_id, $categoria_id]);
+            // $productos = DB::select("SELECT DISTINCT productos.*
+            //                             FROM
+            //                             productos
+            //                             INNER JOIN categorias_productos ON categorias_productos.producto_id = productos.id
+            //                             WHERE
+            //                             productos.id <> ? AND
+            //                             productos.tipo_id = 1 AND
+            //                             productos.guardar = 1 AND
+            //                             categorias_productos.categoria_id = ?
+            //                            LIMIT 50", [$request->producto_id, $categoria_id]);
 
             foreach ($albumes as $album) {
                 if (!in_array($album, $albumes_)) {
@@ -151,12 +221,12 @@ class NegocioController extends Controller
                 }
 
             }
-            foreach ($productos as $producto) {
-                if (!in_array($producto, $productos_)) {
-                    array_push($productos_, $producto);
-                    $cant_productos++;
-                }
-            }
+            // foreach ($productos as $producto) {
+            //     if (!in_array($producto, $productos_)) {
+            //         array_push($productos_, $producto);
+            //         $cant_productos++;
+            //     }
+            // }
 
         }
 
@@ -166,20 +236,24 @@ class NegocioController extends Controller
         // $cant_album = count($albumes_);
         // $cant_productos = count($productos_);
 
-        $cant_max = $cant_productos >= $cant_album ? $cant_productos : $cant_album;
+        // $cant_max = $cant_productos >= $cant_album ? $cant_productos : $cant_album;
 
-        $productos = [];
+        $albumes = [];
 
-        for ($i=0; $i < $cant_max; $i++) {
-           if ($i < $cant_productos) {
-               array_push($productos, $productos_[$i]);
-           }
+        for ($i=0; $i < $cant_album; $i++) {
+           // if ($i < $cant_productos) {
+           //     array_push($productos, $productos_[$i]);
+           // }
             if ($i < $cant_album) {
-               array_push($productos, $albumes_[$i]);
+               array_push($albumes, $albumes_[$i]);
            }
         }
-        return $productos;
+        return $albumes;
     }
+
+
+
+
 
     public function mostrar_productos_categoria(Request $request, $url_negocio, $categoria){
 
