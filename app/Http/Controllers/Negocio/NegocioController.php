@@ -131,7 +131,7 @@ class NegocioController extends Controller
                                     WHERE
                                     albumes.id <> ? AND
                                     categorias_productos.categoria_id = ?
-                                    LIMIT 10", [$request->producto_id, $categoria_id]);
+                                    LIMIT 50", [$request->producto_id, $categoria_id]);
 
             $productos = DB::select("SELECT DISTINCT productos.*
                                         FROM
@@ -142,7 +142,7 @@ class NegocioController extends Controller
                                         productos.tipo_id = 1 AND
                                         productos.guardar = 1 AND
                                         categorias_productos.categoria_id = ?
-                                       LIMIT 10", [$request->producto_id, $categoria_id]);
+                                       LIMIT 50", [$request->producto_id, $categoria_id]);
 
             foreach ($albumes as $album) {
                 if (!in_array($album, $albumes_)) {

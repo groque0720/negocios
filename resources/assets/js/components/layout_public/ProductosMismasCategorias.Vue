@@ -13,7 +13,7 @@
                             <LazyVideo v-if="$root.esVideo(producto.imagen_ppal)" :src="'/storage/'+producto.imagen_ppal"  style="object-fit: cover; min-height: 150px;" class="ancho-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
                         </div>
                         <div class="p-5 p-l-10 ancho-100" style="overflow: hidden;">
-                            <span class="txt-negrita" style="font-size: 1em;">{{ $root.truncarTexto(producto.producto,28) }}</span>
+                            <span class="txt-negrita" style="font-size: 1em;">{{ $root.truncarTexto(producto.producto,50) }}</span>
                         </div>
                 </div>
             </div>
