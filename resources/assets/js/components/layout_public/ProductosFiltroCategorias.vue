@@ -1,9 +1,9 @@
 <template>
     <div class="ancho-100">
         <div class="ancho-95 flex flex-item-center flex-content-center">
-            <span>Productos de Categoria {{ categoria }}</span>
+            <center><span>Productos de Categoria {{ categoria }}</span></center>
         </div>
-        <div class="ancho-95 margen-auto flex flex-wrap" >
+        <div class="ancho-95 margen-auto flex flex-wrap flex-item-center flex-content-center" >
             <!-- :style="{'width':ancho_columna+'%'}"  -->
             <div v-for="imagen in imagenes_infinite" class="flex tarjeta-grid-columnas " :style="{'width':ancho_columna+'%'}" @click.prevent="irProducto(imagen.codigo, '')">
                 <div class="ancho-100" style="padding: 5px;" >
