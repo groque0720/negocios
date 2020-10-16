@@ -181,7 +181,7 @@ Route::get('/{url_negocio}/album/{codigo}/{imagen_id?}','Negocio\NegocioControll
 // Route::get('/{url_negocio}/productos_categoria/{categoria}/','Negocio\NegocioController@mostrar_productos_categoria');
 Route::get('/{url_negocio}/productos/mismas_categorias/','Negocio\NegocioController@mostrar_productos_mismas_categorias');
 
-Route::get('/{url_negocio}/productos/categorias/{categoria?}','Negocio\NegocioController@productos_categoria_mostrar');
+// Route::get('/{url_negocio}/productos/categorias/{categoria?}','Negocio\NegocioController@productos_categoria_mostrar');
 Route::get('/{url_negocio}/productos/categorias/filtro/{categoria?}','Negocio\NegocioController@productos_categoria_filtro');
 
 Route::get('/{url_negocio}/productos/albumes_mismas_categorias/','Negocio\NegocioController@mostrar_albumes_mismas_categorias');

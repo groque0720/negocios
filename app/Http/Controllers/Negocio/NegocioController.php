@@ -272,18 +272,6 @@ class NegocioController extends Controller
 
     }
 
-    public function  productos_categoria_mostrar(Request $request, $url_negocio, $categoria){
-
-        $negocio = Negocio::where('url',$url_negocio)->first();
-        return view('public.filtro_categorias', compact('negocio','categoria'));
-
-    }
-
-
-
-
-
-
     public function index()
     {
         $negocio = Negocio::where('user_id',Auth()->user()->id)->first();

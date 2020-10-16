@@ -28,9 +28,14 @@
 @endsection
 
 @section('contenido')
+<div>
+
+
 
 	{{-- <layout-public v-bind:negocio="{{ $negocio }}"></layout-public> --}}
 	{{-- <layout-grid-columnas v-bind:negocio="{{ $negocio }}"></layout-grid-columnas> --}}
 	<layout-productos-filtro-categorias v-bind:negocio="{{ $negocio }}"  v-bind:categoria="'{{ $categoria }}'"></layout-productos-filtro-categorias>
+
+</div>
 
 @endsection

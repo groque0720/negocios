@@ -1,6 +1,8 @@
 <template>
     <div class="ancho-100">
-        <layout-cabecera v-bind:negocio="negocio"></layout-cabecera>
+        <div class="ancho-95 flex flex-item-center flex-content-center">
+            <span>Productos de Categoria {{ categoria }}</span>
+        </div>
         <div class="ancho-95 margen-auto flex flex-wrap" >
             <!-- :style="{'width':ancho_columna+'%'}"  -->
             <div v-for="imagen in imagenes_infinite" class="flex tarjeta-grid-columnas " :style="{'width':ancho_columna+'%'}" @click.prevent="irProducto(imagen.codigo, '')">
