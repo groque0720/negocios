@@ -1,9 +1,8 @@
 <template>
     <div class="">
-        <!-- <div v-if="productos.length > 0" class="m-10 flex flex-item-center flex-content-center">
-            <span class="fz-18 txt-negrita txt-mayuscula">Mas</span>
-        </div> -->
-
+        <div v-if="productos.length > 0" class="m-10 flex flex-item-center flex-content-center">
+            <span class="fz-18 txt-negrita txt-mayuscula">Álbumes Similares</span>
+        </div>
         <div class="ancho-95 margen-auto  flex  productos-similares producto-scrollbar" id="style-2" style="overflow: auto;">
             <div class="ancho-100 flex p-5" style="flex-wrap: nowrap;">
                 <div v-for="(producto, filas) in productos"  class="cursor-lupa m-b-10" style="width: 156px; margin-right: 10px; border: 3px solid white; border-radius: 10px; background: white; box-shadow: 0 0 1px 1px #bbb;" @click.prevent="irProducto(producto.codigo, '')">

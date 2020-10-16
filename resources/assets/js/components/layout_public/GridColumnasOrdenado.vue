@@ -1,6 +1,6 @@
 <template>
     <div class="ancho-100">
-        <div class="ancho-95 margen-auto flex flex-wrap" >
+        <div class="ancho-95 margen-auto flex flex-wrap flex-content-center" >
             <!-- :style="{'width':ancho_columna+'%'}"  -->
             <div v-for="imagen in imagenes_infinite" class="flex tarjeta-grid-columnas " :style="{'width':ancho_columna+'%'}" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
                 <div class="ancho-100" style="padding: 5px;" >
