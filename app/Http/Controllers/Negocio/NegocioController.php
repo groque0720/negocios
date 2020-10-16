@@ -255,34 +255,35 @@ class NegocioController extends Controller
 
 
 
-    public function mostrar_productos_categoria(Request $request, $url_negocio, $categoria){
+    public function  productos_categoria_filtro(Request $request, $url_negocio, $categoria){
 
         if ($negocio = Negocio::where('url', $url_negocio)->first()) {
                 $productos = Producto::where('productos.negocio_id','=', $negocio->id)
                                         ->where('tipo_id','=',1)
                                         ->where('guardar','=',1)
-                                        ->with(['categorias' => function($categorias){
-                                            $categorias->where('categoria','=', 'bebes');
-                                        }])->paginate($this->cant_reg);
-
-                // $producto = DB::select('SELECT productos.*
-                //                         FROM
-                //                         productos
-                //                         INNER JOIN categorias_productos ON productos.id = categorias_productos.producto_id
-                //                         INNER JOIN categorias ON categorias_productos.categoria_id = categorias.id
-                //                         WHERE
-                //                         categorias.categoria = ?',[$categoria]);
+                                        ->with(['categorias'])
+                                        ->whereHas('categorias', function($categorias) use($categoria){
+                                            $categorias->where('categoria',$categoria);
+                                        })
+                                        ->paginate($this->cant_reg);
             }
+
         return $productos;
+
+    }
+
+    public function  productos_categoria_mostrar(Request $request, $url_negocio, $categoria){
+
+        $negocio = Negocio::where('url',$url_negocio)->first();
+        return view('public.filtro_categorias', compact('negocio','categoria'));
+
     }
 
 
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
+
     public function index()
     {
         $negocio = Negocio::where('user_id',Auth()->user()->id)->first();

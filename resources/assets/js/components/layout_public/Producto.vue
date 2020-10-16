@@ -63,7 +63,8 @@
 						<!-- <div class="fz-15 txt-negrita txt-mayuscula titulo m-b-5">Etiquetas</div> -->
 						<div class="flex flex-wrap">
 							<div v-for="categoria in categorias_lista" class="m-r-10">
-								<a href="" class="link"><span class="txt-celeste fz-16">#{{ categoria.categoria }} </span></a>
+								<a href="#" class="link" @click.prevent="irCategoria(categoria.categoria)">
+									<span class="txt-celeste fz-16">#{{ categoria.categoria }} </span></a>
 							</div>
 						</div>
 					</div>
@@ -157,7 +158,8 @@
 						<!-- <div class="fz-15 txt-negrita txt-mayuscula titulo m-b-5">Etiquetas</div> -->
 						<div class="flex flex-wrap">
 							<div v-for="categoria in categorias_lista" class="m-r-10">
-								<a href="" class="link"><span class="txt-celeste">#{{ categoria.categoria }} </span></a>
+								<a href="#" class="link" @click.prevent="irCategoria(categoria.categoria)">
+									<span class="txt-celeste">#{{ categoria.categoria }} </span></a>
 							</div>
 						</div>
 					</div>
@@ -348,7 +350,11 @@
 		    irProducto(producto_codigo, id){
                 //console.log(id);
                 window.location = '/'+this.negocio.url+'/producto/'+producto_codigo+'/'+id;
+            },
+            irCategoria(categoria){
+            	window.location = '/'+this.negocio.url+'/productos/categorias/'+categoria;
             }
+
         },
 
     }
