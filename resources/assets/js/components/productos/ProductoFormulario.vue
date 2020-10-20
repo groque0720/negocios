@@ -204,7 +204,7 @@
 							 	<center><span><b>Categorías Seleccionadas</b></span></center>
 							</div>
 						</div>
-						<div class="zona-categorias-item flex flex-item-center flex-content-center" style="flex-flow:row wrap;">
+						<div class="zona-categorias-item flex flex-content-center" style="flex-flow:row wrap;">
 							<draggable v-model="categorias_activas_orden_posicion" @start="drag=true" @end="drag=false" @change="mostrarCategorias()"
 							 class="flex flex-content-center" style="flex-flow:row wrap;">
 								<template v-for="(categoria, i) in categorias_activas_orden_posicion">
@@ -219,6 +219,18 @@
 										</div>
 									</div>
 								</template>
+
+								<div class="flex flex-item-center flex-content-center categoria-item p-r-5 p-l-8 cursor" style="min-width: 200px; background: white;">
+									<div class="ancho-100 m-l-5 flex flex-content-center">
+										<!-- <input class="" type="text" placeholder="Agregar categoria" style="display: block;"> -->
+										<categorias-autocompletar v-bind:categorias="categorias_activas_orden_posicion" v-bind:producto="producto"></categorias-autocompletar>
+									</div>
+									<div class="flex flex-item-center flex-content-center cursor" style="width: 20px;" @click="quitarCategoria(i)">
+										<div class="flex flex-item-center flex-content-center" style="border:1px solid green; border-radius: 50%; width: 20px; height: 20px;">
+											<i class="fas fa-plus fz-14 txt-verde"></i>
+										</div>
+									</div>
+								</div>
 							</draggable>
 						</div>
 					</div>

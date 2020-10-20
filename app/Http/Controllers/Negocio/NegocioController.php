@@ -259,7 +259,7 @@ class NegocioController extends Controller
 
         if ($negocio = Negocio::where('url', $url_negocio)->first()) {
                 $productos = Producto::where('productos.negocio_id','=', $negocio->id)
-                                        ->where('tipo_id','=',1)
+                                        // ->where('tipo_id','=',1)
                                         ->where('guardar','=',1)
                                         ->with(['categorias'])
                                         ->whereHas('categorias', function($categorias) use($categoria){

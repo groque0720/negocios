@@ -13,6 +13,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ Storage::url($negocio->logo) }}">
     @yield('metas')
+{{--     <style>
+        body {
+            background-image: url("{{ Storage::url('logo_default_negocio.png') }}");
+         }
+    </style> --}}
 
 </head>
 <body class="scrollbar" id="style-3">

@@ -21,9 +21,10 @@ Vue.component('InfiniteLoading', require('vue-infinite-loading'));
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
+
 Vue.component('categorias', require('./components/categorias/Categorias.vue'));
 Vue.component('categorias-seleccionar', require('./components/categorias/CategoriasSeleccionar.vue'));
-// Vue.component('categorias-autocompletar', require('./components/categorias/CategoriasAutocompletar.vue'));
+Vue.component('categorias-autocompletar', require('./components/categorias/CategoriasAutocompletar.vue'));
 
 Vue.component('caracteristicas', require('./components/caracteristicas/Caracteristicas.vue'));
 Vue.component('caracteristicas-seleccionar', require('./components/caracteristicas/CaracteristicasSeleccionar.vue'));

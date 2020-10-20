@@ -18,7 +18,7 @@
                             </div>
                             <div class="flex-item-end flex flex-content-end p-t-10 m-t-10" style="border-top: 1px solid #ccc;">
                                 <span v-if="imagen.precio>0" class="txt-negrita" style="font-size: 0.9em;">
-                                    {{ $root.formatoPrecio(imagen.precio) }} {{ imagen.precio_obs }} </span>
+                                    <span class="m-r-10">$</span>{{ $root.formatoPrecio(imagen.precio) }} {{ imagen.precio_obs }} </span>
                                 <span v-else class="txt-negrita">Consultar Precio</span>
                             </div>
                         </div>

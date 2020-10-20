@@ -1,13 +1,13 @@
 <template>
-    <div class="ancho-100">
+    <div class="ancho-100 p-t-10 p-b-10">
         <div class="flex flex-item-center flex-content-center m-b-10 m-t-10">
             <span class="fz-18 txt-negrita txt-mayuscula">Filtro Categoria <span class="fz-18 txt-celeste">#{{ categoria }}</span></span>
         </div>
         <div class="ancho-95 margen-auto flex flex-wrap flex-content-center" >
             <!-- :style="{'width':ancho_columna+'%'}"  -->
-            <div v-for="imagen in imagenes_infinite" class="flex tarjeta-grid-columnas " :style="{'width':ancho_columna+'%'}" @click.prevent="irProducto(imagen.codigo, '')">
+            <div v-for="imagen in imagenes_infinite" class="flex tarjeta-grid-columnas" :style="{'width':ancho_columna+'%'}" @click.prevent="irProducto(imagen.codigo, '')">
                 <div class="ancho-100" style="padding: 5px;" >
-                    <div class="ancho-100 flex flex-direction-column" style="padding: 5px; border: 1px solid #ccc; border-radius: 5px; height: 100%;">
+                    <div class="ancho-100 flex flex-direction-column" style="padding: 5px; border: 1px solid #ccc; border-radius: 5px; height: 100%; background: white;">
                         <div class="ancho-100" style="height: 200px;">
                              <img v-if="$root.esImagen(imagen.imagen_ppal)" style="object-fit: cover; height: 100%;" class="ancho-100 lazyload cursor-lupa" v-lazy="'/storage/'+imagen.imagen_ppal"  alt="">
                              <LazyVideo v-if="$root.esVideo(imagen.imagen_ppal)" :src="'/storage/'+imagen.imagen_ppal"  style="object-fit: cover; height: 100%;" class="ancho-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
@@ -21,7 +21,7 @@
                             </div>
                             <div class="flex-item-end flex flex-content-end p-t-10 m-t-10" style="border-top: 1px solid #ccc;">
                                 <span v-if="imagen.precio>0" class="txt-negrita" style="font-size: 0.9em;">
-                                    {{ $root.formatoPrecio(imagen.precio) }} {{ imagen.precio_obs }} </span>
+                                    <span class="m-r-10">$</span>{{ $root.formatoPrecio(imagen.precio) }} {{ imagen.precio_obs }} </span>
                                 <span v-else class="txt-negrita">Consultar Precio</span>
                             </div>
                         </div>
