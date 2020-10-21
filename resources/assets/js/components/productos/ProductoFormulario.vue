@@ -156,14 +156,17 @@
 							</button>
 						</div>
 						<div class="flex flex-item-center flex-space-between p-10" style="border-bottom: 1px solid #ddd">
-							<div class="ancho-75">
+							<div class="ancho-60">
 							 	<span><b>Características</b></span>
 							</div>
-							<div class="ancho-25 txt-centrar">
+							<div class="ancho-30 txt-centrar">
 								<span><b>Valor</b></span>
 							</div>
+							<div class="ancho-10 txt-centrar">
+
+							</div>
 						</div>
-						<template v-for="(caracteristica, i) in caracteristicas_activas">
+<!-- 						<template v-for="(caracteristica, i) in caracteristicas_activas">
 							<div class="flex flex-item-center flex-space-between" v-if="caracteristica.seleccion_confirmacion">
 								<div class="ancho-70 p-10" style="border-bottom: 1px solid #ddd" @click="seleccionCaracteristica(i)">
 								 	{{ caracteristica.caracteristica }}
@@ -173,7 +176,42 @@
 										 :class="['caracteristica_'+i, {'input-ingrese-valor': !caracteristica.valor}]"   @focus="evt=>seleccionCaracteristicaValor(evt)" v-model="caracteristica.valor" placeholder="Ingrese Valor" autocomplete="off">
 								</div>
 							</div>
-						</template>
+						</template> -->
+						<draggable v-model="caracteristicas_activas" @start="drag=true" @end="drag=false" @change="mostrarCategorias()">
+							<template v-for="(caracteristica, i) in caracteristicas_activas" class="caracteristica-item">
+								<div class="flex flex-item-center flex-space-between cursor" v-if="caracteristica.seleccion_confirmacion">
+									<div class="ancho-60 p-10" style="border-bottom: 1px solid #ddd" @click="seleccionCaracteristica(i)">
+									 	<span class="drag_texto">{{ caracteristica.caracteristica }}</span>
+									</div>
+									<div class="ancho-30">
+										<input type="text" class="form-input txt-centrar drag_texto"
+											 :class="['caracteristica_'+i, {'input-ingrese-valor': !caracteristica.valor}]"   @focus="evt=>seleccionCaracteristicaValor(evt)" v-model="caracteristica.valor" placeholder="Ingrese Valor" autocomplete="off">
+									</div>
+									<div class="ancho-10 flex flex-item-center flex-content-center p-10" style="border-bottom: 1px solid #ddd">
+										<div>
+											<i class="fas fa-trash-alt fz-14 txt-rojo-claro" @click.prevent="quitarCaracteristica(i)"></i>
+										</div>
+									</div>
+								</div>
+							</template>
+								<div class="flex flex-item-center flex-space-between cursor">
+									<div class="ancho-90 p-5" style="border-bottom: 1px solid #ddd">
+									 	<!-- <span class="drag_texto"></span>
+									 	<input type="text" class="form-input" placeholder="Ingresar Característica"> -->
+									 	<caracteristicas-autocompletar v-bind:caracteristicas="caracteristicas_activas" v-bind:producto="producto"></caracteristicas-autocompletar>
+									</div>
+									<div class="ancho-10 flex flex-item-center flex-content-center">
+										<div>
+											<i class="fas fa-plus fz-14 txt-verde"></i>
+										</div>
+									</div>
+
+<!-- 									<div class="ancho-30">
+										<input type="text" class="form-input txt-centrar drag_texto"
+											 :class="['caracteristica_'+i, {'input-ingrese-valor': !caracteristica.valor}]"   @focus="evt=>seleccionCaracteristicaValor(evt)" v-model="caracteristica.valor" placeholder="Ingrese Valor" autocomplete="off">
+									</div> -->
+								</div>
+						</draggable>
 					</div>
 				</div>
 				<!-- CATEGORIAS -->
@@ -210,7 +248,7 @@
 								<template v-for="(categoria, i) in categorias_activas_orden_posicion">
 									<div class="flex flex-item-center flex-space-between categoria-item p-5 cursor" v-if="categoria.seleccion_confirmacion" style="min-width: 150px; background: white;">
 										<div class="ancho-100 m-r-5 flex flex-content-center">
-											{{ categoria.categoria }}
+											<span class="drag_texto">{{ categoria.categoria }}</span>
 										</div>
 										<div class="flex flex-item-center flex-content-center cursor" style="width: 20px;" @click="quitarCategoria(i)">
 											<div class="flex flex-item-center flex-content-center" style="border:1px solid red; border-radius: 50%; width: 20px; height: 20px;">
@@ -549,6 +587,17 @@
                 .then( response => {
                 	// console.log(response.data);
                 	this.caracteristicas_activas = response.data;
+                	this.caracteristicas_activas.sort(function(a, b){
+                		  if (a.posicion > b.posicion) {
+						    return 1;
+						  }
+						  if (a.posicion < b.posicion) {
+						    return -1;
+						  }
+						  // a must be equal to b
+						  return 0;
+                	});
+                	// console.log(this.caracteristicas_activas);
                 });
 			},
 			buscarCategorias(){
@@ -612,6 +661,9 @@
 			},
 			quitarCategoria(i){
 				this.categorias_activas[i].seleccion_confirmacion = false;
+			},
+			quitarCaracteristica(i){
+				this.caracteristicas_activas[i].seleccion_confirmacion = false;
 			},
 			cancelar(){
 				// console.log(this.producto.guardar);

@@ -109,7 +109,6 @@ class ProductoController extends Controller
             $producto_caracteristicas = $producto->caracteristicas()->pluck('caracteristica_id')->values()->all();
         }
 
-
         $caracteristicas = [];
 
         foreach ($negocio_caracteristicas  as $negocio_caracteristica ) {
@@ -117,10 +116,15 @@ class ProductoController extends Controller
             $aux['caracteristica'] = $negocio_caracteristica['caracteristica'];
             $aux['seleccion'] = in_array($negocio_caracteristica['id'], $producto_caracteristicas);
             $aux['seleccion_confirmacion'] = in_array($negocio_caracteristica['id'], $producto_caracteristicas);
+
             if ($aux['seleccion']) {
-                $aux['valor'] = CaracteristicaProducto::where('caracteristica_id', $negocio_caracteristica['id'])->first()->valor;
+                $aux['valor'] = CaracteristicaProducto::where('caracteristica_id', $negocio_caracteristica['id'])
+                                ->where('producto_id',$producto->id)->first()->valor;
+                $aux['posicion'] = CaracteristicaProducto::where('caracteristica_id', $negocio_caracteristica['id'])
+                                ->where('producto_id',$producto->id)->first()->posicion;
             }else{
                 $aux['valor'] = '';
+                $aux['posicion'] = 99;
             }
             array_push($caracteristicas, $aux);
         }
@@ -295,6 +299,7 @@ class ProductoController extends Controller
         $producto->save();
 
         // Caracteristicas
+        $posicion = 0;
         foreach ($caracteristicas_form as $caracteristica_form) {
             if ($caracteristica_form['seleccion_confirmacion']) {
 
@@ -308,10 +313,11 @@ class ProductoController extends Controller
                 $caracteristica_producto->caracteristica_id = $caracteristica_form['id'];
                 $caracteristica_producto->producto_id = $producto['id'];
                 $caracteristica_producto->valor = $caracteristica_form['valor'] ?? '';
+                $caracteristica_producto->posicion = $posicion;
                 $caracteristica_producto->save();
 
+                $posicion++;
             }else{
-
                 $res = CaracteristicaProducto::where('caracteristica_id',$caracteristica_form['id'])
                                         ->where('producto_id',$producto['id'])
                                         ->forceDelete();

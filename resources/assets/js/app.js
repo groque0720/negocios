@@ -28,6 +28,8 @@ Vue.component('categorias-autocompletar', require('./components/categorias/Categ
 
 Vue.component('caracteristicas', require('./components/caracteristicas/Caracteristicas.vue'));
 Vue.component('caracteristicas-seleccionar', require('./components/caracteristicas/CaracteristicasSeleccionar.vue'));
+Vue.component('caracteristicas-autocompletar', require('./components/caracteristicas/CaracteristicasAutocompletar.vue'));
+
 Vue.component('productos', require('./components/productos/Productos.vue'));
 Vue.component('producto-formulario', require('./components/productos/ProductoFormulario.vue'));
 Vue.component('productos-seleccionar', require('./components/productos/ProductosSeleccionar.vue'));

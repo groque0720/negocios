@@ -18,6 +18,7 @@ class CreateCaracteristicaProductosTable extends Migration
             $table->integer('caracteristica_id');
             $table->integer('producto_id');
             $table->string('valor');
+            $table->string('posicion');
             $table->timestamps();
             $table->softDeletes();
         });

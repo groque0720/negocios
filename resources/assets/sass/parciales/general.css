@@ -238,6 +238,24 @@
 		color: white;
 	}
 
+    /* Estilo draggable */
+
+    .caracteristica-item:active {
+        background: #eee !important;
+        border: 1px solid blue;
+        /*color: white !important;*/
+
+    }
+    .sortable-ghost {
+        background: #eee !important;
+        border: 1px solid #c4c4c4;
+        /*color: white !important;*/
+    }
+    .sortable-ghost .drag_texto {
+        /*color: white !important;*/
+        background: #eee !important;
+    }
+
 
 /* Producto Formulario */
 	.producto-formulario i{

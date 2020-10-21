@@ -11,7 +11,7 @@ class Producto extends Model
     protected $table = 'productos';
 
     public function caracteristicas(){
-    	return $this->belongsToMany(Caracteristica::class, 'caracteristicas_productos')->withPivot('valor');
+    	return $this->belongsToMany(Caracteristica::class, 'caracteristicas_productos')->withPivot(['valor','posicion'])->orderBy('posicion');
     }
 
     public function categorias(){
