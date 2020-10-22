@@ -18,7 +18,7 @@
                             <LazyVideo v-if="$root.esVideo(imagen.imagen)" :src="'/storage/'+imagen.imagen"  style="object-fit: cover; min-height: 150px;" class="ancho-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
                         </div>
                         <div class="p-5 p-l-10 ancho-100" style="overflow: hidden;">
-                            <span class="txt-negrita" style="font-size: 1em;">{{ imagen.producto }}</span>
+                            <center><span class="txt-negrita" style="font-size: 1em;">{{ imagen.producto }}</span></center>
                         </div>
                         <!-- acciones en la parte inferior de la imagen cuanod pase el mouse -->
                         <!-- <div class="imagen-acciones-grid-columnas ancho-100 display-none">

@@ -14,7 +14,7 @@
                         </div>
                         <div class="p-10 flex flex-space-between flex-direction-column" style="height: 100%">
                             <div class="">
-                                <span class="txt-negrita" style="font-size: 1em;">{{ imagen.producto }}</span>
+                                <center><span class="txt-negrita" style="font-size: 1em;">{{ imagen.producto }}</span></center>
                             </div>
                             <div class="m-t-10">
                                 <span class="" style="font-size: 0.9em;">{{ imagen.descripcion }}</span>

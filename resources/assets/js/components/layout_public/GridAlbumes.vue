@@ -14,7 +14,7 @@
                                     <span class="txt-negrita">{{ album.producto}}</span>
                                 </div>
                                 <div class="ancho-100 flex p-r-10 m-b-5" style="height: 85px; overflow: hidden;">
-                                    <span>{{ $root.truncarTexto(album.descripcion, 110) }}</span>
+                                    <center><span>{{ $root.truncarTexto(album.descripcion, 110) }}</span></center>
                                 </div>
                                 <div class="flex flex-no-wrap" id="style-1" style="overflow: hidden;">
                                     <div v-if="i<=2" v-for="(imagen, i) in album.imagenes" class="flex m-r-10" style="flex: 0 0 auto; width: 55px; height: 55px; overflow: hidden; border-radius: 2px; padding-bottom: 5px;">

@@ -10,8 +10,8 @@
                              <LazyVideo v-if="$root.esVideo(imagen.imagen)" :src="'/storage/'+imagen.imagen"  style="object-fit: cover; height: 100%;" class="ancho-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
                         </div>
                         <div class="p-10 flex flex-space-between flex-direction-column" style="height: 100%">
-                            <div class="">
-                                <span class="txt-negrita" style="font-size: 1em;">{{ imagen.producto }}</span>
+                            <div class="flex flex-item-center flex-content-center">
+                                <center><span class="txt-negrita" style="font-size: 1em;">{{ imagen.producto }}</span></center>
                             </div>
                             <div class="m-t-10">
                                 <span class="" style="font-size: 0.9em;">{{ imagen.descripcion }}</span>
