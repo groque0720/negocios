@@ -67,13 +67,13 @@
                 //logica albunes similares centrar cuando hay pocos
                 this.centrar_imagenes = false;
 
-                if (this.nro_columnas == 5 && this.productos_cantidad < 8) {
+                if (this.nro_columnas == 5 && this.productos_cantidad < 8 && this.productos_cantidad) {
                     this.centrar_imagenes = true;
                 }
-                if (this.nro_columnas == 4 && this.productos_cantidad < 5) {
+                if (this.nro_columnas == 4 && this.productos_cantidad < 5 && this.productos_cantidad) {
                     this.centrar_imagenes = true;
                 }
-                if (this.nro_columnas == 3 && this.productos_cantidad < 4) {
+                if (this.nro_columnas == 3 && this.productos_cantidad < 4 && this.productos_cantidad) {
                     this.centrar_imagenes = true;
                 }
             },
