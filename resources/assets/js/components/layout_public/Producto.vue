@@ -321,7 +321,7 @@
         	// pero en los albumes no tiene categorias, sino hay que listar las
         	// categorias de los productos relacionados
 
-        	console.log(this.categorias_lista);
+        	// console.log(this.categorias_lista);
 
         	this.categorias_lista = this.producto.categorias;
 

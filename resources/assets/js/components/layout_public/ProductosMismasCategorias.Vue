@@ -5,7 +5,7 @@
         </div>
 
         <div class="ancho-95 margen-auto  flex productos-similares producto-scrollbar" id="style-2" style="overflow: auto;">
-            <div class="ancho-100 flex p-5" style="flex-wrap: nowrap;">
+            <div class="ancho-100 flex p-5" style="flex-wrap: nowrap;" :class="{'flex-content-center': centrar_imagenes }">
                 <div v-for="(producto, filas) in productos"  class="cursor-lupa m-b-10" style="width: 156px; margin-right: 10px; border: 3px solid white; border-radius: 10px; background: white; box-shadow: 0 0 1px 1px #bbb;" @click.prevent="irProducto(producto.codigo, '')">
                         <div class="flex" style="width: 150px; height: 150px; border-radius: 10px 10px 0 0; overflow: hidden;">
                             <!-- <img style="object-fit: cover;" class="ancho-100" :src="'/storage/'+producto.imagen_ppal" alt=""> -->
@@ -33,6 +33,8 @@
                 productos:[],
                 nro_columnas: 0,
                 ancho: 0,
+                centrar_imagenes: false,
+                productos_cantidad: 0,
             }
         },
         mounted() {
@@ -62,6 +64,21 @@
                     this.nro_columnas = 5;
                 }
                 this.ancho = window.innerWidth;
+
+                                //logica albunes similares centrar cuando hay pocos
+                this.centrar_imagenes = false;
+
+                if (this.nro_columnas == 5 && this.productos_cantidad < 8) {
+                    this.centrar_imagenes = true;
+                }
+                if (this.nro_columnas == 4 && this.productos_cantidad < 5) {
+                    this.centrar_imagenes = true;
+                }
+                if (this.nro_columnas == 3 && this.productos_cantidad < 4) {
+                    this.centrar_imagenes = true;
+                }
+
+
             },
             boleanMostrar(c, f){
                 var columna = c+1;
@@ -85,8 +102,9 @@
                             categorias: this.categorias
                         }})
                 .then( response => {
-                    console.log( response.data );
+                    // console.log( response.data );
                     this.productos = response.data;
+                    this.productos_cantidad = this.productos.length;
                 });
             },
             irProducto(producto_codigo, id){
