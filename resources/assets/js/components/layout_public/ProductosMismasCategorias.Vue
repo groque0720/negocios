@@ -42,7 +42,7 @@
             this.buscarProductosCategorias();
             this.ancho = window.innerWidth;
             window.addEventListener('resize', this.handleResize);
-            this.handleResize();
+            // this.handleResize();
         },
         methods: {
             handleResize() {
@@ -104,6 +104,7 @@
                     // console.log( response.data );
                     this.productos = response.data;
                     this.productos_cantidad = this.productos.length;
+                    this.handleResize();
                 });
             },
             irProducto(producto_codigo, id){
