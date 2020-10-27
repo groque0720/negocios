@@ -7,6 +7,7 @@ use App\Negocio;
 use App\Producto;
 use App\ProductoImagen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,6 +17,7 @@ class NegocioController extends Controller
 
     public function public_index(Request $request, $url_negocio){
 
+            $query = $request->q;
 
             if ($request->session()->has('session_rand')) {
                 if((time() - $request->session()->get('session_rand')) > 500){
@@ -24,16 +26,27 @@ class NegocioController extends Controller
             }else{
                 $request->session()->put('session_rand', time());
             }
-
-
             // dd($request->session()->get('session_rand'));
 
-
         if ($negocio = Negocio::where('url', $url_negocio)->first()) {
-            return view('public.index', compact('negocio'));
+            return view('public.index', compact('negocio','query'));
         }else{
             return 'no se encuentra..';
         }
+    }
+
+
+    public function items_de_busqueda(Request $request){
+        // return $request->negocio_url; $query = $request->query;
+        $negocio = Negocio::where('url', $request->negocio_url)->first();
+        $productos = $negocio->productos()->distinct('producto')->select('producto as item')->where('guardar',1)->get();
+        $categorias = $negocio->categorias()->select('categoria as item')->get();
+        $item = Arr::collapse([$productos, $categorias]);
+        $item = Arr::pluck($item,'item');
+        $item = array_unique($item);
+        sort($item);
+        return $item;
+
     }
 
     // Popurri
@@ -41,19 +54,44 @@ class NegocioController extends Controller
 
         if ($request->ajax() && $negocio = Negocio::where('url', $url_negocio)->first()) {
 
-            $imagenes = ProductoImagen::select('productos_imagenes.*',
-                                                'productos.producto',
-                                                'productos.descripcion',
-                                                'productos.precio',
-                                                'productos.precio_obs',
-                                                'productos.codigo AS producto_codigo')
-                                        ->join('productos', 'productos.id', '=', 'productos_imagenes.producto_id')
-                                        ->where('productos.negocio_id','=', $negocio->id)
-                                        ->where('productos.guardar','=', 1)
-                                        ->orderBy(DB::raw('RAND('.$request->session()->get('session_rand').')'))
-                                        //->inRandomOrder($request->session()->get('session_rand'))
-                                        ->paginate($this->cant_reg);
-            return $imagenes;
+            if (!isset($request->q)) {
+                  $imagenes = ProductoImagen::select('productos_imagenes.*',
+                        'productos.producto',
+                        'productos.descripcion',
+                        'productos.precio',
+                        'productos.precio_obs',
+                        'productos.codigo AS producto_codigo')
+                ->join('productos', 'productos.id', '=', 'productos_imagenes.producto_id')
+                ->where('productos.negocio_id','=', $negocio->id)
+                ->where('productos.guardar','=', 1)
+                ->orderBy(DB::raw('RAND('.$request->session()->get('session_rand').')'))
+                //->inRandomOrder($request->session()->get('session_rand'))
+                ->paginate($this->cant_reg);
+                return $imagenes;
+            }
+
+            if ($request->q == '') {
+                return redirect()->route('url_negocio.index',['url_negocio' => $negocio->ur]);
+            }else{
+                   $imagenes = ProductoImagen::select('productos_imagenes.*',
+                                        'productos.producto',
+                                        'productos.descripcion',
+                                        'productos.precio',
+                                        'productos.precio_obs',
+                                        'productos.codigo AS producto_codigo')
+                                ->join('productos', 'productos.id', '=', 'productos_imagenes.producto_id')
+                                ->where('productos.negocio_id','=', $negocio->id)
+                                ->whereRaw("MATCH (productos.producto, productos.descripcion) AGAINST ('".$request->q."' IN BOOLEAN MODE)")
+                                // ->where('productos.producto','like','%'.$request->q.'%')
+                                // ->orWhere('productos.descripcion','like','%'.$request->q.'%')
+                                ->where('productos.guardar','=', 1)
+                                // ->orderBy(DB::raw('RAND('.$request->session()->get('session_rand').')'))
+                                //->inRandomOrder($request->session()->get('session_rand'))
+                                ->paginate($this->cant_reg);
+                return $imagenes;
+            }
+
+
         }
 
     }

@@ -29,11 +29,7 @@
                                     <input class="input-busqueda" ref="input_busqueda" type="text" @focusout="mostrarBtnBorrar = false" @focus="mostrarBtnBorrar = true"  v-model="query" @input="evt=>filtrarCategorias(evt)">
                                 </div>
                                 <div class="ancho-10 flex flex-item-center flex-content-center">
-                                    <div v-if="mostrarBtnBorrar || query.length">
-                                        <a href="#" @click.prevent="borrarInputBuscar()">
-                                            <i class="fas fa-times txt-gris"></i>
-                                        </a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

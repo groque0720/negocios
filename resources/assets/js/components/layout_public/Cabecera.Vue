@@ -1,19 +1,27 @@
 <template>
     <div class="ancho-100">
-        <div class="ancho-100 flex" style="background: rgba(255,255,255,0.9); position: fixed; z-index: 1; top:0; left: 0; box-shadow: 0px 1px 1px 1px #eee;">
+        <div class="ancho-100 flex" style="background: rgba(255,255,255,0.9); position: fixed; z-index: 1; top:0; left: 0; box-shadow: 0px 1px 3px 1px #7BABFB;">
             <div class="ancho-100 flex flex-item-center flex-space-between" style="height: 55px; padding: 10px;">
-                <div class="ancho-80 flex flex-item-center">
+                <div class="flex flex-item-center cursor" @click.prevent="irHomeNegocio()">
                     <img style="max-width: 60px; max-height: 40px; margin-left: 15px;" :src="'/storage/'+negocio.logo" :alt="negocio.nombre">
                     <span class="m-l-10" style="font-size: 1.2em;">{{ negocio.nombre }}</span>
                 </div>
-                <div class="flex flex-item-center ancho-s-">
-                    <div class="no-display-s">
-                        <span style="font-size: 1.2em;">Seguinos</span>
+                <div class="flex flex-item-center flex-content-end">
+                    <div class="flex flex-item-center">
+                        <div class="no-display-s">
+                            <span style="font-size: 1.2em;">Seguinos</span>
+                        </div>
+                        <div>
+                           <layout-redes-sociales v-bind:negocio="negocio"></layout-redes-sociales>
+                        </div>
                     </div>
-                    <div>
-                       <layout-redes-sociales v-bind:negocio="negocio"></layout-redes-sociales>
+                    <div class="flex flex-item-center flex-content-center m-r-10 m-l-10" style="border-left: 1px solid #ccc; width: 50px;">
+                        <a href="/login" title="login">
+                              <i class="flex margen-auto fas fa-user txt-celeste"></i>
+                        </a>
                     </div>
                 </div>
+
 <!--                 <div class="ancho-30 ancho-m-20 ancho-l-15 ancho-lg-10  flex flex-item-center flex-space-between flex-content-end" style="margin-left: 15px; margin-right: 15px;">
                         <div class="p-l-10 m-l-5">
                             <a href="" @click.prevent="viewSelect(1)" title="Popurri">
@@ -88,17 +96,21 @@
         props:['negocio'],
         data(){
             return {
-                view_activa: 1,
+                // view_activa: 1,
             }
         },
         mounted() {
-            this.viewSelect(this.view_activa);
+            // this.viewSelect(this.view_activa);
         },
         methods: {
-            viewSelect(view){
-                $('.view_icon').removeClass('view_activa');
-                $('.view_icon_'+view).addClass('view_activa');
-                this.view_activa = view;
+            // viewSelect(view){
+            //     $('.view_icon').removeClass('view_activa');
+            //     $('.view_icon_'+view).addClass('view_activa');
+            //     this.view_activa = view;
+            // }
+            irHomeNegocio(){
+                //console.log(id);
+                window.location = '/'+this.negocio.url;
             }
         }
     }

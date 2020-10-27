@@ -20,7 +20,8 @@
     </style> --}}
 
 </head>
-<body class="scrollbar" id="style-3">
+<body class="scrollbar" id="style-3" style="background: #eee;">
+    <img class="img-fondo" src="/images/fondo06.png" alt="">
     <div id="app">
 {{--         <a class="ir-arriba" title="Volver arriba">
             <div class="flex flex-content-center flex-item-center">
@@ -32,7 +33,7 @@
                 <header class="m-b-5">
                    @include('public.layouts.parciales.cabecera')
                 </header>
-                <section class="flex flex-content-center" style="margin-top: 55px;">
+                <section class="flex flex-content-center" style="margin-top: 60px;">
                    {{--  @include('public.layouts.parciales.mensajes') --}}
                     @yield('contenido')
                 </section>

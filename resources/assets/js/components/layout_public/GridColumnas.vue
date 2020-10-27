@@ -1,9 +1,43 @@
 <template>
     <div class="ancho-100">
+        <div v-if="mostrarBusqueda">
+            <div class="ancho-95 flex flex-item-center flex-content-center margen-auto p-5"  style="padding-top: 15px; padding-bottom: 15px;">
+                <layout-busqueda-autocompletar :negocio="negocio" :query="query"></layout-busqueda-autocompletar>
+            </div>
+            <div class="ancho-95 flex flex-item-center flex-content-center margen-auto p-5 m-b-10" v-if="query.length">
+                <span class="txt-italic">Resultado de "<span class="txt-negrita">{{ query }}</span>"</span>
+            </div>
+
+<!--             <div class="ancho-95 flex flex-item-center flex-content-center margen-auto p-5"  style="padding-top: 15px; padding-bottom: 15px;">
+                <div class="flex  ancho-sx-100 ancho-s-95 ancho-m-60 ancho-l-45 ancho-lg-50 p-5" style="border:1px solid #ccc; border-radius: 25px; background:white;">
+                    <div class="flex flex-item-center flex-content-center" style="width: 35px;">
+                        <a href=""><i class="fas fa-search txt-gris"></i></a>
+                    </div>
+                    <div class="ancho-100">
+                       <input type="text" class="input-busqueda" placeholder="Buscar productos">
+                    </div>
+                    <div class="flex flex-item-center flex-content-center" style="width: 35px;">
+                        <a href="#" @click.prevent="borrarInputBuscar()">
+                            <i class="fas fa-times txt-gris"></i>
+                        </a>
+                    </div>
+                </div>
+            </div> -->
+
+
+
+
+<!--             <div class="ancho-95 flex margen-auto m-b-10" style="border-bottom: 2px solid #ccc;">
+                <div class="p-10">
+                     <span class="fz-18">{{ negocio.nombre }}</span>
+                </div>
+            </div> -->
+        </div>
+
         <div class="ancho-95 flex margen-auto">
             <div v-for="(columnas, c) in nro_columnas" class="ancho-50" >
                 <template>
-                    <div v-for="(imagen, f) in imagenes_infinite"  v-if="boleanMostrar(c, f)" class="tarjeta-grid-columnas borde-radio-5 m-10 sombra-box cursor" style="position: relative; margin-bottom: 15px;" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
+                    <div v-for="(imagen, f) in imagenes_infinite"  v-if="boleanMostrar(c, f)" class="tarjeta-grid-columnas borde-radio-5 m-10 sombra-box cursor" style="position: relative; margin-bottom: 15px; background: white;" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
                         <!-- <div class="display-none imagen-titulo flex flex-item-center p-l-5 p-t-5">
                             <div class="flex flex-item-center p-r-10 p-l-10" style="height: 30px; background: white; border-radius: 30px;">
                                 <span class="txt-negrita">{{ $root.truncarTexto(imagen.producto, 30) }}</span>
@@ -49,7 +83,7 @@
     Vue.use(VueLazyload)
     Vue.use(VueLazyLoadVideo)
     export default {
-        props:['negocio'], //va a tener producto_id si viene del detalle de un producto, sino viene de la view principal
+        props:['negocio','mostrarBusqueda','query'], //va a tener producto_id si viene del detalle de un producto, sino viene de la view principal
         data(){
             return {
                 nro_columnas: 0,
@@ -91,9 +125,15 @@
             InfiniteHandler($state){
                 // console.log(this.page);
                 this.page++;
-                let url = '/'+this.negocio.url+'/buscar_imagenes_random/?page=' + this.page;
+                // if (this.query == '') {
+                    let url = '/'+this.negocio.url+'/buscar_imagenes_random/?q='+this.query+'&page=' + this.page;
+                // }else{
+                //     let url = '/'+this.negocio.url+'/buscar_imagenes_random/?page=' + this.page;
+                // }
+                // let url = '/'+this.negocio.url+'/buscar_imagenes_random/?page=' + this.page;
                 axios.get(url)
                 .then( response => {
+                    console.log(response.data);
                     let imagenes = response.data.data;
                     if (imagenes.length) {
                         this.imagenes_infinite = this.imagenes_infinite.concat(imagenes);

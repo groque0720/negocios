@@ -35,6 +35,7 @@ Vue.component('producto-formulario', require('./components/productos/ProductoFor
 Vue.component('productos-seleccionar', require('./components/productos/ProductosSeleccionar.vue'));
 
 Vue.component('layout-public', require('./components/layout_public/Layout.vue'));
+Vue.component('layout-busqueda-autocompletar', require('./components/layout_public/BusquedaAutocompletar.vue'));
 Vue.component('layout-cabecera', require('./components/layout_public/Cabecera.vue'));
 Vue.component('layout-redes-sociales', require('./components/layout_public/RedesSociales.vue'));
 Vue.component('layout-grid-columnas', require('./components/layout_public/GridColumnas.vue'));

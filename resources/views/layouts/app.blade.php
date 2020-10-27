@@ -38,7 +38,7 @@
 <meta property="og:updated_time" content="1440432930" /> --}}
 </head>
 <body>
-    <div id="app">
+    <div id="app" >
                 <a class="ir-arriba" title="Volver arriba">
                     <div class="flex flex-content-center flex-item-center">
                         <i class="fas fa-arrow-up"></i>

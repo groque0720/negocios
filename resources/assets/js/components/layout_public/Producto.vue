@@ -13,7 +13,7 @@
 		 				<i class="fas fa-expand txt-blanco"></i>
 		 			</div>
 					<div style="position: absolute; top: calc(50% - 50px); left: calc(50% - 50px);" >
-		 				<i class="fas fa-search-plus" style="font-size: 100px !important; color: black; opacity: 0.2;"></i>
+		 				<!-- <i class="fas fa-search-plus" style="font-size: 100px !important; color: black; opacity: 0.2;"></i> -->
 		 			</div>
 		 		</div>
 		 		<div class="imagenes ancho-100 p-10">
@@ -120,7 +120,7 @@
 				 				<i class="fas fa-expand txt-blanco"></i>
 				 			</div>
 				 			<div class="cursor-lupa" style="position: absolute; top: calc(50% - 50px); left: calc(50% - 50px);" >
-				 				<i class="fas fa-search-plus" style="font-size: 100px !important; color: black; opacity: 0.2;"></i>
+				 				<!-- <i class="fas fa-search-plus" style="font-size: 100px !important; color: black; opacity: 0.2;"></i> -->
 				 			</div>
 						</div>
 					</div>

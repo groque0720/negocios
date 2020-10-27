@@ -42,15 +42,6 @@ use Illuminate\Support\Facades\URL;
 // });
 
 
-Route::get('/prueba_orden', function(){
-
-	$result = DB::select('SELECT * FROM productos');
-
-	return $result;
-
-});
-
-
 // Route::get('/crear_carpeta', function(){
 // 	mkdir("storage/"."omar", 0700);
 // });
@@ -173,7 +164,9 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 Route::get('/{url_negocio}','Negocio\NegocioController@public_index')->name('url_negocio.index');
+Route::get('/{url_negocio}/search','Negocio\NegocioController@public_index');
 Route::get('/{url_negocio}/redes_sociales','RedSocial\RedSocialController@redes_sociales_negocio');
+Route::get('/{url_negocio}/items_de_busqueda','Negocio\NegocioController@items_de_busqueda');
 Route::get('/{url_negocio}/buscar_imagenes_random/{producto_id?}','Negocio\NegocioController@buscar_imagenes_random');
 Route::get('/{url_negocio}/buscar_albumes','Negocio\NegocioController@buscar_albumes');
 Route::get('/{url_negocio}/producto/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
