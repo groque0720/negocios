@@ -7,33 +7,7 @@
             <div class="ancho-95 flex flex-item-center flex-content-center margen-auto p-5 m-b-10" v-if="query.length">
                 <span class="txt-italic">Resultado de "<span class="txt-negrita">{{ query }}</span>"</span>
             </div>
-
-<!--             <div class="ancho-95 flex flex-item-center flex-content-center margen-auto p-5"  style="padding-top: 15px; padding-bottom: 15px;">
-                <div class="flex  ancho-sx-100 ancho-s-95 ancho-m-60 ancho-l-45 ancho-lg-50 p-5" style="border:1px solid #ccc; border-radius: 25px; background:white;">
-                    <div class="flex flex-item-center flex-content-center" style="width: 35px;">
-                        <a href=""><i class="fas fa-search txt-gris"></i></a>
-                    </div>
-                    <div class="ancho-100">
-                       <input type="text" class="input-busqueda" placeholder="Buscar productos">
-                    </div>
-                    <div class="flex flex-item-center flex-content-center" style="width: 35px;">
-                        <a href="#" @click.prevent="borrarInputBuscar()">
-                            <i class="fas fa-times txt-gris"></i>
-                        </a>
-                    </div>
-                </div>
-            </div> -->
-
-
-
-
-<!--             <div class="ancho-95 flex margen-auto m-b-10" style="border-bottom: 2px solid #ccc;">
-                <div class="p-10">
-                     <span class="fz-18">{{ negocio.nombre }}</span>
-                </div>
-            </div> -->
         </div>
-
         <div class="ancho-95 flex margen-auto">
             <div v-for="(columnas, c) in nro_columnas" class="ancho-50" >
                 <template>
@@ -125,8 +99,13 @@
             InfiniteHandler($state){
                 // console.log(this.page);
                 this.page++;
+
+                var query = this.query
+                // query.replace('%26','&');
+
+                console.log(query);
                 // if (this.query == '') {
-                    let url = '/'+this.negocio.url+'/buscar_imagenes_random/?q='+this.query+'&page=' + this.page;
+                    let url = '/'+this.negocio.url+'/buscar_imagenes_random/?q='+encodeURIComponent(query)+'&page=' + this.page;
                 // }else{
                 //     let url = '/'+this.negocio.url+'/buscar_imagenes_random/?page=' + this.page;
                 // }
