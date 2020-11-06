@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Negocio;
 
+use App\Categoria;
 use App\Http\Controllers\Controller;
 use App\Negocio;
 use App\Producto;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 class NegocioController extends Controller
 {
-    protected $cant_reg = 15;
+    protected $cant_reg = 20;
 
     public function public_index(Request $request, $url_negocio){
 
@@ -49,13 +50,107 @@ class NegocioController extends Controller
 
     }
 
+    public function buscar_imagenes_random_query ($request, $negocio, $query, $secundario){
+
+        $categorias =  $negocio->categorias()->pluck('categoria')->values()->all();
+        $categorias = array_map('strtolower', $categorias);
+
+       if (in_array(strtolower($query), $categorias) && $secundario == true) {
+           $categoria_id = Categoria::where('negocio_id', $negocio->id)->where('categoria', $query)->first()->id;
+
+           $imagenes = DB::table('productos_imagenes')
+                            ->distinct('productos_imagenes.id')
+                            ->join('productos_relaciones','productos_relaciones.album_id','=','productos_imagenes.producto_id')
+                            ->join('categorias_productos','categorias_productos.producto_id','=','productos_relaciones.producto_id')
+                            // ->join('productos','productos.id','=','categorias_productos.producto_id')
+                            ->join('productos AS albumes','albumes.id','=','productos_relaciones.album_id')
+                            ->select('productos_imagenes.*',
+                                    'albumes.producto',
+                                    'albumes.descripcion',
+                                    'albumes.precio',
+                                    'albumes.precio_obs',
+                                    'albumes.codigo AS producto_codigo')
+                            ->where('categorias_productos.categoria_id','=', $categoria_id)
+                            ->paginate($this->cant_reg);
+
+
+           return $imagenes;
+        }
+
+        if (in_array(strtolower($query), $categorias)) {
+            // return $this->buscar_albumes_categorias_query($request, $negocio, $query);
+
+                $imagenes = ProductoImagen::select('productos_imagenes.*',
+                        'productos.producto',
+                        'productos.descripcion',
+                        'productos.precio',
+                        'productos.precio_obs',
+                        'productos.codigo AS producto_codigo')
+                ->distinct('productos_imagenes.producto_id')
+                ->join('productos', 'productos.id', '=', 'productos_imagenes.producto_id')
+                ->rightJoin('categorias_productos', 'categorias_productos.producto_id', '=', 'productos_imagenes.producto_id')
+                ->rightjoin('categorias', 'categorias.id', '=', 'categorias_productos.categoria_id')
+                ->where('categorias.negocio_id','=', $negocio->id)
+                ->where('productos.negocio_id','=', $negocio->id)
+                ->where('productos.guardar','=', 1)
+                ->where('categorias.categoria','like',$query)
+                // ->whereRaw('MATCH (productos.producto, productos.descripcion) AGAINST ("'.$query.'")')
+                // ->WhereRaw("MATCH (categorias.categoria) AGAINST ('$query.')")
+                ->paginate($this->cant_reg);
+
+        }else{
+                $imagenes = ProductoImagen::select('productos_imagenes.*',
+                        'productos.producto',
+                        'productos.descripcion',
+                        'productos.precio',
+                        'productos.precio_obs',
+                        'productos.codigo AS producto_codigo')
+                ->rightJoin('productos', 'productos.id', '=', 'productos_imagenes.producto_id')
+                // ->Join('categorias_productos', 'categorias_productos.producto_id', '=', 'productos_imagenes.producto_id')
+                // ->join('categorias', 'categorias.id', '=', 'categorias_productos.categoria_id')
+                // ->with([])
+                ->where('productos.negocio_id','=', $negocio->id)
+                ->where('productos.guardar','=', 1)
+                ->whereRaw('MATCH (productos.producto, productos.descripcion) AGAINST ("'.$query.'")')
+                // ->OrwhereRaw('MATCH (categorias.categoria) AGAINST ("'.$query.'")')
+                ->paginate($this->cant_reg);
+        }
+
+        return $imagenes;
+
+    }
+
+    // public function buscar_albumes_categorias_query (Request $request, $negocio, $categoria) {
+
+    //     $imagenes = Producto::select('productos.producto',
+    //                 'productos.descripcion',
+    //                 'productos.precio',
+    //                 'productos.precio_obs',
+    //                 'productos.codigo AS producto_codigo',
+    //                 'productos_imagenes.*')
+    //                 ->join('productos_imagenes', 'productos_imagenes.producto_id', '=', 'productos.id')
+    //                 ->where('productos.negocio_id','=', $negocio->id)
+    //                 ->where('guardar','=',1)
+    //                 ->whereHas('categorias', function($categorias) use($categoria){
+    //                     $categorias->where('categoria',$categoria);
+    //                 })
+    //                 ->paginate($this->cant_reg);
+
+    //                 return $imagenes;
+    // }
+
     // Popurri
     public function buscar_imagenes_random(Request $request, $url_negocio, $producto_id = ''){
-
         if ($request->ajax() && $negocio = Negocio::where('url', $url_negocio)->first()) {
-
-            if ($request->q == '' or !isset($request->q)) {
-                // return redirect()->route('url_negocio.index',['url_negocio' => $negocio->ur]);
+            if ($request->q != '') {
+                $query = $request->q;
+                if ($request->secundario == true) {
+                   $secundario = true;
+                }else{
+                    $secundario = false;
+                }
+                return $this->buscar_imagenes_random_query($request, $negocio, $query, $secundario);
+            }else{
                     $imagenes = ProductoImagen::select('productos_imagenes.*',
                             'productos.producto',
                             'productos.descripcion',
@@ -69,30 +164,10 @@ class NegocioController extends Controller
                     //->inRandomOrder($request->session()->get('session_rand'))
                     ->paginate($this->cant_reg);
                     return $imagenes;
-            }else{
-                $query = $request->q;
-                $imagenes = ProductoImagen::select('productos_imagenes.*',
-                                        'productos.producto',
-                                        'productos.descripcion',
-                                        'productos.precio',
-                                        'productos.precio_obs',
-                                        'productos.codigo AS producto_codigo')
-                                ->join('productos', 'productos.id', '=', 'productos_imagenes.producto_id')
-                                ->where('productos.negocio_id','=', $negocio->id)
-                                ->whereRaw('MATCH (productos.producto, productos.descripcion) AGAINST ("'.$query.'")')
-                                //->where('productos.producto','like','%'.$request->q.'%')
-                                //->orWhere('productos.descripcion','like','%'.$request->q.'%')
-                                ->where('productos.guardar','=', 1)
-                                // ->orderBy(DB::raw('RAND('.$request->session()->get('session_rand').')'))
-                                //->inRandomOrder($request->session()->get('session_rand'))
-                                ->paginate($this->cant_reg);
-                return $imagenes;
             }
-
-
         }
-
     }
+
     // Albumes
     public function buscar_albumes(Request $request, $url_negocio){
         if ($request->ajax()) {

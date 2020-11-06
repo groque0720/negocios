@@ -2,9 +2,9 @@
     <div class="ancho-100">
         <div class="ancho-95 margen-auto flex flex-wrap flex-content-center" >
             <!-- :style="{'width':ancho_columna+'%'}"  -->
-            <div v-for="imagen in imagenes_infinite" class="flex tarjeta-grid-columnas " :style="{'width':ancho_columna+'%'}" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
+            <div v-for="imagen in imagenes_infinite" class="flex tarjeta-grid-columnas ":style="{'width':ancho_columna+'%'}" @click.prevent="irProducto(imagen.producto_codigo, imagen.id)">
                 <div class="ancho-100" style="padding: 5px;" >
-                    <div class="ancho-100 flex flex-direction-column" style="padding: 5px; border: 1px solid #ccc; border-radius: 5px; height: 100%;">
+                    <div class="ancho-100 flex flex-direction-column" style="background: white; padding: 5px; border: 1px solid #ccc; border-radius: 5px; height: 100%;">
                         <div class="ancho-100" style="height: 200px;">
                              <img v-if="$root.esImagen(imagen.imagen)" style="object-fit: cover; height: 100%;" class="ancho-100 lazyload cursor-lupa" v-lazy="'/storage/'+imagen.imagen"  alt="">
                              <LazyVideo v-if="$root.esVideo(imagen.imagen)" :src="'/storage/'+imagen.imagen"  style="object-fit: cover; height: 100%;" class="ancho-100" :attrs="{controls: false, playsinline: true, loop: '2', autoplay: true, muted: true}"/>
@@ -41,7 +41,7 @@
     Vue.use(VueLazyload)
     Vue.use(VueLazyLoadVideo)
     export default {
-        props:['negocio'], //va a tener producto_id si viene del detalle de un producto, sino viene de la view principal
+        props:['negocio','query', 'secundario'], //va a tener producto_id si viene del detalle de un producto, sino viene de la view principal
         data(){
             return {
                 nro_columnas: 0,
@@ -87,12 +87,23 @@
             InfiniteHandler($state){
                 // console.log(this.page);
                 this.page++;
-                let url = '/'+this.negocio.url+'/buscar_imagenes_random/?page=' + this.page;
+                var query = this.query;
+
+                if (this.secundario == true) {
+                    var cad = '&secundario=1';
+                }else{
+                    var cad ='';
+                }
+
+                let url = '/'+this.negocio.url+'/buscar_imagenes_random/?q='+encodeURIComponent(query)+cad+'&page=' + this.page;
                 axios.get(url)
                 .then( response => {
                     let imagenes = response.data.data;
+                    console.log(response.data);
                     if (imagenes.length) {
                         this.imagenes_infinite = this.imagenes_infinite.concat(imagenes);
+                        this.productos = this.productos_infinite;
+                        this.encontrados = response.data.total
                         // console.log(this.imagenes_infinite);
                         $state.loaded();
                     }else{
