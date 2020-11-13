@@ -118,6 +118,7 @@
                 @endif
                 <div class="content">
                     <example-component></example-component>
+                    <validador></validador>
                 </div>
             </div>
         </div>
