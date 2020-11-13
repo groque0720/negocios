@@ -118,7 +118,7 @@
                 @endif
                 <div class="content">
                     <example-component></example-component>
-                    <validador></validador>
+                    <validador ref="validador" :mostrar_validador="true"></validador>
                 </div>
             </div>
         </div>
