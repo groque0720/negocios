@@ -92,11 +92,13 @@ Route::get('/', function () {
 	// $url_negocio = 'ideas-en-laser';
 	// return redirect()->route('url_negocio.index', compact('url_negocio'));
 
-	// if (auth()->check()) {
-	// 	// $url_negocio = auth()->user()->negocio()->first()->url;
-	// 	return redirect()->route('redirigir');
-	// }
-    return view('welcome');
+	if (auth()->check()) {
+		// $url_negocio = auth()->user()->negocio()->first()->url;
+		return redirect()->route('redirigir');
+	}else{
+		return redirect()->route('acceder');
+	}
+    // return view('welcome');
 });
 
 // Auth::routes();
