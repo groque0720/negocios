@@ -19,7 +19,7 @@ window.Vue = require('vue');
 
 Vue.component('InfiniteLoading', require('vue-infinite-loading'));
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 
 Vue.component('categorias', require('./components/categorias/Categorias.vue'));

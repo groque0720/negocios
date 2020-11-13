@@ -91,6 +91,11 @@ Route::group(['domain' => '{account}.vidriera.online'], function () {
 Route::get('/', function () {
 	// $url_negocio = 'ideas-en-laser';
 	// return redirect()->route('url_negocio.index', compact('url_negocio'));
+
+	// if (auth()->check()) {
+	// 	// $url_negocio = auth()->user()->negocio()->first()->url;
+	// 	return redirect()->route('redirigir');
+	// }
     return view('welcome');
 });
 
@@ -116,7 +121,7 @@ Route::group(['middleware' => 'auth'], function(){
 		// // $negocio = Negocio::find(Auth()->user()->negocio_id);
 		// return $negocio;
 	    return redirect()->route('negocio');
-	});
+	})->name('redirigir');
 
 	Route::get('negocio','Negocio\NegocioController@index')->name('negocio');
 	Route::get('negocio/editar','Negocio\NegocioController@edit')->name('negocio.editar');

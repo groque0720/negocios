@@ -117,7 +117,7 @@
                     </div>
                 @endif
                 <div class="content">
-                    holo
+                    <example-component></example-component>
                 </div>
             </div>
         </div>
