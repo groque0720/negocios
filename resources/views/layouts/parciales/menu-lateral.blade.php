@@ -17,25 +17,6 @@
 					<span class="txt-color-ppal">Datos del Negocio</span></div>
 			</div>
 		</a>
-		<a href="{{ route('caracteristicas.index') }}" class="link item-menu-lateral">
-			<div class="flex flex-space-between flex-item-center"
-				 style="height: 55px; border-bottom: 1px solid #ccc;">
-				<div class="ancho-20 flex flex-item-center flex-content-center">
-					<i class="fas fa-swatchbook" style="color: #82C91E;"></i>
-				</div>
-				<div class="ancho-80">
-					<span class="txt-color-ppal">Características</span></div>
-			</div>
-		</a>
-		<a href="{{ route('categorias.index') }}" class="link item-menu-lateral">
-			<div class="flex flex-space-between flex-item-center"
-				 style="height: 55px; border-bottom: 1px solid #ccc;">
-				<div class="ancho-20 flex flex-item-center flex-content-center">
-					<i class="fas fa-boxes" style="color: #17A6EC;"></i></div>
-				<div class="ancho-80">
-					<span class="txt-color-ppal">Categorias</span></div>
-			</div>
-		</a>
 		<a href="{{ route('productos.index') }}" class="link item-menu-lateral">
 			<div class="flex flex-space-between flex-item-center"
 				 style="height: 55px; border-bottom: 1px solid #ccc;">
@@ -58,13 +39,41 @@
 				</div>
 			</div>
 		</a>
-		<a href="" class="link item-menu-lateral">
+		<a href="{{ route('url_negocio.index', $negocio->url) }}" class="link item-menu-lateral" target="_blank">
+			<div class="flex flex-space-between flex-item-center"
+				 style="height: 55px; border-bottom: 1px solid #ccc;">
+				<div class="ancho-20 flex flex-item-center flex-content-center">
+					<i class="fas fa-binoculars" style="color: #ACD358"></i></div>
+				<div class="ancho-80">
+					<span class="txt-color-ppal">Ver mi página principal</span></div>
+			</div>
+		</a>
+		<a href="{{ route('lista_precio.index') }}" class="link item-menu-lateral">
 			<div class="flex flex-space-between flex-item-center"
 				 style="height: 55px; border-bottom: 1px solid #ccc;">
 				<div class="ancho-20 flex flex-item-center flex-content-center">
 					<i class="fas fa-donate" style="color:#FFAC1E;"></i></div>
 				<div class="ancho-80">
 					<span class="txt-color-ppal">Lista de Precios</span></div>
+			</div>
+		</a>
+		<a href="{{ route('caracteristicas.index') }}" class="link item-menu-lateral">
+			<div class="flex flex-space-between flex-item-center"
+				 style="height: 55px; border-bottom: 1px solid #ccc;">
+				<div class="ancho-20 flex flex-item-center flex-content-center">
+					<i class="fas fa-swatchbook" style="color: #82C91E;"></i>
+				</div>
+				<div class="ancho-80">
+					<span class="txt-color-ppal">Características</span></div>
+			</div>
+		</a>
+		<a href="{{ route('categorias.index') }}" class="link item-menu-lateral">
+			<div class="flex flex-space-between flex-item-center"
+				 style="height: 55px; border-bottom: 1px solid #ccc;">
+				<div class="ancho-20 flex flex-item-center flex-content-center">
+					<i class="fas fa-boxes" style="color: #17A6EC;"></i></div>
+				<div class="ancho-80">
+					<span class="txt-color-ppal">Categorias</span></div>
 			</div>
 		</a>
 	</div>

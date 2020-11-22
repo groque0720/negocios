@@ -1,15 +1,6 @@
 /*login*/
 
-    .form-lienzo{
-        height: 100vh;
-        width: 100%;
-        background: rgba(0,0,0,0.2);
-        position: fixed;
-        left: 0;
-        top: 0;
-        padding-top: 40px;
-        z-index: 999;
-    }
+
     .imagen-acciones-grid-columnas {
         position: absolute;
         bottom: 0;

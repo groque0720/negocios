@@ -58,7 +58,7 @@
                             <div  class="flex flex-content-end">
                             <!-- muestro el precio solo si es de tipo producto (valor 1) -->
                                 <!-- <span v-if="producto.tipo_id == 1" class="fz-12">${{ $root.formatoPrecio(producto.precio)  }}</span> -->
-                                <span class="fz-12">${{ $root.formatoPrecio(producto.precio)  }} {{ producto.precio_obs }}</span>
+                                <span class="fz-12"><span class="m-r-5">$</span>{{ $root.formatoPrecio(producto.precio)  }} {{ producto.precio_obs }}</span>
                             </div>
                             <!-- Muestro la fecha de creacion del album (valor 2) -->
                             <div v-if="producto.tipo_id == 2">
@@ -69,12 +69,18 @@
                     <div class="ancho-30 zona-acciones flex flex-space-between flex-item-center"  :class="'accion_'+indice" style="width: 0px; overflow: hidden;">
                         <div class="ancho-45 flex flex-content-center">
                             <!-- <a :href="'/producto/edit/'+producto.id" @click.prevent="clickEditar(producto)"> -->
-                            <a href="#" @click.prevent="irAlProducto(producto.codigo)">
+                            <a :href="'/'+negocio.url+'/producto/'+producto.codigo" target="_blank" title="Ver en la web">
+                                <i class="fas fa-binoculars" style="color: #ACD358"></i>
+                            </a>
+                        </div>
+                        <div class="ancho-45 flex flex-content-center">
+                            <!-- <a :href="'/producto/edit/'+producto.id" @click.prevent="clickEditar(producto)"> -->
+                            <a href="#" @click.prevent="irAlProducto(producto.codigo)" title="Editar">
                                 <i class="fas fa-edit txt-celeste"></i>
                             </a>
                         </div>
                         <div class="ancho-45 flex flex-content-center">
-                            <a href="#" @click.prevent="clickEliminar(producto, indice)">
+                            <a href="#" @click.prevent="clickEliminar(producto, indice)" title="Eliminar">
                                 <i class="fas fa-trash-alt txt-rojo-claro"></i>
                             </a>
                         </div>
@@ -92,7 +98,7 @@
 
 <script>
     export default {
-        props:['tipo_id'],
+        props:['tipo_id', 'negocio'],
         data(){
             return {
                 // busqueda
@@ -125,6 +131,9 @@
                     },
                 100);
             },
+            // irAlProductoWeb(codigo){
+            //     window.location.href = this.negocio.url+'/producto/'+codigo;
+            // },
             irAlProducto(codigo){
                 location.href = '/productos/edit/'+codigo;
             },
@@ -255,7 +264,7 @@
                       // title: msg,
                       text: msg,
                       showConfirmButton: false,
-                      timer: 1000,
+                      timer: 200,
                       width: '180px',
                     })
                 }
@@ -265,7 +274,7 @@
                       icon: 'error',
                       text: msg,
                       showConfirmButton: false,
-                      timer: 1000,
+                      timer: 200,
                       width: '180px',
                     })
                 }

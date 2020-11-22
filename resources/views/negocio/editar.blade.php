@@ -3,19 +3,19 @@
 @section('title', $negocio->nombre)
 
 @section('contenido')
-    <div class="margen-auto ancho-100">
+    <div class="ancho-95 ancho-sx-95 ancho-s-90 ancho-m-90 ancho-l-85 ancho-lg-80">
         <form class="form" action="{{ route('negocio.guardar') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
             <input name="_method" type="hidden" value="PUT">
             {{ csrf_field() }}
-            <div class="form-head p-10">
-                <div class="form-titulo flex">
-                    <div class="ancho-100 txt-centrar">
-                        <i class="fas fa-store" style="color: #fff; margin-right: 10px;"></i>
-                        <span class="txt-blanco">Datos del Negocio</span>
-                    </div>
+            <div class="ancho-100 flex flex-space-between flex-item-center p-15" style="margin: 10px auto 10px auto; border: 1px solid #00D0D0; border-radius: 10px; background: rgba(0, 208, 208, 0.2 )">
+                <div class="ancho-10 flex flex-item-center flex-content-center">
+                    <i class="fas fa-store" style="color: #00D0D0; margin-right: 10px;"></i>
+                </div>
+                <div class="ancho-90 flex flex-item-center flex-content-center">
+                    <span>Datos del Negocio</span>
                 </div>
             </div>
-            <div class="form-body">
+            <div class="form-body-">
                 <div class="form-linea">
                     <div class="form-columna">
                         <label for="name_negocio" class="form-label">Nombre</label>

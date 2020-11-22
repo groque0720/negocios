@@ -2,7 +2,6 @@
 
 @section('title', $negocio->nombre)
 
-
 @section('metas')
 	{{-- <title>your keyword rich title of the website and/or webpage</title> --}}
 	<!-- MS, fb & Whatsapp -->
@@ -24,7 +23,6 @@
 	<!-- Website to visit when clicked in fb or WhatsApp-->
 	<meta property="og:url" content="https://vidriera.online/{{ $negocio->url }}/producto/{{ $producto->codigo }}/{{ $imagen_id }}">
 @endsection
-
 
 @section('contenido')
 

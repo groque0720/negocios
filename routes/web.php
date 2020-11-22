@@ -42,6 +42,14 @@ use Illuminate\Support\Facades\URL;
 // });
 
 
+Route::get('/redondear', function(){
+
+	$valor = (550.23 * 55) / 100;
+	echo floor($valor);
+	echo ceil($valor);
+});
+
+
 // Route::get('/crear_carpeta', function(){
 // 	mkdir("storage/"."omar", 0700);
 // });
@@ -163,6 +171,11 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('producto/{imagen_id}/imagenes/borrar', 'Producto\ProductoController@producto_borrar_imagenes')->name('producto.borrar_imagenes');
 	Route::post('producto/guardar', 'Producto\ProductoController@producto_guardar')->name('producto.guardar');
 	Route::post('producto/imagenes/guardar', 'Producto\ProductoController@producto_imagenes_guardar')->name('producto.imagenes_guardar');
+
+
+	Route::get('/precio_lista', 'ListaPrecio\ListaPrecioController@index')->name('lista_precio.index');
+	Route::get('/precio_lista/editar_precio', 'ListaPrecio\ListaPrecioController@editar_precio')->name('lista_precio.editar_precio');
+	Route::get('/precio_lista/correccion_precio', 'ListaPrecio\ListaPrecioController@correccion_precio')->name('lista_precio.correccion_precio');
 
 	// Route::post('formSubmit','ImageController@formSubmit');
 	// Route::post('store-multiple-image','ImageController@store');

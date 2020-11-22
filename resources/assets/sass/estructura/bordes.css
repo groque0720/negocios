@@ -29,3 +29,7 @@
 	border-radius: 10px;
 	overflow: hidden;
 }
+
+.borde-rojo {
+	border: 1px solid #FF0303;
+}

@@ -50,15 +50,15 @@
 							</div>
 						</div>
 						<!-- muestro el precio solo si es de tipo producto -->
-						<!-- <div v-if="producto.tipo_id == 1" class="form-linea flex flex-item-center flex-space-between"> -->
-						<div class="form-linea flex flex-item-center flex-space-between">
+						<div v-if="producto.tipo_id == 1" class="form-linea flex flex-item-center flex-space-between">
+						<!-- <div class="form-linea flex flex-item-center flex-space-between"> -->
 							<div class="form-columna ancho-20">
 								<label class="form-label" for=""> Precio </label>
 							</div>
 							<div class="form-columna ancho-35">
 								<div class="ancho-100 flex flex-content-end" v-if="!viewActualizarPrecio">
 									<div class="ancho-80 flex flex-item-center">
-										<span>$</span>
+										<span class="m-r-10">$</span>
 										<input type="text" ref="valor_precio" class="form-input numero precio txt-derecha" v-model='precio_display' placeholder="$" @focus="evt=>seleccionarPrecio(evt)" @focusout="actulizarPrecio()" @keypress.enter.prevent="actulizarPrecio()">
 									</div>
 								</div>
@@ -629,11 +629,32 @@
 				});
 			},
 			actulizarPrecio(){
-				var precio = $(".precio").val();
+
 				this.viewActualizarPrecio = false;
-				this.precio_display = precio.replace(/^0+/, '');;
+
+
+				var precio = $(".precio").val();
+				var precio_aux = '';
+				var cant_puntos = 0;
+
+				precio = precio.replace(/^0+/, '');
+				precio = precio.replace('.','').replace(',','.');
+
+				for (var i = precio.length; i >= 0; i--) {
+					if (precio.charAt(i) == '.' && cant_puntos < 1){
+						cant_puntos++;
+						precio_aux = precio.charAt(i)+precio_aux;
+					}
+					if (precio.charAt(i) != '.' && cant_puntos <= 1){
+						precio_aux = precio.charAt(i)+precio_aux;
+					}
+				}
+
+				// this.precio_display = precio.replace(/^0+/, '');
+
 				//precio = precio.replace(/^0+/, '');
-				this.producto.precio = precio.replace('.','').replace(',','.');
+				this.producto.precio = precio_aux;
+				// this.producto.precio = precio.replace('.','').replace(',','.');
 				// console.log(this.producto.precio);
 			},
 			// formatoPrecio(value) {
