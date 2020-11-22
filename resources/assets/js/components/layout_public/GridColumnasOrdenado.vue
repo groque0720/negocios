@@ -99,7 +99,7 @@
                 axios.get(url)
                 .then( response => {
                     let imagenes = response.data.data;
-                    console.log(response.data);
+                    // console.log(response.data);
                     if (imagenes.length) {
                         this.imagenes_infinite = this.imagenes_infinite.concat(imagenes);
                         this.productos = this.productos_infinite;
