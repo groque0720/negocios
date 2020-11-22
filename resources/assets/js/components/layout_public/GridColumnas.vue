@@ -101,7 +101,7 @@
                 var query = this.query
                 // query.replace('%26','&');
 
-                console.log(query);
+                // console.log(query);
                 // if (this.query == '') {
                     // let url = '/'+this.negocio.url+'/buscar_imagenes_random/?q='+encodeURIComponent(query)+'&page=' + this.page;
                     let url = '/'+this.negocio.url+'/buscar_imagenes_random/?page=' + this.page;
@@ -111,9 +111,9 @@
                 // let url = '/'+this.negocio.url+'/buscar_imagenes_random/?page=' + this.page;
                 axios.get(url)
                 .then( response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     let imagenes = response.data.data;
-                    console.log(response.data.total);
+                    // console.log(response.data.total);
                     if (imagenes.length) {
                         this.imagenes_infinite = this.imagenes_infinite.concat(imagenes);
                         this.productos = this.productos_infinite;
