@@ -96,7 +96,7 @@
 					</div>
 				</div>
 			</form>
-			    <a href="{{ route('register') }}" class="link link_registrar margen-auto">
+{{-- 			    <a href="{{ route('register') }}" class="link link_registrar margen-auto">
                     <div class="ancho-90 ancho-m-80 ancho-l-70 ancho-lg-60 margen-auto flex flex-space-between p-10" style="margin-top: 30px;">
                          <div class="ancho-30">
                             <img src="{{ Storage::url('login/registrar_mi_negocio.svg')  }}" alt="" class="ancho-100">
@@ -105,7 +105,7 @@
                             <span class="txt-blanco">Quiero registrar mi negocio</span>
                         </div>
                     </div>
-                </a>
+                </a> --}}
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
