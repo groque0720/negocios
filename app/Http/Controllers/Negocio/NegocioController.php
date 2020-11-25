@@ -469,7 +469,10 @@ class NegocioController extends Controller
         }
         $negocio->save();
 
-        return $negocio;
+        $result = 'ok';
+        $msg="se guardó correctamente";
+
+        return redirect()->route('negocio.editar')->with('result','msg');
     }
 
     /**

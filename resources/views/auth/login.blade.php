@@ -9,7 +9,32 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', config('app.name', 'Login'))</title>
+    {{-- <title>@yield('title', config('app.name', 'Login'))</title> --}}
+    <title>Tu Vidriera en Internet</title>
+<meta property="og:locale" content="es_ES" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Tus Productos a vista de todos" />
+<meta property="og:description" content="Facil, rápido y sencillo de mostrar tus productos" />
+<meta property="og:url" content="https://vidriera.online/" />
+<meta property="og:site_name" content="Alcanzá a mas clientes  | Aumenta tus ventas" />
+    <!-- Para facebook, SMS -->
+    {{-- <meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+    <meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Neveras para hostelería, Wondercool" /> --}}
+    <!-- Para twitter -->
+    {{-- <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="Las bebidas más frías del mundo" />
+    <meta name="twitter:title" content="Neveras inteligentes para hostelería" />
+    <meta name="twitter:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1024x512.png" /> --}}
+    <!-- Para whatsapp -->
+    {{-- <meta property="og:site_name" content="San Roque 2014 Pollos"> --}}
+    {{-- <meta property="og:title" content="San Roque 2014 Pollos" />
+    <meta property="og:description" content="Programa de fiestas" /> --}}
+<meta property="og:image" itemprop="image" content="https://vidriera.online/logo.png">
+<meta property="og:type" content="website" />
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -71,7 +96,7 @@
 					</div>
 				</div>
 			</form>
-{{-- 			    <a href="{{ route('register') }}" class="link link_registrar margen-auto">
+			    <a href="{{ route('register') }}" class="link link_registrar margen-auto">
                     <div class="ancho-90 ancho-m-80 ancho-l-70 ancho-lg-60 margen-auto flex flex-space-between p-10" style="margin-top: 30px;">
                          <div class="ancho-30">
                             <img src="{{ Storage::url('login/registrar_mi_negocio.svg')  }}" alt="" class="ancho-100">
@@ -80,7 +105,7 @@
                             <span class="txt-blanco">Quiero registrar mi negocio</span>
                         </div>
                     </div>
-                </a> --}}
+                </a>
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es" prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset="utf-8">
@@ -23,11 +23,12 @@
 <body class="scrollbar" id="style-3" style="background: #eee;">
     <img class="img-fondo" src="/images/fondo06.png" alt="">
     <div id="app">
-{{--         <a class="ir-arriba" title="Volver arriba">
+
+        <a class="ir-arriba" title="Volver arriba">
             <div class="flex flex-content-center flex-item-center">
                 <i class="fas fa-arrow-up"></i>
             </div>
-        </a> --}}
+        </a>
         <div class="margen-auto flex flex-space-between flex-direction-column" style="min-height: 100vh;">
             <div class="ancho-100 flex flex-direction-column">
                 <header class="m-b-5">
@@ -39,7 +40,9 @@
                 </section>
             </div>
             <footer class="flex-item-end">
-                productos 2020
+                <div class="flex flex-item-center flex-content-center" style="height: 50px; background: #ddd;">
+                    <span>{{ $negocio->nombre }} &copy {{ date('Y') }}</span>
+                </div>
             </footer>
         </div>
     </div>

@@ -72,7 +72,7 @@
 							<label for="password" class="form-label obligatorio">Contraseña</label>
                             <div class="flex flex-space-between">
                                 <div class="ancho-90">
-                                    <input class="form-input" type="password" name="password" id="password" placeholder="" required data-id="password">
+                                    <input class="form-input" type="password" name="password" id="password" placeholder="" required data-id="password" autocomplete="off">
                                 </div>
                                 <div class="ancho-10 flex flex-item-center">
                                     <i class="fas fa-eye margen-auto cursor ver_contraseña" data-id="password" style="color: var(--main-ppal-color);" ></i>
@@ -86,7 +86,7 @@
                             <label for="password" class="form-label obligatorio">Confirmar Contraseña</label>
                             <div class="flex flex-space-between">
                                 <div class="ancho-90">
-                                    <input class="form-input" type="password" name="password_confirmation" id="password_confirmation" placeholder="" data-id="password_confirmation" required>
+                                    <input class="form-input" type="password" name="password_confirmation" id="password_confirmation" placeholder="" data-id="password_confirmation" required autocomplete="off">
                                 </div>
                                 <div class="ancho-10 flex flex-item-center">
                                     <i class="fas fa-eye margen-auto cursor ver_contraseña_confirmacion" data-id="password_confirmation" style="color: var(--main-ppal-color);" ></i>

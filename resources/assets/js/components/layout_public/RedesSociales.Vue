@@ -1,10 +1,19 @@
 <template>
 	<div class="flex flex-item-center p-r-10">
-		<div v-for="red in redes_sociales" class="m-l-15">
-			<a :href="red.pivot.url" target="_blank" :title="red.red_social" class="flex flex-item-center">
-				<img style="width: 30px; height: 30px;" :src="/images/+red.icono" alt="">
-			</a>
-		</div>
+
+        <div class="flex flex-item-center" v-if="redes_sociales.length>0">
+            <div class="no-display-s">
+                <span style="font-size: 1.2em;">Seguinos</span>
+            </div>
+            <div class="flex">
+        		<div v-for="red in redes_sociales" class="m-l-15">
+        			<a :href="red.pivot.url" target="_blank" :title="red.red_social" class="flex flex-item-center">
+        				<img style="width: 30px; height: 30px;" :src="/images/+red.icono" alt="">
+        			</a>
+        		</div>
+             </div>
+        </div>
+
 	</div>
 </template>
 <script>

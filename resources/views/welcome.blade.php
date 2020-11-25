@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Tu Vidriera en Internet</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -15,10 +15,10 @@
 
 <meta property="og:locale" content="es_ES" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Neveras inteligentes para hostelería" />
-<meta property="og:description" content="Las bebidas más frías del mundo" />
+<meta property="og:title" content="Tus Productos a vista de todos" />
+<meta property="og:description" content="Facil, rápido y sencillo de mostrar tus productos" />
 <meta property="og:url" content="https://vidriera.online/" />
-<meta property="og:site_name" content="Wondercool | Neveras inteligentes" />
+<meta property="og:site_name" content="Alcanzá a mas clientes  | Aumenta tus ventas" />
 <!-- Para facebook, SMS -->
 {{-- <meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
 <meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
@@ -31,12 +31,12 @@
 <meta name="twitter:title" content="Neveras inteligentes para hostelería" />
 <meta name="twitter:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1024x512.png" /> --}}
 <!-- Para whatsapp -->
-<meta property="og:site_name" content="San Roque 2014 Pollos">
-<meta property="og:title" content="San Roque 2014 Pollos" />
-<meta property="og:description" content="Programa de fiestas" />
-<meta property="og:image" itemprop="image" content="https://vidriera.online/images/pp.jpg">
+{{-- <meta property="og:site_name" content="San Roque 2014 Pollos"> --}}
+{{-- <meta property="og:title" content="San Roque 2014 Pollos" />
+<meta property="og:description" content="Programa de fiestas" /> --}}
+<meta property="og:image" itemprop="image" content="https://vidriera.online/logo.png">
 <meta property="og:type" content="website" />
-<meta property="og:updated_time" content="1440432930" />
+{{-- <meta property="og:updated_time" content="1440432930" /> --}}
 
         <!-- Styles -->
         <style>

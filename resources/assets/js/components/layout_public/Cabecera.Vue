@@ -8,15 +8,10 @@
                 </div>
                 <div class="flex flex-item-center flex-content-end">
                     <div class="flex flex-item-center">
-                        <div class="no-display-s">
-                            <span style="font-size: 1.2em;">Seguinos</span>
-                        </div>
-                        <div>
-                           <layout-redes-sociales v-bind:negocio="negocio"></layout-redes-sociales>
-                        </div>
+                        <layout-redes-sociales v-bind:negocio="negocio"></layout-redes-sociales>
                     </div>
                     <div class="flex flex-item-center flex-content-center m-r-10 m-l-10" style="border-left: 1px solid #ccc; width: 50px;">
-                        <a href="/login" title="login">
+                        <a href="/acceder" title="login">
                               <i class="flex margen-auto fas fa-user txt-celeste"></i>
                         </a>
                     </div>

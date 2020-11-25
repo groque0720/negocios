@@ -3,6 +3,7 @@
 @section('title', $negocio->nombre)
 
 @section('contenido')
+
     <div class="ancho-95 ancho-sx-95 ancho-s-90 ancho-m-90 ancho-l-85 ancho-lg-80">
         <form class="form" action="{{ route('negocio.guardar') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
             <input name="_method" type="hidden" value="PUT">
@@ -125,6 +126,16 @@
 @endsection
 
 @section('script')
+
+@if( session('result') )
+    <script>
+        Swal.fire(
+          'Se guardó correctamente',
+          '{{ session('msg') }}',
+          'success'
+        )
+    </script>
+@endif
 <script>
   var openFile = function(event) {
     var input = event.target;

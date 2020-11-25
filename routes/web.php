@@ -42,14 +42,6 @@ use Illuminate\Support\Facades\URL;
 // });
 
 
-Route::get('/redondear', function(){
-
-	$valor = (550.23 * 55) / 100;
-	echo floor($valor);
-	echo ceil($valor);
-});
-
-
 // Route::get('/crear_carpeta', function(){
 // 	mkdir("storage/"."omar", 0700);
 // });
@@ -96,40 +88,25 @@ Route::group(['domain' => '{account}.vidriera.online'], function () {
 
 });
 
-Route::get('/', function () {
-	// $url_negocio = 'ideas-en-laser';
-	// return redirect()->route('url_negocio.index', compact('url_negocio'));
-
+Route::get('/home', function () {
 	if (auth()->check()) {
-		// $url_negocio = auth()->user()->negocio()->first()->url;
 		return redirect()->route('redirigir');
 	}else{
 		return redirect()->route('acceder');
 	}
-    // return view('welcome');
+})->name('home');
+
+Route::get('/', function () {
+	if (auth()->check()) {
+		return redirect()->route('redirigir');
+	}else{
+		return redirect()->route('acceder');
+	}
 });
-
-// Auth::routes();
-
-// Route::get('/ingresar', 'Auth\LoginController@showLoginForm')->name('ingresar');
-// Route::post('/ingresar', 'Auth\LoginController@login')->name('login');
-// Route::post('/register', 'Auth\LoginController@login')->name('register');
-//Route::get('/acceso', 'Auth\LoginController@showLoginForm');
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
-
-
-
-
-
 
 Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('/redirigir',function(){
-		// $negocio = Negocio::where('user_id',Auth()->user()->id)->get();
-		// // $negocio = Negocio::find(Auth()->user()->negocio_id);
-		// return $negocio;
 	    return redirect()->route('negocio');
 	})->name('redirigir');
 
@@ -177,9 +154,6 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/precio_lista/editar_precio', 'ListaPrecio\ListaPrecioController@editar_precio')->name('lista_precio.editar_precio');
 	Route::get('/precio_lista/correccion_precio', 'ListaPrecio\ListaPrecioController@correccion_precio')->name('lista_precio.correccion_precio');
 
-	// Route::post('formSubmit','ImageController@formSubmit');
-	// Route::post('store-multiple-image','ImageController@store');
-
 });
 
 
@@ -191,11 +165,7 @@ Route::get('/{url_negocio}/buscar_imagenes_random/{producto_id?}','Negocio\Negoc
 Route::get('/{url_negocio}/buscar_albumes','Negocio\NegocioController@buscar_albumes');
 Route::get('/{url_negocio}/producto/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
 Route::get('/{url_negocio}/album/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
-// Route::get('/{url_negocio}/productos_categoria/{categoria}/','Negocio\NegocioController@mostrar_productos_categoria');
 Route::get('/{url_negocio}/productos/mismas_categorias/','Negocio\NegocioController@mostrar_productos_mismas_categorias');
-
-// Route::get('/{url_negocio}/productos/categorias/{categoria?}','Negocio\NegocioController@productos_categoria_mostrar');
 Route::get('/{url_negocio}/productos/categorias/filtro/{categoria?}','Negocio\NegocioController@productos_categoria_filtro');
-
 Route::get('/{url_negocio}/productos/albumes_mismas_categorias/','Negocio\NegocioController@mostrar_albumes_mismas_categorias');
 
