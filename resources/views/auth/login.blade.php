@@ -18,11 +18,11 @@
 <meta property="og:url" content="https://vidriera.online/" />
 <meta property="og:site_name" content="Alcanzá a mas clientes  | Aumenta tus ventas" />
     <!-- Para facebook, SMS -->
-    {{-- <meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
-    <meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Neveras para hostelería, Wondercool" /> --}}
+    <meta property="og:image" itemprop="image" content="https://vidriera.online/logo_redes_sociales.png"/>
+    <meta property="og:image:secure_url" content="https://vidriera.online/logo_redes_sociales.png" />
+    <meta property="og:image:width" content="1087" />
+    <meta property="og:image:height" content="1087" />
+    <meta property="og:image:alt" content="Facil, rápido y sencillo de mostrar tus productos"  />
     <!-- Para twitter -->
     {{-- <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:description" content="Las bebidas más frías del mundo" />
@@ -32,7 +32,7 @@
     {{-- <meta property="og:site_name" content="San Roque 2014 Pollos"> --}}
     {{-- <meta property="og:title" content="San Roque 2014 Pollos" />
     <meta property="og:description" content="Programa de fiestas" /> --}}
-<meta property="og:image" itemprop="image" content="https://vidriera.online/logo.png">
+<meta property="og:image" itemprop="image" content="https://vidriera.online/logo_redes_sociales.png"/>
 <meta property="og:type" content="website" />
 
 
