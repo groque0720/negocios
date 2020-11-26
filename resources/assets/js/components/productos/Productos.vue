@@ -40,7 +40,7 @@
             <template >
                 <div v-for="(producto, indice) in productos" class="lista-linea ancho-100 flex flex-space-between" @click="mostrarAcciones(indice)" :class="'linea_'+indice">
                     <div class="ancho-100 flex flex-item-center">
-                        <div class="ancho-30 m-r-10 flex" style="width: 60px; height: 60px; overflow: hidden; border-radius: 2px; box-shadow: 1px 1px #ddd;">
+                        <div class="ancho-30 m-r-10 flex cursor" style="width: 60px; height: 60px; overflow: hidden; border-radius: 2px; box-shadow: 1px 1px #ddd;" @click.prevent="irAlProducto(producto.codigo)">
 
                             <img v-if="$root.esImagen(producto.imagen_ppal)" style="object-fit: cover;" :src="'/storage/'+producto.imagen_ppal" alt="" width="100%" >
                             <video v-if="$root.esVideo(producto.imagen_ppal)" style="object-fit: cover; max-height: 350px;" class="ancho-100" autoplay muted loop>
@@ -48,8 +48,8 @@
                             </video>
 
                         </div>
-                        <div class="ancho-70 flex flex-space-between flex-direction-column" style="height: 100%;">
-                            <div class="cursor" @click.prevent="irAlProducto(producto.codigo)">
+                        <div class="ancho-100 flex flex-space-between flex-direction-column" style="height: 100%;">
+                            <div >
                                 <span style="font-weight: bold;">{{ producto.producto }}</span>
                             </div>
                             <div>
@@ -252,7 +252,7 @@
                 $('.linea_'+indice).addClass('lista-linea-activa');
                 $('.zona-acciones').width(0);
                 setTimeout(function(){
-                    $('.accion_'+indice).width('30%');
+                    $('.accion_'+indice).width('200px');
                     },
                 50);
             },

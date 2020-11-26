@@ -89,9 +89,9 @@
 							</div>
 						</div>
 											<!-- consulta por whatsapp -->
-						<div class="flex flex-item-center flex-content-end ancho-100">
+						<div class="flex flex-item-center flex-content-end ancho-100" v-if="mostrar_whatsapp">
 							<div class="flex" style="width: 130px;">
-								<a class="link ancho-100" style="display: block; " :href="'https://wa.me/'+negocio.celular+'?text=Quiero%20consultar%20de%20este%20producto%20%20https://vidriera.online/'+negocio.url+'/producto/'+producto.codigo+'/'+producto.imagenes[imagen_ppal_index].id+'%20'">
+								<a class="link ancho-100" style="display: block; " :href="'https://wa.me/'+whatsapp_number+'?text=Quiero%20consultar%20de%20este%20producto%20%20https://vidriera.online/'+negocio.url+'/producto/'+producto.codigo+'/'+producto.imagenes[imagen_ppal_index].id+'%20'">
 									<div class="ancho-100 flex flex-item-center flex-space-around" style="background: #25D366; border-radius:30px;">
 										<div class="ancho-70 flex flex-item-center flex-content-center">
 											<span class="txt-blanco">Consultar</span>
@@ -182,9 +182,9 @@
 							</div>
 						</div>
 						<!-- consulta por whatsapp -->
-						<div class="flex flex-item-center flex-content-end ancho-100">
+						<div class="flex flex-item-center flex-content-end ancho-100" v-if="mostrar_whatsapp">
 							<div class="flex" style="width: 130px;">
-								<a class="link ancho-100" style="display: block; " :href="'https://wa.me/'+negocio.celular+'?text=Quiero%20consultar%20de%20este%20producto%20%20https://vidriera.online/'+negocio.url+'/producto/'+producto.codigo+'/'+producto.imagenes[imagen_ppal_index].id+'%20'">
+								<a class="link ancho-100" style="display: block; " :href="'https://wa.me/'+whatsapp_number+'?text=Quiero%20consultar%20de%20este%20producto%20%20https://vidriera.online/'+negocio.url+'/producto/'+producto.codigo+'/'+producto.imagenes[imagen_ppal_index].id+'%20'">
 									<div class="ancho-100 flex flex-item-center flex-space-around" style="background: #25D366; border-radius:30px;">
 										<div class="ancho-70 flex flex-item-center flex-content-center">
 											<span class="txt-blanco">Consultar</span>
@@ -264,10 +264,20 @@
             	imagen_ppal_index:0,
             	categorias_lista:this.producto.categorias,
             	categoria_seleccion:'',
+            	redes_sociales : this.negocio.redes_sociales,
+            	mostrar_whatsapp: false,
+            	whatsapp_number:'',
             }
         },
         mounted() {
-
+        	self = this;
+        	this.redes_sociales.forEach(function(red){
+        		console.log(red.red_social);
+        		if (red.red_social == "Whatsapp") {
+        			self.mostrar_whatsapp = true;
+        			self.whatsapp_number = red.pivot.url;
+        		}
+        	});
 	       	// configuracion boton atras
         	    var self_galeria = this;
 	            $(window).on('popstate', function() {

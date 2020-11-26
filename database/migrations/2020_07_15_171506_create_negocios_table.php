@@ -19,6 +19,7 @@ class CreateNegociosTable extends Migration
             $table->string('nombre');
             $table->string('url');
             $table->string('codigo');
+            $table->text('descripcion')->nullable();
             $table->string('logo')->nullable();
             $table->string('telefono')->nullable();
             $table->string('celular')->nullable();

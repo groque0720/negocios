@@ -198,8 +198,7 @@
                 })
             },
             guardarFormulario(){
-                var data = {};
-                data.accion = this.accion;
+
                 data.formulario = this.formulario;
                 data.page = this.page;
                 data.ultimacaracteristica = '';

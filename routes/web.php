@@ -154,6 +154,11 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/precio_lista/editar_precio', 'ListaPrecio\ListaPrecioController@editar_precio')->name('lista_precio.editar_precio');
 	Route::get('/precio_lista/correccion_precio', 'ListaPrecio\ListaPrecioController@correccion_precio')->name('lista_precio.correccion_precio');
 
+
+
+	Route::get('/redes_sociales','RedSocial\RedSocialController@index')->name('redes_sociales.index');
+	Route::post('/redes_sociales/guardar','RedSocial\RedSocialController@guardar')->name('redes_sociales.guardar');
+
 });
 
 

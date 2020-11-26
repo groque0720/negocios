@@ -48,7 +48,8 @@ Vue.component('layout-productos-mismas-categorias', require('./components/layout
 Vue.component('layout-albumes-mismas-categorias', require('./components/layout_public/AlbumesMismasCategorias.vue'));
 Vue.component('layout-productos-filtro-categorias', require('./components/layout_public/ProductosFiltroCategorias.vue'));
 
-Vue.component('redes-sociales', require('./components/redessociales/index.vue'));
+Vue.component('redes-sociales-negocio', require('./components/redessociales/index.vue'));
+Vue.component('redes-sociales-negocio-autocompletar', require('./components/redessociales/RedesSocialesAutocompletar.vue'));
 
 Vue.component('validador', require('./components/validador/ValidadorForm.vue'));
 

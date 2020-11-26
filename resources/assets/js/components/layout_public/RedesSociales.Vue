@@ -7,9 +7,16 @@
             </div>
             <div class="flex">
         		<div v-for="red in redes_sociales" class="m-l-15">
-        			<a :href="red.pivot.url" target="_blank" :title="red.red_social" class="flex flex-item-center">
-        				<img style="width: 30px; height: 30px;" :src="/images/+red.icono" alt="">
-        			</a>
+                    <template v-if="red.id != 5">
+                        <a :href="red.pivot.url" target="_blank" :title="red.red_social" class="flex flex-item-center">
+                            <img style="width: 30px; height: 30px;" :src="/images/+red.icono" alt="">
+                        </a>
+                    </template>
+                    <template v-if="red.id == 5">
+                        <a :href="'https://wa.me/'+negocio.celular+'?text=Visite%20https://'+negocio.url+'.vidriera.online%20y%20quisiera%20consultarte%20por:%20%20'" target="_blank" :title="red.red_social" class="flex flex-item-center">
+                            <img style="width: 30px; height: 30px;" :src="/images/+red.icono" alt="">
+                        </a>
+                    </template>
         		</div>
              </div>
         </div>

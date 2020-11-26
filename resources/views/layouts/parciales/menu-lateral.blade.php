@@ -17,11 +17,11 @@
 					<span class="txt-color-ppal">Datos del Negocio</span></div>
 			</div>
 		</a>
-		<a href="{{ route('negocio.editar') }}" class="link item-menu-lateral">
+		<a href="{{ route('redes_sociales.index') }}" class="link item-menu-lateral">
 			<div class="flex flex-space-between flex-item-center"
 				 style="height: 55px; border-bottom: 1px solid #ccc;">
 				<div class="ancho-20 flex flex-item-center flex-content-center">
-					<i class="fas fa-users"style="color: #00D0D0; "></i></div>
+					<i class="fas fa-users"style="color: #5F66ED; "></i></div>
 				<div class="ancho-80">
 					<span class="txt-color-ppal">Redes Sociales</span></div>
 			</div>
