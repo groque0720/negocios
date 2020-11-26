@@ -15,10 +15,10 @@
 
 <meta property="og:locale" content="es_ES" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Tus Productos a vista de todos" />
+<meta property="og:title" content="Tu negocio en Internet a vista de todos" />
 <meta property="og:description" content="Facil, rápido y sencillo de mostrar tus productos" />
 <meta property="og:url" content="https://vidriera.online/" />
-<meta property="og:site_name" content="Alcanzá a mas clientes  | Aumenta tus ventas" />
+<meta property="og:site_name" content="Alcanza más clientes | Aumenta tus ventas" />
 <!-- Para facebook, SMS -->
 {{-- <meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
 <meta property="og:image:secure_url" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />

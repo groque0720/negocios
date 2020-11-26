@@ -13,10 +13,10 @@
     <title>Tu Vidriera en Internet</title>
 <meta property="og:locale" content="es_ES" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Tus Productos a vista de todos" />
-<meta property="og:description" content="Facil, rápido y sencillo de mostrar tus productos" />
+<meta property="og:title" content="Tu Negocio en Internet a vista de todos" />
+<meta property="og:description" content="Fácil, rápido y sencillo de mostrar tus productos" />
 <meta property="og:url" content="https://vidriera.online/" />
-<meta property="og:site_name" content="Alcanzá a mas clientes  | Aumenta tus ventas" />
+<meta property="og:site_name" content="Alcanza más clientes | Aumenta tus ventas" />
     <!-- Para facebook, SMS -->
     <meta property="og:image" itemprop="image" content="https://vidriera.online/logo_redes_sociales.png"/>
     <meta property="og:image:secure_url" content="https://vidriera.online/logo_redes_sociales.png" />
