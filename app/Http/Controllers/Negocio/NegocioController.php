@@ -455,6 +455,7 @@ class NegocioController extends Controller
         $negocio->telefono = $request->telefono;
         $negocio->celular = $request->celular;
         $negocio->direccion = $request->direccion;
+        $negocio->descripcion = $request->descripcion;
 
         $ext_imagenes = ['jpg', 'jpeg', 'png', 'gif'];
 

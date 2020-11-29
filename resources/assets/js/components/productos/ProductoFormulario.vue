@@ -424,25 +424,36 @@
                 });
 			},
 			guardarFormulario(){
-				var url_back = (this.producto.tipo_id == 1 ? '/productos' : '/albumes' )
-				if (this.producto.producto != '') {
-					self = this;
-					let url = '/producto/guardar';
-					let form = {};
-					form.producto = this.producto;
-					form.caracteristicas = this.caracteristicas_activas;
-					form.categorias = this.categorias_activas_orden_posicion;
-					form.imagenes = this.imagenes;
-					axios.post(url, form)
-					.then(response => {
-						// console.log(response.data);
-						self.mostarMensaje(response.data);
-						location.href = url_back;
-					})
+
+				if (this.imagenes.length == 0) {
+					// this.$root.mostarMensaje('error','Producto sin imagen','Carge com minimo una imagen');
+					Swal.fire({
+                      // icon: 'error',
+                      title: 'Producto sin imagen',
+                      text: 'Suba como mínimo una imagen',
+                      imageUrl: '/images/sin_imagen.png',
+                    })
 				}else{
-					this.activarObligatorios = true;
-					$("#producto_nombre").focus();
-					$("#producto_nombre").addClass('input-obligatorio');
+					var url_back = (this.producto.tipo_id == 1 ? '/productos' : '/albumes' )
+					if (this.producto.producto != '') {
+						self = this;
+						let url = '/producto/guardar';
+						let form = {};
+						form.producto = this.producto;
+						form.caracteristicas = this.caracteristicas_activas;
+						form.categorias = this.categorias_activas_orden_posicion;
+						form.imagenes = this.imagenes;
+						axios.post(url, form)
+						.then(response => {
+							// console.log(response.data);
+							self.mostarMensaje(response.data);
+							location.href = url_back;
+						})
+					}else{
+						this.activarObligatorios = true;
+						$("#producto_nombre").focus();
+						$("#producto_nombre").addClass('input-obligatorio');
+					}
 				}
 			},
 			productoNombre(evt){

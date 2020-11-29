@@ -291,6 +291,7 @@ class ProductoController extends Controller
         }else{
             $producto = new Producto();
         }
+        $producto->imagen_ppal =
         $producto->producto = $producto_form['producto'];
         $producto->descripcion = $producto_form['descripcion'];
         $producto->precio = $producto_form['precio'];

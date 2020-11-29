@@ -50,8 +50,20 @@
 		<div class="ancho-90 ancho-m-50 ancho-l-40 ancho-lg-35" style="margin-top: 50px;">
 			<form class="form" action="{{ route('acceder') }}" method="POST">
 				{{ csrf_field() }}
-				<div class="form-head">
-					<div class="ancho-100 flex flex-item-center flex-space-between">
+				<div class="form-head p-20">
+                    <div class="ancho-100 flex flex-item-center flex-content-center">
+                        {{-- <div class="form-titulo  fz-15">
+                            Vidriera Online
+                        </div> --}}
+                        <div class=" flex flex-content-center flex-item-center m-r-10">
+                            <img style="width: 50px;" src="/logo.png" alt="">
+                        </div>
+                        <div class="form-titulo ">
+                            <div class="fz-20 txt-blanco">Vidriera Online</div>
+                            <div class=""><i class="fz-15 txt-blanco">Tus Productos En Internet</i></div>
+                        </div>
+                    </div>
+					{{-- <div class="ancho-100 flex flex-item-center flex-space-between">
 						<div class="form-titulo ancho-35 fz-20">
 							Tu Negocio
 						</div>
@@ -61,10 +73,20 @@
 						<div class="form-titulo ancho-35 fz-20">
 							En Internet
 						</div>
-					</div>
+					</div> --}}
 				</div>
 				<div class="form-body">
-					<div class="form-linea">
+                     <div class="form-linea flex flex-content-center">
+                        <div class="form-columna">
+                            <div class="ancho-100 flex flex-item-center">
+                                <div class="form-titulo fz-20 m-l-15">
+                                    Iniciar Sesión
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+					<div class="form-linea m-t-15">
 						<div class="form-columna">
 							<label for="email" class="form-label">Email</label>
 							<input class="form-input" type="email" name="email" placeholder="" required>
