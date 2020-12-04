@@ -14,8 +14,8 @@
 		<!-- fb & Whatsapp -->
 		<!-- Site Name, Title, and Description to be displayed -->
 		<meta property="og:site_name" content="{{ $negocio->nombre }}">
-		<meta property="og:title" content="{{ $query }}">
-		<meta property="og:description" content="Galería de productos {{ $query }}">
+		<meta property="og:title" content="{{ $negocio->nombre }}">
+		<meta property="og:description" content="Galería de productos - {{ $query }}">
 		<!-- Image to display -->
 		<meta property="og:image" content="https://vidriera.online/storage/{{ $producto->imagen }}">
 		<!-- No need to change anything here -->
@@ -25,7 +25,7 @@
 		<meta property="og:image:width" content="300">
 		<meta property="og:image:height" content="300">
 		<!-- Website to visit when clicked in fb or WhatsApp-->
-		<meta property="og:url" content="https://vidriera.online/{{ $negocio->url }}">
+		<meta property="og:url" content="https://{{ $negocio->url }}.vidriera.online/">
 
 	@else
 		{{-- <title>your keyword rich title of the website and/or webpage</title> --}}
