@@ -20,6 +20,14 @@ class NegocioController extends Controller
 
             $query = $request->q;
 
+            $producto = new Producto;
+
+            if ($query) {
+                $negocio = Negocio::where('url', $url_negocio)->first();
+                $productos =  $this->buscar_imagenes_random_query($request,$negocio, $query, false);
+                $producto = $productos[0];
+            }
+
             if ($request->session()->has('session_rand')) {
                 if((time() - $request->session()->get('session_rand')) > 500){
                     $request->session()->put('session_rand', time());
@@ -30,7 +38,8 @@ class NegocioController extends Controller
             // dd($request->session()->get('session_rand'));
 
         if ($negocio = Negocio::where('url', $url_negocio)->first()) {
-            return view('public.index', compact('negocio','query'));
+            return $producto;
+            return view('public.index', compact('negocio','query', 'producto'));
         }else{
             return 'no se encuentra..';
         }
