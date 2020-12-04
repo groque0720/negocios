@@ -14,7 +14,7 @@
 		<!-- fb & Whatsapp -->
 		<!-- Site Name, Title, and Description to be displayed -->
 		<meta property="og:site_name" content="{{ $negocio->nombre }}">
-		<meta property="og:title" content="{{ $negocio->nombre }}">
+		<meta property="og:title" content="{{ $negocio->nombre }} - {{ $query }}">
 		<meta property="og:description" content="Galería de productos - {{ $query }}">
 		<!-- Image to display -->
 		<meta property="og:image" content="https://vidriera.online/storage/{{ $producto->imagen }}">
