@@ -52,13 +52,19 @@ use Illuminate\Support\Facades\URL;
         Route::post('acceder', 'Auth\LoginController@login');
         Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
+        Route::get('/recuperar_password', 'Auth\ForgotPasswordController@recuperar_password')->name('recuperar_password');
+        Route::post('/recuperar_password', 'Auth\ForgotPasswordController@recuperar_password_enviar_mail')->name('recuperar_password_enviar_mail');
+
         // Registration Routes...
         Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
         Route::post('register', 'Auth\RegisterController@register');
 
         // Password Reset Routes...
         Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+        // Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
+        Route::post('password/email', 'Auth\ForgotPasswordController@enviar_mail _password')->name('password.email');
+
         Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
         Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
@@ -66,7 +72,6 @@ use Illuminate\Support\Facades\URL;
 Route::post('/token_validacion', function(Request $request){
 	return Helper::validar_recaptcha($request->letras, $request->token);
 });
-
 Route::get('/token_validacion', function(){
 	return Helper::obtener_recaptcha();
 });

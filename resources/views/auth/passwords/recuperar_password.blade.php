@@ -22,7 +22,7 @@
             min-width: 100%; background: var(--main-ppal-color);opacity: .5; position: fixed; z-index: -1;">
         </div>
         <div class="ancho-90 ancho-m-50 ancho-l-40 ancho-lg-35" style="margin-top: 50px;">
-            <form class="form" action="{{ route('acceder') }}" method="POST">
+            <form class="form" action="{{ route('recuperar_password_enviar_mail') }}" method="POST">
                 {{ csrf_field() }}
                 <div class="form-head p-20">
                     <div class="ancho-100 flex flex-item-center flex-content-center">
@@ -51,11 +51,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-linea flex flex-content-center">
+                        <div class="form-columna">
+                            <div class="ancho-100 flex flex-item-center">
+                                <div class="form-titulo ">
+                                    <i class="fz-12">Se enviará un correo electrónico con los pasos para actualizar su contraseña.</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                     <div class="form-linea p-t-10">
                         <div class="form-columna">
                             <label for="email" class="form-label">Ingrese su cuenta de correo</label>
-                            <input class="form-input" type="email" name="email_password_reset" value=""  autocomplete="off" placeholder="" required>
+                            <input class="form-input" type="email" name="email_password_reset" value=""  autocomplete="off" placeholder="Correo Electrónico" required>
+                            @if (session('error'))
+                                <span class=form-error>El Correo ingresado no existe en el registro de usuarios</span>
+                            @endif
                         </div>
                     </div>
                     <div class="form-linea">
@@ -67,7 +79,7 @@
                 <div class="form-foot p-10">
                     <div class="form-linea flex flex-space-between flex-item-center">
                         <div class="form-columna m-b-0">
-                          <a href="{{ route('password.email') }}" class="link fz-12 txt-italic txt-rojo" style="color: var(--main-ppal-color">volver al login</a>
+                          <a href="{{ route('acceder') }}" class="link fz-12 txt-italic txt-rojo" style="color: var(--main-ppal-color">volver al login</a>
                         </div>
                         <div class="form-columna m-b-0">
                             <button>enviar</button>
@@ -89,38 +101,17 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script>
-            $(".ver_contraseña").click(function(){
-                $("#"+$(this).attr('data-id')).attr('type','text');
-                $(this).addClass('ocultar');
-                $(".ocultar_contraseña").removeClass('ocultar');
-            });
-            $(".ocultar_contraseña").click(function(){
-                $("#"+$(this).attr('data-id')).attr('type','password');
-                $(this).addClass('ocultar');
-                $(".ver_contraseña").removeClass('ocultar');
-            });
-    </script>
-    @if ($errors->has('email'))
+{{--     @if (session('error'))
         <script>
             Swal.fire(
               'Error de Autentificación',
-              '{{ $errors->first('email') }}',
+              '{{ session('error') }}',
               'error'
             )
         </script>
-    @endif
-    @if ($errors->has('passwords'))
-        <script>
-            Swal.fire(
-              'Error de Autentificación',
-              '{{ $errors->first('password') }}',
-              'error'
-            )
-        </script>
-    @endif
+    @endif --}}
     <style>
-        .link_registrar:hover>div{
+           .link_registrar:hover>div{
             background: var(--main-ppal-color);
             border-radius: 7px;
             border: 1px solid white;

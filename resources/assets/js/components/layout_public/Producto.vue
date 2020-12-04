@@ -1,7 +1,9 @@
 <template>
 	<div class="ancho-100" >
  		<layout-cabecera v-bind:negocio="negocio"></layout-cabecera>
-
+ 		<div class="flex flex-item-center flex-content-center p-t-5">
+ 			<layout-busqueda-autocompletar v-bind:negocio="negocio" v-bind:query="''"></layout-busqueda-autocompletar>
+ 		</div>
  		<div v-if="mostrarDetalleProducto">
 	 		<div class="ancho-100 ancho-m-80 margen-auto no-display-lg no-display-l display-m" style="background: white;" >
 		 		<div style="border-radius: 15px; position: relative;" @click="openLightbox(imagen_ppal_index)">

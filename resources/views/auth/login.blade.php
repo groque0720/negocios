@@ -110,7 +110,7 @@
 				<div class="form-foot">
 					<div class="form-linea flex flex-space-between flex-item-center">
 						<div class="form-columna m-b-0">
-                          <a href="{{ route('password.request') }}" class="link fz-12 txt-italic txt-rojo" style="color: var(--main-ppal-color">olvidé mi contraseña</a>
+                          <a href="{{ route('recuperar_password') }}" class="link fz-12 txt-italic txt-rojo" style="color: var(--main-ppal-color">olvidé mi contraseña</a>
                         </div>
 						<div class="form-columna m-b-0">
 							<button class="btn form-btn-entrar cursor p-l-20 p-r-20">Entrar</button>

@@ -22,8 +22,8 @@
             min-width: 100%; background: var(--main-ppal-color);opacity: .5; position: fixed; z-index: -1;">
         </div>
         <div class="ancho-90 ancho-m-50 ancho-l-40 ancho-lg-35" style="margin-top: 50px;">
-            <form class="form" action="{{ route('acceder') }}" method="POST">
-                {{ csrf_field() }}
+
+
                 <div class="form-head p-20">
                     <div class="ancho-100 flex flex-item-center flex-content-center">
                         {{-- <div class="form-titulo  fz-15">
@@ -67,14 +67,14 @@
                 <div class="form-foot p-10">
                     <div class="form-linea flex flex-space-between flex-item-center">
                         <div class="form-columna m-b-0">
-                          <a href="{{ route('password.email') }}" class="link fz-12 txt-italic txt-rojo" style="color: var(--main-ppal-color">volver al login</a>
+                          <a href="{{ route('acceder') }}" class="link fz-12 txt-italic txt-rojo" style="color: var(--main-ppal-color">volver al login</a>
                         </div>
                         <div class="form-columna m-b-0">
                             <button>enviar</button>
                         </div>
                     </div>
                 </div>
-            </form>
+
 {{--                <a href="{{ route('register') }}" class="link link_registrar margen-auto">
                     <div class="ancho-90 ancho-m-80 ancho-l-70 ancho-lg-60 margen-auto flex flex-space-between p-10" style="margin-top: 30px;">
                          <div class="ancho-30">
@@ -89,38 +89,17 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script>
-            $(".ver_contraseña").click(function(){
-                $("#"+$(this).attr('data-id')).attr('type','text');
-                $(this).addClass('ocultar');
-                $(".ocultar_contraseña").removeClass('ocultar');
-            });
-            $(".ocultar_contraseña").click(function(){
-                $("#"+$(this).attr('data-id')).attr('type','password');
-                $(this).addClass('ocultar');
-                $(".ver_contraseña").removeClass('ocultar');
-            });
-    </script>
-    @if ($errors->has('email'))
+    @if (session('tipo'))
         <script>
             Swal.fire(
               'Error de Autentificación',
-              '{{ $errors->first('email') }}',
-              'error'
-            )
-        </script>
-    @endif
-    @if ($errors->has('passwords'))
-        <script>
-            Swal.fire(
-              'Error de Autentificación',
-              '{{ $errors->first('password') }}',
+              '{{ session('mensaje') }}',
               'error'
             )
         </script>
     @endif
     <style>
-        .link_registrar:hover>div{
+           .link_registrar:hover>div{
             background: var(--main-ppal-color);
             border-radius: 7px;
             border: 1px solid white;
