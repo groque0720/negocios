@@ -38,7 +38,6 @@ class NegocioController extends Controller
             // dd($request->session()->get('session_rand'));
 
         if ($negocio = Negocio::where('url', $url_negocio)->first()) {
-            return $producto;
             return view('public.index', compact('negocio','query', 'producto'));
         }else{
             return 'no se encuentra..';
