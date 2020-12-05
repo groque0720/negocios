@@ -375,10 +375,14 @@
                 window.location = '/'+this.negocio.url+'/producto/'+producto_codigo+'/'+id;
             },
             irCategoria(categoria){
-            	history.pushState('', 'Galeria', '/'+this.negocio.url+'/producto/'+this.producto.codigo+'/'+this.imagen_id);
-            	this.categoria_seleccion = categoria;
-            	this.mostrarFiltroCategorias = true;
-            	this.mostrarDetalleProducto = false;
+            	window.location = '/'+this.negocio.url+'/search?q='+categoria;
+
+            	// history.pushState('', 'Galeria', '/'+this.negocio.url+'/producto/'+this.producto.codigo+'/'+this.imagen_id);
+            	// this.categoria_seleccion = categoria;
+            	// this.mostrarFiltroCategorias = true;
+            	// this.mostrarDetalleProducto = false;
+
+
             	// window.location = '/'+this.negocio.url+'/productos/categorias/'+categoria;
             }
 
