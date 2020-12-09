@@ -25,7 +25,10 @@ class NegocioController extends Controller
             if ($query) {
                 $negocio = Negocio::where('url', $url_negocio)->first();
                 $productos =  $this->buscar_imagenes_random_query($request,$negocio, $query, false);
-                $producto = $productos[0];
+
+                if ($productos[0]) {
+                    $producto = $productos[0];
+                }
             }
 
             if ($request->session()->has('session_rand')) {
