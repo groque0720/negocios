@@ -76,7 +76,7 @@ Route::get('/token_validacion', function(){
 	return Helper::obtener_recaptcha();
 });
 
-Route::group(['domain' => '{account}.vidriera.online'], function () {
+Route::group(['domain' => '{account}.vidriera.ar'], function () {
 
     Route::get('/', function ($account) {
     	$url_negocio = $account;
