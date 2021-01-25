@@ -93,6 +93,25 @@ Route::group(['domain' => '{account}.vidriera.ar'], function () {
 
 });
 
+Route::group(['domain' => 'www.{account}.vidriera.ar'], function () {
+
+    Route::get('/', function ($account) {
+    	$url_negocio = $account;
+        return redirect()->route('/', compact('url_negocio'));
+    });
+
+    Route::get('/','Negocio\NegocioController@public_index');
+	Route::get('/buscar_imagenes_random/{producto_id?}','Negocio\NegocioController@buscar_imagenes_random');
+	Route::get('/buscar_albumes','Negocio\NegocioController@buscar_albumes');
+	Route::get('/producto/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
+	Route::get('/album/{codigo}/{imagen_id?}','Negocio\NegocioController@mostrar_producto');
+	Route::get('/productos/mismas_categorias/','Negocio\NegocioController@mostrar_productos_mismas_categorias');
+	Route::get('/productos/categoria/{categoria}/','Negocio\NegocioController@mostrar_productos_categoria');
+
+});
+
+
+
 Route::get('/home', function () {
 	if (auth()->check()) {
 		return redirect()->route('redirigir');
