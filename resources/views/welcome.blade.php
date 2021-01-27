@@ -17,7 +17,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Tu negocio en Internet a vista de todos" />
 <meta property="og:description" content="Facil, rápido y sencillo de mostrar tus productos" />
-<meta property="og:url" content="https://vidriera.online/" />
+<meta property="og:url" content="https://vidriera.ar/" />
 <meta property="og:site_name" content="Alcanza más clientes | Aumenta tus ventas" />
 <!-- Para facebook, SMS -->
 {{-- <meta property="og:image" content="https://wondercool.eu/wp-content/uploads/2019/01/logo-wondercool-redes-sociales-3-lineas-original-1200x630.png" />
@@ -34,7 +34,7 @@
 {{-- <meta property="og:site_name" content="San Roque 2014 Pollos"> --}}
 {{-- <meta property="og:title" content="San Roque 2014 Pollos" />
 <meta property="og:description" content="Programa de fiestas" /> --}}
-<meta property="og:image" itemprop="image" content="https://vidriera.online/logo.png">
+<meta property="og:image" itemprop="image" content="https://vidriera.ar/logo.png">
 <meta property="og:type" content="website" />
 {{-- <meta property="og:updated_time" content="1440432930" /> --}}
 
