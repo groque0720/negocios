@@ -15,11 +15,11 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Tu Negocio en Internet a vista de todos" />
     <meta property="og:description" content="Fácil, rápido y sencillo de mostrar tus productos" />
-    <meta property="og:url" content="https://vidriera.online/" />
+    <meta property="og:url" content="https://vidriera.ar/" />
     <meta property="og:site_name" content="Alcanza más clientes | Aumenta tus ventas" />
         <!-- Para facebook, SMS -->
-    <meta property="og:image" itemprop="image" content="https://vidriera.online/logo_redes_sociales.png"/>
-    <meta property="og:image:secure_url" content="https://vidriera.online/logo_redes_sociales.png" />
+    <meta property="og:image" itemprop="image" content="https://vidriera.ar/logo_redes_sociales.png"/>
+    <meta property="og:image:secure_url" content="https://vidriera.ar/logo_redes_sociales.png" />
     <meta property="og:image:width" content="1087" />
     <meta property="og:image:height" content="1087" />
     <meta property="og:image:alt" content="Facil, rápido y sencillo de mostrar tus productos"  />
@@ -32,7 +32,7 @@
     {{-- <meta property="og:site_name" content="San Roque 2014 Pollos"> --}}
     {{-- <meta property="og:title" content="San Roque 2014 Pollos" />
     <meta property="og:description" content="Programa de fiestas" /> --}}
-<meta property="og:image" itemprop="image" content="https://vidriera.online/logo_redes_sociales.png"/>
+<meta property="og:image" itemprop="image" content="https://vidriera.ar/logo_redes_sociales.png"/>
 <meta property="og:type" content="website" />
 
 
@@ -110,7 +110,7 @@
 				<div class="form-foot">
 					<div class="form-linea flex flex-space-between flex-item-center">
 						<div class="form-columna m-b-0">
-                          <a href="{{ route('recuperar_password') }}" class="link fz-12 txt-italic txt-rojo" style="color: var(--main-ppal-color">olvidé mi contraseña</a>
+                          {{-- <a href="{{ route('recuperar_password') }}" class="link fz-12 txt-italic txt-rojo" style="color: var(--main-ppal-color">olvidé mi contraseña</a> --}}
                         </div>
 						<div class="form-columna m-b-0">
 							<button class="btn form-btn-entrar cursor p-l-20 p-r-20">Entrar</button>
